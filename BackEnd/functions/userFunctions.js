@@ -3,7 +3,6 @@ import User from '../Models/userModel.js'
 import handleError from "../utils/handleError.js";
 import { sendTokens } from "../utils/jwt.js";
 import crypto from 'crypto'
-import { sendEmail } from "../utils/sendEmail.js";
 
 export const SignUpUser = asyncErrors(async (req, res, next) => {
     const { name, email, password } = req.body;

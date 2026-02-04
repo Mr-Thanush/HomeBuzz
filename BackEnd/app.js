@@ -14,7 +14,7 @@ const app=express();
 
 app.use(cors({
     origin:['http://localhost:5173',
-      "https://homebuzz-4vn8.onrender.com"
+      "homebuzz26.vercel.app"
     ],
     credentials:true
 }));
