@@ -17,7 +17,7 @@ import SearchBar from './pages/SearchProducts/search'
 import WishList from './pages/WishList/wishlist'
 import Store from './pages/store/store'
 import AddItemPage from './pages/store/addItemPage'
-import PublicRoute from './client/navbars/publicRoute'
+import PublicRoute from './components/navbars/publicRoute'
 
 import { Routes, Route } from 'react-router-dom'
 import BuyItems from './pages/Buy/buy'
