@@ -3,7 +3,7 @@ import "./search.css";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faHeart, faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { useCart } from "../../Components/cartContext";
+import { useCart } from "../../components/cartContext";
 import API_URL from "../../api";
 
 // Simple helper to render stars for ratings

@@ -3,7 +3,7 @@ import "./buy.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useCart } from "../../Components/cartContext";
+import { useCart } from "../../components/cartContext";
 import API_URL from "../../api";
 
 function BuyItems() {
