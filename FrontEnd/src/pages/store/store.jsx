@@ -4,6 +4,7 @@ import ItemDashboard from "./itemsDashboard";
 import ItemsManagement from "./ItemManagement";
 import OrdersManagement from "./orderManagement";
 import StoreSettings from "./storeSettings";
+import API_URL from "../../api";
 
 function Store() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -21,7 +22,7 @@ function Store() {
         setLoading(true);
 
         // Fetch store info
-        const storeRes = await fetch("http://localhost:9090/api/v1/store/me", {
+        const storeRes = await fetch(`${API_URL}/api/v1/store/me`, {
           credentials: "include",
         });
         if (!storeRes.ok) throw new Error("Failed to fetch store info");
@@ -30,7 +31,7 @@ function Store() {
 
         // Fetch store items
         const itemsRes = await fetch(
-          "http://localhost:9090/api/v1/seller/products",
+          `${API_URL}/api/v1/seller/products`,
           { credentials: "include" }
         );
         if (!itemsRes.ok) throw new Error("Failed to fetch items");
@@ -39,7 +40,7 @@ function Store() {
 
         // Fetch store orders
         const ordersRes = await fetch(
-          `http://localhost:9090/api/v1/store/${storeData.store._id}/orders`,
+          `${API_URL}/api/v1/store/${storeData.store._id}/orders`,
           { credentials: "include" }
         );
         if (!ordersRes.ok) throw new Error("Failed to fetch orders");

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import API_URL from "../../api";
 function SignUp() {
     const [read, setRead] = useState(false);
     const [see, setSee] = useState(false);
@@ -22,7 +23,7 @@ const handleSubmit = async (e) => {
   }
 
   try {
-    const res = await fetch("http://localhost:9090/api/v1/signup", {
+    const res = await fetch(`${API_URL}/api/v1/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

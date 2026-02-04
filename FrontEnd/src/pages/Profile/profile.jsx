@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./profile.css";
 import { Link, useNavigate } from "react-router-dom";
+import API_URL from "../../api";
 
 function Profile() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ function Profile() {
   // Signout
   const handleSignout = async () => {
     try {
-      await fetch("http://localhost:9090/api/v1/signout", {
+      await fetch(`${API_URL}/api/v1/signout`, {
         method: "POST",
         credentials: "include",
       });
@@ -29,7 +30,7 @@ function Profile() {
   // Fetch user data
   const fetchUser = async () => {
     try {
-      const res = await fetch("http://localhost:9090/api/v1/me", {
+      const res = await fetch(`${API_URL}}/api/v1/me`, {
         credentials: "include",
       });
       if (!res.ok) {

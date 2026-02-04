@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./store.css";
 import { useNavigate, useParams } from "react-router-dom";
+import API_URL from "../../api";
 
 function AddItemPage() {
   const { id } = useParams(); // product ID for edit mode
@@ -26,7 +27,7 @@ useEffect(() => {
   const fetchProduct = async () => {
     try {
       const res = await fetch(
-        `http://localhost:9090/api/v1/seller/product/${id}`,
+        `${API_URL}/api/v1/seller/product/${id}`,
         { credentials: "include" }
       );
 
@@ -83,8 +84,8 @@ useEffect(() => {
       setLoading(true);
 
       const url = isEdit
-        ? `http://localhost:9090/api/v1/seller/product/${id}`
-        : "http://localhost:9090/api/v1/seller/product/create";
+        ? `${API_URL}/api/v1/seller/product/${id}`
+        : `${API_URL}/api/v1/seller/product/create`;
 
       const method = isEdit ? "PUT" : "POST";
 

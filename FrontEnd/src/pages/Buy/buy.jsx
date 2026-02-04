@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../../Components/cartContext";
+import API_URL from "../../api";
 
 function BuyItems() {
   const location = useLocation();
   const navigate = useNavigate();
-  const address = location.state?.address; // Address object passed from cart/checkout
+  const address = location.state?.address; 
 
   const { cartItems, removeFromCart } = useCart();
   const [placingOrder, setPlacingOrder] = useState(false);
@@ -66,7 +67,7 @@ function BuyItems() {
         totalPrice: totalAmount,
       };
 
-      const res = await fetch("http://localhost:9090/api/v1/new/order", {
+      const res = await fetch(`${API_URL}/api/v1/new/order`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

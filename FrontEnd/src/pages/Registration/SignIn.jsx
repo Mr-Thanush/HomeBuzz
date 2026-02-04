@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import API_URL from "../../api";
 function SignIn() {
     const [read, setRead] = useState(false);
     const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ function SignIn() {
   e.preventDefault();
 
   try {
-    const res = await fetch("http://localhost:9090/api/v1/signin", {
+    const res = await fetch(`${API_URL}/api/v1/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +41,7 @@ function SignIn() {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await fetch("http://localhost:9090/api/v1/me", {
+                const res = await fetch(`${API_URL}/api/v1/me`, {
                     credentials: "include",
                 });
                 if (res.ok) {

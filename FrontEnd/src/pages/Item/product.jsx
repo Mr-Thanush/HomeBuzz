@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../../Components/cartContext";
 import { useWishlist } from "../../Components/wishlistContext";
+import API_URL from "../../api";
 
 function Product() {
   const { id } = useParams();
@@ -25,7 +26,7 @@ function Product() {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await fetch(`http://localhost:9090/api/v1/product/${id}`);
+      const res = await fetch(`${API_URL}/api/v1/product/${id}`);
       const data = await res.json();
       if (data.success) {
         setProduct(data.product);

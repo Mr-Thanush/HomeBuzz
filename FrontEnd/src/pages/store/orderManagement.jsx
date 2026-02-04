@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./store.css";
+import API_URL from "../../api";
 
 function OrdersManagement({ store, orders, setOrders }) {
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,7 @@ function OrdersManagement({ store, orders, setOrders }) {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`http://localhost:9090/api/v1/seller/orders`, {
+        const res = await fetch(`${API_URL}/api/v1/seller/orders`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -29,7 +30,7 @@ function OrdersManagement({ store, orders, setOrders }) {
   // Update order status
   const updateStatus = async (id, newStatus) => {
     try {
-      const res = await fetch(`http://localhost:9090/api/v1/seller/order/${id}`, {
+      const res = await fetch(`${API_URL}/api/v1/seller/order/${id}`, {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -54,7 +55,7 @@ function OrdersManagement({ store, orders, setOrders }) {
   const deleteOrder = async (id) => {
     if (!window.confirm("Are you sure you want to delete this order?")) return;
     try {
-      const res = await fetch(`http://localhost:9090/api/v1/seller/order/${id}`, {
+      const res = await fetch(`${API_URL}/api/v1/seller/order/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

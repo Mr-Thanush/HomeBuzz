@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './order.css';
+import API_URL from "../../api";
 
 
 function OrdersManagement() {
@@ -11,7 +12,7 @@ function OrdersManagement() {
     const fetchOrders = async () => {
       try {
         setLoading(true);
-        const res = await fetch("http://localhost:9090/api/v1/store/orders", {
+        const res = await fetch(`${API_URL}/api/v1/store/orders`, {
           credentials: "include",
         });
         const data = await res.json();
@@ -29,7 +30,7 @@ function OrdersManagement() {
   // Update order status
   const updateStatus = async (id, newStatus) => {
     try {
-      const res = await fetch(`http://localhost:9090/api/v1/seller/order/${id}`, {
+      const res = await fetch(`${API_URL}/api/v1/seller/order/${id}`, {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -57,7 +58,7 @@ function OrdersManagement() {
   const deleteOrder = async (id) => {
     if (!window.confirm("Are you sure you want to delete this order?")) return;
     try {
-      const res = await fetch(`http://localhost:9090/api/v1/seller/order/${id}`, {
+      const res = await fetch(`${API_URL}/api/v1/seller/order/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

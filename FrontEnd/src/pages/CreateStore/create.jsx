@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./create.css";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../api";
 
 function CreateStore() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function CreateStore() {
       formData.append("description", description);
       if (logoFile) formData.append("logo", logoFile);
 
-      const res = await fetch("http://localhost:9090/api/v1/store/create", {
+      const res = await fetch(`${API_URL}/api/v1/store/create`, {
         method: "POST",
         credentials: "include",
         body: formData,

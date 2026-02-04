@@ -13,7 +13,9 @@ import {verifyUserAuth} from "./MiddleWare/userAuth.js";
 const app=express(); 
 
 app.use(cors({
-    origin:'http://localhost:5173',
+    origin:['http://localhost:5173',
+      "https://homebuzz-4vn8.onrender.com"
+    ],
     credentials:true
 }));
 //MiddleWare

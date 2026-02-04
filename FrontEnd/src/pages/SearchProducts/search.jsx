@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faHeart, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "../../Components/cartContext";
+import API_URL from "../../api";
 
 // Simple helper to render stars for ratings
 const renderStars = (rating) => {
@@ -35,7 +36,7 @@ function SearchBar() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch("http://localhost:9090/api/v1/products");
+        const res = await fetch(`${API_URL}/api/v1/products`);
         const data = await res.json();
         setProducts(data.products || []);
       } catch (err) { console.error(err); }

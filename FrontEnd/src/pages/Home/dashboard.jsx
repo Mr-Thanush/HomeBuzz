@@ -3,6 +3,7 @@ import "./dashboard.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import API_URL from "../../api";
 
 function Dashboard() {
   const [products, setProducts] = useState([]);
@@ -12,7 +13,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:9090/api/v1/products");
+        const res = await fetch(`${API_URL}/api/v1/products`);
         const data = await res.json();
 
         const fetchedProducts = data.products || [];

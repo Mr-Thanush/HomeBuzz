@@ -36,75 +36,14 @@ export const SignInUser = asyncErrors(async (req, res, next) => {
 export const SignOutUser = async (req, res, next) => {
     res.cookie('token', null, {
         expires: new Date(Date.now()),
-        httpOnly: true
+        httpOnly: true,
+        sameSite: "none",
     })
     res.status(200).json({
         success: true,
         message: "Successfully Signed Out"
     })
 }
-
-//Forgot Reset Password
-export const requestPassReset = asyncErrors(async (req, res, next) => {
-    const { email } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
-        return next(new handleError("User doesn't exist", 400));
-    }
-    let resetToken;
-    try {
-        resetToken = user.generatePassResetToken()
-        await user.save({ validateBeforeSave: false })
-
-    } catch (error) {
-        console.log(error)
-        return next(new handleError("Could not save reset token, Please try again later", 500));
-
-    }
-
-    const resetPassURL = `http://localhost/api/v1/reset/${resetToken}`;
-    const message = `Use the following link to reset your password: ${resetPassURL} . \n\n This link will expire in 30min.\n\n
-    If you didn't request a password reset,please ignore this message.`;
-    try {
-        //send Email
-        await sendEmail({
-            email: user.email,
-            subject: "Password Reset Request",
-            message
-        })
-        res.status(200).json({
-            success: true,
-            message: `Email is sent to ${user.email} successfully`
-        })
-
-    } catch (error) {
-        user.resetPasswordToken = undefined;
-        user.resetPasswordExpire = undefined;
-        await user.dave({ validateBeforeSave: false })
-        return next(new handleError("Email could't be sent, Please try again later", 500))
-    }
-})
-
-//Reset Password 
-export const resetPass = asyncErrors(async (req, res, next) => {
-    const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex");
-    const user = await User.findOne({
-        resetPasswordToken,
-        resetPasswordExpire: { $gt: Date.now() }
-    })
-    if (!user) {
-        return next(new handleError("Reset Password Token Is Invalid Or Has Been Expires", 400))
-    }
-    const { password, confirmPassword } = req.body;
-    if (password != confirmPassword) {
-        return next(new handleError(" Password Does't Match", 400))
-    }
-    user.password = password;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpire = undefined;
-    await user.save();
-    sendTokens(user, 200, res)
-})
 
 // Getting User Details
 export const getUserDetails = asyncErrors(async (req, res, next) => {
@@ -114,23 +53,6 @@ export const getUserDetails = asyncErrors(async (req, res, next) => {
         user
     })
 })
-
-//Update PassWord
-export const updatePass = asyncErrors(async (req, res, next) => {
-    const { oldPassword, newPassword, confirmPassword } = req.body;
-    const user = await User.findById(req.user.id).select('+password');
-    const checkPassMatch = await user.passVerification(oldPassword);
-    if (!checkPassMatch) {
-        return next(new handleError('Old Password Is Incorrect', 400))
-    }
-    if (newPassword !== confirmPassword) {
-        return next(new handleError("Password does't match", 400))
-    }
-    user.password = newPassword;
-    await user.save();
-    sendTokens(user, 200, res);
-})
-
 
 //Update User Profile
 export const updateUserProfile = asyncErrors(async (req, res, next) => {
@@ -200,7 +122,7 @@ export const deletingUser = asyncErrors(async (req, res, next) => {
     if (!user) {
         return next(new handleError("User doesn't exist", 400))
     }
-    // ❌ Prevent deleting admin
+    // Prevent deleting admin
     if (user.role === "admin") {
         return next(new handleError("Admin user cannot be deleted", 403));
     }

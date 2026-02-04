@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './store.css';
+import API_URL from "../../api";
 
 function StoreSettings({ store }) {
   const [formData, setFormData] = useState({
@@ -33,8 +34,8 @@ function StoreSettings({ store }) {
     e.preventDefault();
     setSaving(true);
 
-    try {
-      const res = await fetch(`http://localhost:9090/api/v1/store/${store._id}`, {
+    try { 
+      const res = await fetch(`${API_URL}/api/v1/store/${store._id}`, {
         method: "PUT",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import './store.css';
 import { useNavigate } from 'react-router-dom';
+import API_URL from "../../api";
 
 function ItemsManagement() {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ function ItemsManagement() {
   const fetchItems = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:9090/api/v1/seller/products", {
+      const res = await fetch(`${API_URL}/api/v1/seller/products`, {
         credentials: "include",
       });
       const data = await res.json();
@@ -34,7 +35,7 @@ function ItemsManagement() {
     if (!window.confirm("Are you sure you want to delete this item?")) return;
 
     try {
-      const res = await fetch(`http://localhost:9090/api/v1/seller/product/${id}`, {
+      const res = await fetch(`${API_URL}/api/v1/seller/product/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
