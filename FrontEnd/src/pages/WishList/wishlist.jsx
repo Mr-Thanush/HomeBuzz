@@ -3,8 +3,8 @@ import "./wishlist.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { useWishlist } from "../../components/wishlistContext";
-import { useCart } from "../../components/cartContext";
+import { useWishlist } from "../../Components/wishListContext";
+import { useCart } from "../../Components/cartContext";
 
 function WishList() {
   const { wishlist, toggleWishlist } = useWishlist();

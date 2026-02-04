@@ -8,8 +8,8 @@ import {
   faStar,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { useCart } from "../../components/cartContext";
-import { useWishlist } from "../../components/wishlistContext";
+import { useCart } from "../../Components/cartContext";
+import { useWishlist } from "../../Components/wishListContext";
 import API_URL from "../../api";
 
 function Product() {

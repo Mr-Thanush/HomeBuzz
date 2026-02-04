@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom"
-import { AuthProvider } from './components/authContext.jsx'
-import { CartProvider } from './components/cartContext.jsx'
-import { WishlistProvider } from './components/wishlistContext.jsx'
+import { AuthProvider } from './Components/authContext.jsx'
+import { CartProvider } from './Components/cartContext.jsx'
+import { WishlistProvider } from './Components/wishListContext.jsx'
 import './index.css'
 import App from './App'
 

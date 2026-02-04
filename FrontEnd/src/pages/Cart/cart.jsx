@@ -3,7 +3,7 @@ import "./cart.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-import { useCart } from "../../components/cartContext";
+import { useCart } from "../../Components/cartContext";
 
 function Cart() {
   const { cartItems, addToCart, removeFromCart } = useCart();
