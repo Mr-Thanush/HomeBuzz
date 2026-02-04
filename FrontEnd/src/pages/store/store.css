@@ -1,0 +1,290 @@
+.storeForSellers {
+    padding: 20px;
+    font-family: sans-serif;
+    margin-top: 50px;
+}
+
+.storeNav {
+    display: flex;
+    gap: 30px;
+}
+
+.storeNav button {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: none;
+}
+
+.storeNav button.active {
+    color: var(--Primary-Green);
+}
+
+.storeContent {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid var(--Primary-Green);
+    border-radius: 5px;
+}
+
+/* store details */
+.StoreLogo{
+    width: 30vw;
+    height: 15vh;
+    border-radius: 70px;
+}
+
+.storeName{
+    font-weight: bolder;
+}
+
+.storeEmail{
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.storeMobileNum{
+    font-size: 0.5rem;
+    margin-top: 10px;
+}
+
+.storeAddress{
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.divider{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.storeCreatedDate{
+    font-size: 0.7rem;
+    margin-top: 10px;
+}
+
+.StoreAbout{
+    font-size: 1rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
+/* Dashboard */
+
+.metrics {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;  
+}
+
+.earningsOptions {
+    background-color: var(--Background);
+    border: 2px solid var(--Primary-Green);
+    border-radius: 5px;
+    width: 70vw;
+    margin-bottom: 20px;
+}
+
+.ordersOptions {
+    background-color: var(--Background);
+    border: 2px solid var(--Primary-Green);
+    border-radius: 5px;
+    width: 70vw;
+    margin-bottom: 20px;
+}
+
+
+.SoldOptions {
+    background-color: var(--Background);
+    border: 2px solid var(--Primary-Green);
+    border-radius: 5px;
+    width: 70vw;
+    margin-bottom: 20px;
+   
+}
+
+
+
+.paragraphForStore {
+    font-weight: bolder;
+    font-size: 2rem;
+     
+}
+
+.metric {
+    border: 1px solid var(--Primary-Green);
+    padding: 15px;
+    border-radius: 5px;
+    flex: 1 1 200px;
+    text-align: center;
+
+}
+
+/* Items Management */
+.itemsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.manageItems {
+    display: flex;
+    gap: 120px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.AddItems {
+    border: 2px solid orange;
+    background-color: orange;
+    border-radius: 5px;
+    width: 50px;
+    font-size: 0.8rem;
+    height: 30px;
+    text-align: center;
+}
+
+.itemCard {
+    border: 1px solid var(--Primary-Green);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.deleteItem{
+    border: 2px solid orangered;
+    background-color: orangered;
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 70px;
+    font-size: 0.8rem;
+    height: 30px;
+    text-align: center;
+}
+
+.editItem {
+    border: 2px solid var(--Primary-Green);
+    background-color: var(--Primary-Green);
+    margin: 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    width: 70px;
+    font-size: 0.8rem;
+    height: 30px;
+    text-align: center;
+   
+}
+
+.editDelete{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Orders Management */
+.orderCard {
+    border: 1px solid var(--Primary-Green);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.orderBtns button{
+    background-color: var(--Primary-Green);
+    border-radius: 5px;
+    border: none;
+    padding: 5px 20px;
+    height: 30px;
+    gap: 30px;
+
+}
+
+.orderBtns button {
+    margin-right: 5px;
+}
+
+/* Store Settings */
+.storeSettings input {
+    display: block;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+.storeSettings button {
+    padding: 10px 15px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* add Items Page */
+
+.addItemPage {
+  padding: 20px;
+  max-width: 500px;
+  min-height: 100vh;
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 10px;
+}
+
+
+.addItemForm input {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+
+.addItemForm button:hover {
+  background-color: #45a049;
+}
+
+.addItemForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.addItemForm label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.addItemForm input {
+  padding: 8px;
+  width: 80vw;
+  margin: auto;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.addItemForm button {
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  left: 0;
+  background-color: #4caf50;
+  color: var(--Text-Dark);
+  border: none;
+  cursor: pointer;
+  margin-top: 50px;
+}
+
+
+.addItemForm button:hover {
+  background-color: #45a049;
+}

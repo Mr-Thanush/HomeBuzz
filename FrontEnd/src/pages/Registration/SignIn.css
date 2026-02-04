@@ -1,0 +1,100 @@
+.BrandHeading {
+   font-weight: bold;
+   font-size: 2rem;
+   color: var(--Text-Dark);
+   margin-top:30px;
+   margin-left: 20px;
+}
+ 
+.signinPage {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(183, 255, 0, 0.517);
+    width: 95vw;
+    margin: 100px auto auto auto;
+    border: 10px;
+    box-shadow: 0 0 10px rgb(38, 255, 0);
+}
+
+.signininputs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.signinHeading {
+    margin-left: 30px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+
+.signName {
+    background: transparent;
+    border: 2px solid var(--Primary-Green);
+    padding: 10px;
+    color: var(--Text-Dark);
+    border-radius: 10px;
+}
+
+.signEmail {
+    background: transparent;
+    border: 2px solid var(--Primary-Green);
+    padding: 10px;
+    color: var(--Text-Dark);
+    border-radius: 10px;
+}
+
+.signPass {
+    background: transparent;
+    border: 2px solid var(--Primary-Green);
+    padding: 10px;
+    color: var(--Text-Dark);
+    border-radius: 10px;
+    width: 95vw;
+}
+
+.SigninBtn {
+    background: green;
+    border: 2px solid var(--Primary-Green);
+    padding: 10px;
+    color: rgb(51, 255, 0);
+    border-radius: 10px;
+    width: 50vw;
+    margin: 20px auto;
+}
+
+
+::placeholder{
+    color: var(--Text-Dark);
+}
+
+.NotHave {
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+    bottom: 15px;
+    color: var(--Text-Dark);
+}
+
+.BtnShow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.passwordBox {
+    position: relative;
+    width: 100%;
+}
+
+.forgotPassName {
+    font-size: 0.6rem;
+    margin-left: 250px;
+    color: var(--Text-Dark);
+}

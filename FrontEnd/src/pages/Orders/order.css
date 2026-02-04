@@ -1,0 +1,92 @@
+.ordersPage{
+    margin-top: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+}
+
+.order1 {
+    width: 100vw;
+    border: 2px solid var(--Primary-Green);
+    border-radius: 10px;
+}
+
+.deleveredWithDate {
+    display: flex;
+    gap:5px;
+}
+
+.exchangeOrReturn {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    text-decoration: underline;
+     background-color: rgba(224, 248, 219,1.5);
+     margin-top: 1px;
+
+} 
+
+.ExchangeReturn {
+    margin-left: 10px;
+}
+
+.delevery {
+    font-size: 0.6rem;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    color: var(--Primary-Green);
+}
+
+.DateOfDelevery{
+    font-size: 0.6rem;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.productView {
+    background-color: rgba(224, 248, 219,1.5);
+    display: flex;
+    border-radius: 5px  5px ;
+}
+
+.productImageInOrders {
+    width: 18vw;
+    border-radius: 80px;
+    height: 10vh;
+    margin-left: 5px;
+}
+
+.OrderBrand {
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin-right: 250px;
+    margin-top: 10px;
+}
+
+.OrderItemName {
+     font-size: 0.8rem;
+     margin-right: 150px;
+}
+
+.ratingsInOrders {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(224, 248, 219,1.5);
+    margin-top: 1px;
+    margin-bottom: 2px;
+    border-radius: 5px  5px ;
+}
+.RatingName {
+    margin-left: 10px;
+}
+
+.Write button{
+    margin-right: 10px;
+    width: 15vw;
+    background-color: transparent;
+    border-radius: 4px;
+    color: var(--Dark-Text);
+}

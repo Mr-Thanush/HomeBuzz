@@ -1,0 +1,179 @@
+.HomePage{
+    padding: 10px;
+    margin: 70px auto;
+}
+     
+    
+    /* search bar */
+.searchBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+}
+
+.Search {
+    width: 300px;
+    height: 40px;
+    padding: 10px; 
+    border-radius: 20px;
+    border: 2px solid var(--Light-Green);
+}
+
+.searchBtn {
+    margin-left: -42px;
+    background-color: var(--Light-Green);
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid var(--Light-Green);
+}
+
+ /* sliding higher and latest */
+
+.HigherSellingName,
+ .latestName {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color:var(--Text-Dark);
+    
+ }
+
+ .scrollable {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+}
+.scrollable::-webkit-scrollbar {
+  height: 6px;
+} 
+
+.scrollable::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.HigherSelling,
+.latest {
+    overflow: hidden;
+    
+}
+
+.link {
+    text-decoration: none;
+    color:var(--Text-Dark);
+    font-size: 0.7rem;
+}
+
+.sliderTrack,
+.latestItems {
+    display: flex;
+    transition: transform 0.6s ease-in-out;
+}
+
+.slide,
+.latestCard {
+    min-width: 100%;
+    text-align: center;
+    color:var(--Text-Dark);
+    
+}
+
+.slide img,.latestCard img {
+    width: 300px;       
+    height: 200px;      
+    object-fit: cover;
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.dot {
+    width: 8px;
+    height: 6px;
+    background: #ccc;
+    border-radius: 50%;
+}
+
+.dot.active {
+    background: #000;
+}
+
+/* category section */
+.categoryHeading {
+    font-size: 1.5rem;
+    margin-left: 10px;
+    color: var(--Text-Dark);
+   
+}
+
+
+
+.categoriesContaniors {
+    display: grid;
+    grid-auto-flow: row;     
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+    overflow-y: auto;        
+}
+
+.categoryCard {
+    width: 160px;     
+    height: 140px;     
+    background:var(--Light-Green);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.7rem;
+    color:var(--Text-Dark)
+}
+
+.categoryCard img {
+    width: 130px;
+    height: 100px;
+    object-fit: cover;
+}
+ 
+.categoryLink {
+    text-decoration: none;
+}
+
+.searchLink {
+    text-decoration: none;
+}
+
+
+.productDiv{
+    width: 85vw;
+    height: 30vh;
+    border: 2px solid var(--Light-Green);
+    border-radius: 10px;
+    margin: auto;
+}
+
+.ratingBlock{
+display: flex;
+align-items: center;
+gap: 6px;
+font-size: 0.85rem;
+justify-content: center;
+}
+
+.ratingBlock .stars {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.ratingBlock .reviewCount {
+  color: #666;
+}

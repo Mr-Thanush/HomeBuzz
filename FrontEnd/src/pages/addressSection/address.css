@@ -1,0 +1,206 @@
+.addressSection {
+  padding: 20px;
+  max-width: 600px;
+  margin: 110px auto 30px auto;
+  font-family: Arial, sans-serif;
+}
+
+.addressTitle {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--Text-Dark);
+  text-align: center;
+}
+
+/* SAVED ADDRESSES */
+.savedAddresses {
+  display: flex;
+  flex-direction: column; 
+  gap: 16px;
+}
+
+.addressCard {
+  border: 1px solid var(--Background);
+  border-radius: 12px;
+  padding: 16px;
+  background: var(--Background);
+  box-shadow: 0 4px 12px var(--Primary-Green);
+}
+
+.addressCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--Primary-Green);
+}
+
+.addressCard h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--Text-Dark);
+}
+
+.addressCard h4 span {
+  font-weight: 400;
+  font-size: 14px;
+  margin-left: 8px;
+ color: var(--Text-Dark);
+}
+
+.addressCard p {
+  margin: 6px 0;
+  font-size: 14px;
+ color: var(--Text-Dark);
+}
+
+/* ADDRESS ACTIONS */
+.addressActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-direction: column;
+}
+
+.addressActions button {
+  flex: 1;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+/* Deliver Here */
+.addressActions button:nth-child(1) {
+  border: 2px solid var(--Text-Dark);
+  background-color: transparent;
+  color: var(--Text-Dark);
+}
+
+.addressActions button:nth-child(1):hover {
+  background-color: var(--Text-Dark);
+  color: white;
+}
+
+/* Edit */
+.addressActions button:nth-child(2) {
+  border: 2px solid var(--Primary-Green);
+  background-color: transparent;
+  color: var(--Primary-Green);
+}
+
+.addressActions button:nth-child(2):hover {
+  background-color: var(--Primary-Green);
+  color: white;
+}
+
+/* Delete */
+.addressActions button:nth-child(3) {
+  border: 2px solid #d32f24;
+  background-color: transparent;
+  color: #d32f24;
+}
+
+.addressActions button:nth-child(3):hover {
+  background-color: #d32f24;
+  color: white;
+}
+
+/* Add New Button */
+.addNewBtn {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px dashed var(--Light-Green);
+  background: transparent;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addNewBtn:hover {
+  background: var(--Light-Green);
+}
+
+/* ADDRESS FORM */
+.addressForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.addressForm input,
+.addressForm textarea {
+  padding: 12px;
+   width: 95%;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--Background);
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.addressForm textarea {
+  resize: none;
+  height: 90px;
+}
+
+.addressForm input:focus,
+.addressForm textarea:focus {
+  border-color: #1976d2;
+  box-shadow: 0 0 6px rgba(25, 118, 210, 0.3);
+}
+
+.saveBtn {
+  margin-top: 10px;
+  padding: 14px;
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.saveBtn:hover {
+  background-color: var(--Primary-Green);
+  transform: translateY(-2px);
+}
+
+/* large devices */
+@media (min-width: 480px){
+  .addressSection {
+   max-width: 700px;
+}
+
+  .addressCard {
+    width: 300px;
+  }
+
+  .savedAddresses {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+}
+
+@media (min-width: 768px){
+  .addressSection {
+   max-width: 97vw;
+   margin-top: 140px;
+}
+
+  .addressCard {
+    width: 340px;
+  }
+
+  .savedAddresses {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+}

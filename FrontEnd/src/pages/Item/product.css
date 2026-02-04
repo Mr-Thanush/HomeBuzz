@@ -1,0 +1,210 @@
+/* Product Page Container*/
+.Products {
+    margin-top: 70px;
+    min-height: 100vh;
+    margin-top: 70px;
+}
+
+/* Main Product Card*/
+.Product {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--Primary-Green);
+    border-radius: 10px;
+    max-width: 900px;
+    background:var(--Background);
+    align-items: center;
+} 
+
+/* Top Icons (Wishlist, Ratings, Cart) */
+.Products .add {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    color: var(--Text-Dark);
+    margin: 75px 40px;
+
+}
+
+.ratings {
+    font-size: 1rem;
+}
+
+/*Product Images*/
+.Productimg {
+    width: 94vw;
+    max-width: 500px;
+    margin: 15px auto;
+    height: 50vh;
+    display: flex;
+    overflow-x: scroll;
+    padding: 10px 0;
+}
+
+.ProductImage {
+    width: 100%;
+    max-height: 45vh;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid var(--Text-Dark);
+    margin-right: 10px;
+}
+
+/*Product Details */
+.Productdetails {
+    width: 100%;
+    padding: 15px;
+}
+
+.ProductName {
+    font-size: 1.8rem;
+    color: var(--Text-Dark);
+    margin-bottom: 5px;
+}
+
+.ProductABout {
+    font-size: 0.9rem;
+    color: var(--Text-Dark);
+    margin-bottom: 10px;
+}
+
+.ProductPrice {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--Text-Dark);
+    margin-bottom: 10px;
+}
+
+.detailsList {
+    padding-left: 20px;
+    color: var(--Text-Dark);
+}
+
+.detailsList li {
+    margin-bottom: 5px;
+}
+
+/*Reviews Section */
+.feedback {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 30px;
+    padding: 15px;
+    color: var(--Text-Dark);
+    height: 40vh;
+}
+
+.headOfReview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+ 
+.givereview {
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.feedbacks {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-top: 10px;
+   
+}
+
+.feedback1 {
+    min-width: 80vw;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.feedimg {
+    width: 100%;
+    height: 20vh;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.stars {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+/*Add Review Form*/
+.give-Rating {
+    color: var(--Text-Dark);
+    margin-bottom: 10px;
+    text-decoration: underline;
+}
+
+.stars-color {
+    margin-right: 5px;
+}
+
+.commentOnProduct {
+    width: 80vw;
+    height: 10vh;
+    margin: 10px auto;
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.uploadImageInFeedBack {
+    width: 80vw;
+    margin: 10px auto;
+    display: block;
+    border: none;
+    background: none;
+}
+
+.submitRiview {
+    width: 30vw;
+    background: var(--Primary-Green);
+    border: none;
+    border-radius: 10px;
+    padding: 8px;
+    margin: 10px auto;
+    display: block;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+}
+
+/*Fixed Buy Bar */
+.ProductbuyContainer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    background: var(--Background);
+    border-top: 2px solid var(--Primary-Green);
+    padding: 10px;
+    z-index: 100;
+}
+
+.ProductbuyBtn {
+    min-width: 100vw;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 7vh;
+    background: var(--Primary-Green);
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--Background);
+    z-index: 101;
+}
+
+.ProductbuyBtn:disabled {
+    background:var(--Primary-Green);
+    cursor: not-allowed;
+}

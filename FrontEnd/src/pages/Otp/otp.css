@@ -1,0 +1,66 @@
+.otpHead {
+    color: var(--Text-Dark);
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.otp {
+    border: 2px solid var(--Primary-Green);
+    background-color: var(--Background);
+    border-radius: 10px;
+    height: 50vh;
+    box-shadow: 0 0 10px black;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.OtpEnter {
+    text-align: center;
+    color: var(--Text-Dark);
+}
+
+.otpBoxes {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+
+}
+
+input {
+    width: 10vw;
+    border: 2px solid var(--Primary-Green);
+    background-color: var(--Light-Green);
+    padding: 8px 8px 8px 13px;
+    border-radius: 5px;
+    color: black;
+
+}
+
+.resend {
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+.otpSubmit {
+    background-color: var(--Light-Green);
+    border: 2px solid var(--Primary-Green);
+    padding: 5px;
+    color: var(--Text-Dark);
+    border-radius: 5px;
+    width: 30vw;
+    margin-top: 110px;
+    
+}
+
+.ChangeMail {
+    cursor: pointer;
+    margin-top: 5px;
+    text-decoration: dashed underline;
+
+}

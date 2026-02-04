@@ -1,0 +1,109 @@
+.Profile {
+    margin-top: 80px;
+    padding: 0;
+}
+
+.profileSection1 {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.image {
+    width: 10vh;
+    height: 10vh;
+    border: 2px solid var(--Primary-Green);
+    border-radius: 50px;
+}
+
+
+.ProfileName {
+    font-size: 1rem;
+}
+
+.profileSection2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.orders {
+    border: 2px solid var(--Primary-Green);
+    background-color: transparent;
+    color: var(--Text-Dark);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 49vw;
+}
+
+.help {
+    border: 2px solid var(--Primary-Green);
+    background-color: transparent;
+    color: var(--Text-Dark);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 49vw;
+}
+
+.sell {
+    border: 2px solid var(--Primary-Green);
+    background-color: rgb(204, 246, 204);
+    color: var(--Text-Dark);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 49vw;
+}
+
+.settings {
+    border: 2px solid var(--Primary-Green);
+    background-color: transparent;
+    color: var(--Text-Dark);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 49vw;
+}
+
+.profileSection3 {
+    position: absolute;
+    bottom: 0;
+
+}
+
+.logoutProfile {
+    border: 2px solid var(--Primary-Green);
+    background-color: red;
+    color: var(--Text-Dark);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100vw;
+}
+
+
+
+.profileSection2 button {
+  border: 2px solid var(--Primary-Green);
+  color: var(--Text-Dark);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%; 
+}
+
+
+.storebtn{
+   background-color: rgb(204, 246, 204);
+    color: var(--Text-Dark);
+}
+
+.store.full {
+  grid-column: span 2;
+}
