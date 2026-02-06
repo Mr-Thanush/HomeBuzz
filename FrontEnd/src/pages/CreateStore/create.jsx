@@ -43,7 +43,7 @@ function CreateStore() {
 
       if (data.success) {
         alert("Store created successfully!");
-        navigate("/profile");
+        window.location.href = "/profile";
       } else {
         alert("Failed to create store: " + (data.message || "Unknown error"));
       }

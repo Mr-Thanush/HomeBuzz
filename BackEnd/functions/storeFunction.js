@@ -1,6 +1,8 @@
 import Store from "../Models/storeModel.js";
 
+
 // CREATE STORE
+
 export const createStore = async (req, res, next) => {
   try {
     const { name, email, category, description } = req.body;
@@ -27,24 +29,31 @@ export const createStore = async (req, res, next) => {
       owner: req.user._id,
     });
 
-    // 4 Promote user to SELLER
+    // 4 Promote user → SELLER
     req.user.hasStore = true;
     req.user.storeId = store._id;
     req.user.role = "seller";
 
-    await req.user.save();
+    //  Prevent re-validation & password issues
+    await req.user.save({ validateBeforeSave: false });
 
     res.status(201).json({
       success: true,
-      message: "Store created successfully",
+      message: "Store created successfully. User upgraded to seller.",
       store,
+      user: {
+        role: req.user.role,
+        hasStore: req.user.hasStore,
+      },
     });
   } catch (error) {
-    next(error); 
+    next(error);
   }
 };
 
+
 // GET MY STORE
+
 export const getMyStore = async (req, res, next) => {
   try {
     const store = await Store.findOne({ owner: req.user._id });
