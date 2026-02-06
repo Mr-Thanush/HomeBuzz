@@ -15,29 +15,66 @@ export const SignUpUser = asyncErrors(async (req, res, next) => {
 })
 
 //SignIn
-export const SignInUser = asyncErrors(async (req, res, next) => {
+export const SignInUser = async (req, res, next) => {
+  try {
     const { email, password } = req.body;
+
     if (!email || !password) {
-        return next(new handleError("Email And Password Cannot Be Empty", 402));
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required",
+      });
     }
+
     const user = await User.findOne({ email }).select("+password");
+
     if (!user) {
-        return next(new handleError("Invalid Email And Password", 401))
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
     }
-    const isPassValid = await user.passVerification(password);
-    if (!isPassValid) {
-        return next(new handleError("Invalid Email And Password", 401));
+
+    const isPasswordMatched = await user.comparePassword(password);
+
+    if (!isPasswordMatched) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
     }
-    sendTokens(user, 200, res)
-})
+
+    const token = user.getJWTToken();
+
+   
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,        
+      sameSite: "None",   
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.status(200).json({
+      success: true,
+      user: {
+        name: user.name,
+        email: user.email,
+        hasStore: user.hasStore,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 //SignOut
 export const SignOutUser = async (req, res, next) => {
     res.cookie('token', null, {
         expires: new Date(Date.now()),
         httpOnly: true,
-         secure: true, 
+        secure: true, 
         sameSite: "None",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
     })
     res.status(200).json({
         success: true,
