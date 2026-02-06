@@ -15,7 +15,7 @@ export const SignUpUser = asyncErrors(async (req, res, next) => {
 })
 
 //SignIn
-export const SignInUser = async (req, res, next) => {
+export const SignInUser = asyncErrors(async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -65,10 +65,10 @@ export const SignInUser = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
+});
 
 //SignOut
-export const SignOutUser = async (req, res, next) => {
+export const SignOutUser = asyncErrors(async (req, res, next) => {
     res.cookie('token', null, {
         expires: new Date(Date.now()),
         httpOnly: true,
@@ -80,7 +80,7 @@ export const SignOutUser = async (req, res, next) => {
         success: true,
         message: "Successfully Signed Out"
     })
-}
+})
 
 // Getting User Details
 export const getUserDetails = asyncErrors(async (req, res, next) => {
