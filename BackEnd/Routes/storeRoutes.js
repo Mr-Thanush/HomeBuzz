@@ -1,6 +1,7 @@
 import express from "express";
 import multer from "multer";
-import { verifyUserAuth } from "../MiddleWare/userAuth.js";
+
+import { verifyUserAuth, roleBasedAccess } from "../MiddleWare/userAuth.js";
 
 import {
   createStore,
@@ -16,23 +17,21 @@ import {
 
 const router = express.Router();
 
-
-// MULTER CONFIG (STORE ONLY)
+//MULTER CONFIG 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/stores/");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, `${Date.now()}-${file.originalname}`);
   },
 });
 
 const uploadStoreLogo = multer({ storage });
 
+// STORE ROUTES
 
-//  STORE ROUTES
-
-// CREATE STORE (with logo)
+// CREATE STORE 
 router.post(
   "/create",
   verifyUserAuth,
@@ -40,15 +39,21 @@ router.post(
   createStore
 );
 
-// GET MY STORE
-router.get("/me", verifyUserAuth, getMyStore);
+// GET MY STORE (SELLER ONLY)
+router.get(
+  "/me",
+  verifyUserAuth,
+  roleBasedAccess("seller"),
+  getMyStore
+);
 
-// PRODUCT SELLER ROUTES
+//SELLER PRODUCT ROUTES
 
-// CREATE PRODUCT (NO IMAGE)
+// CREATE PRODUCT
 router.post(
   "/seller/product/create",
   verifyUserAuth,
+  roleBasedAccess("seller"),
   crateProduct
 );
 
@@ -56,6 +61,7 @@ router.post(
 router.get(
   "/seller/products",
   verifyUserAuth,
+  roleBasedAccess("seller"),
   getSellerProducts
 );
 
@@ -63,6 +69,7 @@ router.get(
 router.put(
   "/seller/product/:id",
   verifyUserAuth,
+  roleBasedAccess("seller"),
   updateProducts
 );
 
@@ -70,6 +77,7 @@ router.put(
 router.delete(
   "/seller/product/:id",
   verifyUserAuth,
+  roleBasedAccess("seller"),
   deleteProduct
 );
 
