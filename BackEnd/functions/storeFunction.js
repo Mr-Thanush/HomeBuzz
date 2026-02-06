@@ -1,7 +1,7 @@
 import Store from "../Models/storeModel.js";
 
 // CREATE STORE
-export const createStore = async (req, res) => {
+export const createStore = async (req, res, next) => {
   try {
     const { name, email, category, description } = req.body;
 
@@ -14,7 +14,7 @@ export const createStore = async (req, res) => {
       });
     }
 
-    // 2 Handle logo upload (optional)
+    // 2 Handle logo upload
     const logo = req.file ? req.file.path : "";
 
     // 3 Create store
@@ -27,10 +27,10 @@ export const createStore = async (req, res) => {
       owner: req.user._id,
     });
 
-    // 4 UPDATE USER → SELLER
+    // 4 Promote user to SELLER
     req.user.hasStore = true;
     req.user.storeId = store._id;
-    req.user.role = "seller";   // 🔥 THIS LINE IS IMPORTANT
+    req.user.role = "seller";
 
     await req.user.save();
 
@@ -40,10 +40,27 @@ export const createStore = async (req, res) => {
       store,
     });
   } catch (error) {
-    console.error("Create store error:", error);
-    res.status(500).json({
-      success: false,
-      message: error.message,
+    next(error); 
+  }
+};
+
+// GET MY STORE
+export const getMyStore = async (req, res, next) => {
+  try {
+    const store = await Store.findOne({ owner: req.user._id });
+
+    if (!store) {
+      return res.status(404).json({
+        success: false,
+        message: "Store not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      store,
     });
+  } catch (error) {
+    next(error);
   }
 };
