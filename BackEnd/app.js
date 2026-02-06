@@ -13,11 +13,15 @@ import {verifyUserAuth} from "./MiddleWare/userAuth.js";
 const app=express(); 
 
 app.use(cors({
-    origin:['http://localhost:5173',
-      "homebuzz26.vercel.app"
-    ],
-    credentials:true
+  origin: [
+    "http://localhost:5173",
+    "https://homebuzz26.vercel.app"
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 }));
+
+
 //MiddleWare
 app.use(express.json());
 app.use(cookieParser());
