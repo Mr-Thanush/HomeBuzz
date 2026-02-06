@@ -28,6 +28,17 @@ app.use('/api/v1',order)
 app.use("/uploads", express.static("uploads"));
 app.use("/api/v1/store", storeRoutes);
 
+//page refresh
+import path from "path";
+
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, "frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend/dist/index.html"));
+});
+
 //Get sign-in user
 app.get("/api/v1/me",verifyUserAuth, (req, res) => {
   if (!req.cookies.token) {
