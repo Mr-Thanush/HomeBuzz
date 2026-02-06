@@ -8,7 +8,7 @@ function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Signout
+  //SIGN OUT
   const handleSignout = async () => {
     try {
       await fetch(`${API_URL}/api/v1/signout`, {
@@ -21,24 +21,20 @@ function Profile() {
     }
   };
 
-  const handleCreateStore = async () => {
-  // after successful store creation
-  setUser(prev => ({ ...prev, hasStore: true }));
-};
-
-
-  // Fetch user data
+   //FETCH USER
   const fetchUser = async () => {
     try {
-      const res = await fetch(`${API_URL}}/api/v1/me`, {
+      const res = await fetch(`${API_URL}/api/v1/me`, {
         credentials: "include",
       });
+
       if (!res.ok) {
         navigate("/signin");
         return;
       }
+
       const data = await res.json();
-      setUser(data.user); // backend returns { user: {...} }
+      setUser(data.user);
     } catch (error) {
       console.log("Fetch user error:", error);
       navigate("/signin");
@@ -51,12 +47,13 @@ function Profile() {
     fetchUser();
   }, []);
 
+  // UI STATES
   if (loading) return <h2>Loading...</h2>;
   if (!user) return null;
 
   return (
     <div className="Profile">
-      {/* Profile Info */}
+      {/* PROFILE INFO */}
       <div className="profileSection1">
         <div className="image">
           <img
@@ -65,21 +62,24 @@ function Profile() {
             className="ProfilePic"
           />
         </div>
+
         <div className="profileDetails">
           <h1 className="ProfileName">{user.name}</h1>
-          <h6>{user.about || "No description"}</h6>
+          <h6>{user.about || "No description available"}</h6>
           <p className="email">{user.email}</p>
         </div>
       </div>
 
       <hr />
 
-      {/* Actions */}
+      {/* ACTIONS */}
       <div className="profileSection2">
         <Link to="/orders">
           <button className="orders">Orders</button>
         </Link>
+
         <button className="help">Help Desk</button>
+
         {!user.hasStore ? (
           <Link to="/createstore">
             <button className="sell">Create Store</button>
@@ -89,13 +89,14 @@ function Profile() {
             <button className="storebtn">Go to Store</button>
           </Link>
         )}
+
         <button className="settings">Settings</button>
       </div>
 
-      {/* Logout */}
+      {/* LOGOUT */}
       <div className="profileSection3">
         <button className="logoutProfile" onClick={handleSignout}>
-          Signout
+          Sign Out
         </button>
       </div>
     </div>
