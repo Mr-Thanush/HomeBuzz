@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 import product from "./Routes/productRoutes.js";
 import user from "./Routes/userRoutes.js";
@@ -16,33 +17,34 @@ const app = express();
 // 1 CORS 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://homebuzz26.vercel.app",
-    ],
+    origin: (origin, callback) => {
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "https://homebuzz26.vercel.app",
+      ];
+
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
-//  Required for preflight requests
-app.options("*", cors());
-
-//2 BODY & COOKIE PARSERS
-
+// 2 BODY & COOKIES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-//  3 API ROUTES
+//3 API ROUTES
 app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
 app.use("/api/v1/store", storeRoutes);
 
-
-  // 4 AUTH CHECK ROUTE
+//4 AUTH CHECK
 app.get("/api/v1/me", verifyUserAuth, (req, res) => {
   res.status(200).json({
     success: true,
@@ -56,8 +58,7 @@ app.get("/api/v1/me", verifyUserAuth, (req, res) => {
   });
 });
 
-
-  // 5 CREATE STORE
+// 5 CREATE STORE
 app.post("/api/v1/store/create", verifyUserAuth, async (req, res, next) => {
   try {
     const user = req.user;
