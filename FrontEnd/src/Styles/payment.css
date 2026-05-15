@@ -1,0 +1,129 @@
+:root {
+  --green: var(--Primary);
+  --green-light:var(--Accent);
+  --text-dark: var(--Text);
+  --gray: #6b7280;
+  --border: #d1d5db;
+}
+
+.payment-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f1f8f4, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  font-family: var(--font-text);
+}
+
+.payment-card {
+    margin-bottom: 70px;
+  background: #fff;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  padding: 1.2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.payment-title {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+/* Order Summary */
+.order-summary {
+  background: var(--green-light);
+  border-radius: 12px;
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.order-summary .row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin-bottom: 0.4rem;
+}
+
+.order-summary .total {
+  font-weight: 600;
+  border-top: 1px solid var(--border);
+  padding-top: 0.5rem;
+}
+
+/* Payment Methods */
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.method {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.7rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.method input {
+  margin-top: 0.3rem;
+}
+
+.method h4 {
+  font-size: 0.95rem;
+  margin: 0;
+  color: var(--text-dark);
+}
+
+.method p {
+  font-size: 0.8rem;
+  margin: 0.2rem 0 0;
+  color: var(--gray);
+}
+
+.method.active {
+  border-color: var(--green);
+  background: var(--green-light);
+}
+
+/* Button */
+.pay-btn {
+  margin-top: 1.2rem;
+  width: 100%;
+  background: var(--green);
+  color: #fff;
+  border: none;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pay-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(46, 125, 50, 0.3);
+}
+
+.secure-text {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  text-align: center;
+  color: var(--gray);
+}
+
+/* Desktop enhancement */
+@media (min-width: 768px) {
+  .payment-card {
+    padding: 1.5rem;
+  }
+}

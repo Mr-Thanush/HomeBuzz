@@ -1,0 +1,14 @@
+
+
+:root{
+    --Primary:#2E8B57;
+    --Accent:#66cd76;
+    --Background:#e5fbe4;
+    --Neutral:#FFFFFF;
+    --Text:#2F4F4F;
+    --shadow-sm: 0 6px 14px rgba(0,0,0,0.08);
+    --shadow-md: 0 12px 26px rgba(0,0,0,0.12);
+
+    --font-Heading:Josefin Sans;
+    --font-text:Elms Sans;
+}

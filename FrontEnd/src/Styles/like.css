@@ -1,0 +1,247 @@
+.ll-page {
+  min-height: 100vh;
+  margin-top: 60px;
+  padding: 0.8rem;
+  background: linear-gradient(180deg, #f1f8f4, #e8f5e9);
+  font-family: var(--font-Text);
+  margin-bottom: 160px;
+}
+
+.ll-heading {
+  font-size: 1.4rem; 
+  font-weight: 700;
+  color: #1b5e20;
+  margin-bottom: 0.8rem;
+}
+
+.ll-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0.75rem;
+}
+
+.ll-card {
+  background: #ffffff;
+  border-radius: 14px;
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 0.5fr;
+  height: 16vh;
+  box-shadow: 0 6px 16px rgba(27, 94, 32, 0.12);
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ll-card:active {
+  transform: scale(0.98);
+}
+
+.ll-image {
+  width: 90%;
+  height: 15.5vh;
+  border-radius: 14px;
+  border: 2px solid green;
+  background: linear-gradient(180deg, #f1f8f4, #e8f5e9);
+}
+
+.ll-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ll-content {
+  padding: 0.45rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TITLE */
+.ll-content h3 {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1b5e20;
+  line-height: 1.2;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+/* SELLER */
+.ll-content p{
+  font-size: 0.7rem;
+  color: #015005;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.ll-content p:nth-last-child(2){
+  font-size: 0.9rem;
+  color: #015005;
+  margin-top: 0px;
+  font-weight: 700;
+}
+
+.llQuantity{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.llQuantity button{
+  color: #1b5e20;
+  padding:0px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border: 2px solid #2e7d32;
+  border-radius: 5px;
+}
+
+.llQuantity input{
+  color: #1b5e20;
+  font-size: 13px;
+  padding: 0px;
+  width: 17px;
+  height: 17px;
+  background: white;
+  border: 2px solid #2e7d32;
+  border-radius: 5px;
+  text-align: center;
+  position: relative;
+  top:13px;
+  left: 0px;
+}
+
+.ll-card .ll-actions button{
+  border:none;
+  width: 20px;
+  height: 20px;
+  background:transparent;
+  color: #1b5e20;
+  position: relative;
+  bottom: 20px;
+  left:0px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.checkOutDiv {
+  position: fixed;
+  bottom: 0;
+  left: 5px;
+  width: 90%;
+  background: #ffffff;
+  padding: 0.8rem;
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.08);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+  z-index: 100;
+}
+
+/* PRICE SUMMARY CARD */
+.checkout-summary {
+  background: #f9fdfb;
+  border: 1px solid #dcedc8;
+  border-radius: 14px;
+  padding: 0.8rem;
+  margin-top: 30px;
+  box-shadow: 0 6px 16px rgba(27, 94, 32, 0.15);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.summary-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1b5e20;
+  margin-bottom: 0.5rem;
+}
+
+/* ROWS */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: #2e7d32;
+  margin-bottom: 0.35rem;
+}
+
+.summary-row span:last-child {
+  font-weight: 600;
+}
+
+/* FREE DELIVERY */
+.free {
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+/* DIVIDER */
+.summary-divider {
+  height: 1px;
+  background: #c8e6c9;
+  margin: 0.5rem 0;
+}
+
+/* TOTAL */
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #1b5e20;
+}
+
+/* ADDRESS SELECT */
+.checkOutAdd {
+  width: 100%;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid #a5d6a7;
+  padding: 0 0.6rem;
+  font-size: 0.8rem;
+  color: #1b5e20;
+  background: #ffffff;
+}
+
+/* CHECKOUT BUTTON */
+.checkout-btn {
+  width: 100%;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.checkout-btn:active {
+  transform: scale(0.97);
+  box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+}
+
+.nullProducts{
+  text-align: center;
+  margin-top: 150px;
+  margin-bottom: 30px;
+}
+
+.toHome{
+  text-decoration: none;
+  color: #015005;
+  font-size: 20px;
+  border: 2px solid rgb(20, 93, 20);
+  border-radius: 10px;
+  padding: 10px;
+  margin-left: 110px;
+}

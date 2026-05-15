@@ -1,0 +1,124 @@
+
+:root {
+  --green-home: var(--Background);   
+  --green-store:var(--Primary);
+  --green-hover: #1b5e20;
+  --text-light: #e8f5e9;
+}
+
+.navbar {
+  height: 55px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0 14px;
+  z-index: 1000; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.navbar-home {
+   background:  var(--green-store);
+   box-shadow: 0 4px 18px rgba(41, 41, 41, 0.18);
+}
+
+
+.navbar-store {
+  background: var(--green-store);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+}
+
+.navbar-home .likedItemsCount{
+   font-size: 12px;
+   position: absolute;
+   left: 71%;
+   bottom: 30%;
+   color:  var(--green-store);
+   background-color: #22f629;
+   border-radius: 50%;
+   width: 16px;
+   height: 16px;
+   text-align: center;
+}
+
+.likedItemsCount{
+  font-size: 12px;
+  position: absolute;
+  left: 6px;
+   bottom:0px;
+   color:  var(--green-store);
+   background-color: #22f629;
+   border-radius: 50%;
+   width: 16px;
+   height: 16px;
+   text-align: center;
+}
+
+
+.back-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  position: relative;
+  right: 20px;
+  bottom: 5px;
+}
+
+
+.nav-logo {
+  font-size: 1.3rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-right: 20px;
+  margin-bottom: 2px;
+}
+
+.nav-logo a {
+  color: var(--text-light);
+}
+
+
+.nav-icons {
+  display: flex;
+  align-items: center; 
+  gap: 30px;
+  margin-left: 60px;
+}
+
+.nav-ProfilPic{
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  border: 1px solid var(--text-light);
+  object-fit: cover;  
+  display: block;  
+}
+
+.navbar-store .nav-item {
+  color: var(--text-light);
+  transition: transform 0.2s ease, color 0.2s ease;
+  position: relative;
+  right: 30px;
+}
+
+.nav-item {
+  color: var(--text-light);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.nav-item:hover {
+  color: #c8e6c9;
+  transform: translateY(-1px);
+}
+
+
+.links {
+  text-decoration: none;
+  color: inherit;
+}

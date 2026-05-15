@@ -1,0 +1,101 @@
+/* Global Page Background */
+.register-container {
+  height: 100vh;
+  background-color: #e8f5e9; /* light green */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family:var(--font-Heading);
+}
+
+/*Card Layout*/
+.register-card {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 128, 0, 0.15);
+}
+
+.register-card h1{
+   color:#1b5e20;
+   font-size: 1.4rem;
+   font-weight: bolder;
+   margin-top: 0;
+}
+
+
+/* Subtitle */
+.register-card .subtitle {
+  text-align: center;
+  color: #4c864f;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+
+/* Form Labels */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 11px;
+  position: relative;
+  right: 10px;
+  border: 1px solid #a5d6a7;
+  border-radius: 7px;
+  outline: none;
+  font-size: 0.95rem;
+  background-color: #ffffff;
+}
+
+input::placeholder {
+  color: #9ccc9c;
+}
+
+input:focus {
+  border-color: #2e7d32;
+  box-shadow: 0 0 0 1px rgba(46, 125, 50, 0.2);
+}
+
+/* Register Button */
+.registerBtn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 0.5rem;
+  background-color: #2e7d32;
+  color: #ffffff;
+  border: none;
+  border-radius: 7px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.registerBtn:hover {
+  background-color: #1b5e20;
+}
+
+.registerBtn:active {
+  transform: scale(0.98);
+}
+
+.haveAccount p{
+  color: #9ccc9c;
+}
+
+p .signinLink {
+   color: #014f01;
+   font-weight: 700;
+}

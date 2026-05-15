@@ -1,0 +1,16 @@
+
+.pagination{
+    display: flex;
+    gap:3px;
+    margin: auto;
+    align-items: center;
+    position: relative;
+    bottom: 5px;
+}
+
+.pagination button{
+    width: 40px;
+    padding: 5px;
+    color:rgb(249, 250, 249);
+    background: rgb(65, 134, 65);
+}

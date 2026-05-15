@@ -1,0 +1,160 @@
+/* Page Wrapper */
+.profile-page {
+  margin-top: 60px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  padding: 1.5rem;
+  font-family: var(--font-text);
+}
+
+/* Profile Card */
+.profile-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+} 
+
+.profile-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+} 
+
+.profile-name {
+  margin-top: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1b5e20;
+}
+
+.profile-email {
+  font-size: 0.9rem;
+  color: #4caf50;
+  margin-top: 0.2rem;
+}
+
+.profile-bio {
+  margin-top: 0.7rem;
+  font-size: 0.95rem;
+  color: #2e7d32;
+}
+
+/* Menu */
+.profile-menu {
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Menu Item */
+.profile-item {
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.profile-item:hover {
+  background: #f1f8e9;
+}
+
+.profile-item:not(:last-child) {
+  border-bottom: 1px solid #edf2ee;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 600;
+  color: #1b5e20;
+}
+
+.item-icon {
+  font-size: 1.3rem;
+  color: #2e7d32;
+}
+
+.item-arrow {
+  font-size: 1.3rem;
+  color: #a5d6a7;
+}
+
+/* Highlighted Item (My Store) */
+.profile-item.highlight {
+  background: #e8f5e9;
+  margin: 0.5rem;
+  border-radius: 14px;
+}
+
+/* Logout Button */
+.logout-btn {
+  margin-top: 2rem;
+  width: 100%;
+  background: #ffebee;
+  color: #c62828;
+  border: none;
+  border-radius: 16px;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.logout-btn:hover {
+  background: #ffcdd2;
+}
+
+.profile-div .edit{
+  position: relative;
+  left:210px;
+  bottom:60px;
+  background: rgb(223, 239, 223);
+  cursor: pointer;
+  border-radius: 30px;
+  width: 50px;
+}
+
+.editLink{
+   color: #77c179;
+}
+
+
+.userOrder{
+  text-decoration: none;
+}
+
+.profileCreatedOn{
+  color: #025d05;
+  font-size: 11px;
+}
+
+.profilePic{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #e8f5e9;
+  margin: auto;
+  position: relative;
+  right: 25px;
+}
+
+.profileImg{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+

@@ -1,0 +1,133 @@
+
+/* Page */
+.orders-page {
+  padding: 1rem;
+  max-width: 720px;
+  margin: 60px auto;
+}
+
+/* Header */
+.orders-header {
+  margin-bottom: 1.5rem;
+}
+
+.orders-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-dark);
+}
+
+.orders-header p {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* Orders list */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Order card */
+.order-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1px solid var(--border);
+}
+
+/* Top section */
+.order-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.65rem;
+}
+
+.order-id {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+.order-date {
+  font-size: 0.8rem;
+  color: rgba(4, 143, 2, 0.882);
+}
+
+/* Status badge */
+.order-status {
+  font-size: 0.75rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.order-status.delivered {
+  background: #dcfce7;
+  color: var(--success);
+}
+
+.order-status.processing {
+  background: #fef3c7;
+  color: var(--warning);
+}
+
+/* Items */
+.order-items {
+  border-top: 1px dashed var(--border);
+  border-bottom: 1px dashed var(--border);
+  padding: 0.5rem 0;
+  margin: 0.75rem 0;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  padding: 0.25rem 0;
+}
+
+/* Footer */
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-total {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-dark);
+}
+
+.order-btn {
+  background: var(--primary);
+  color:green;
+  border:2px solid green;
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  width: 150px;
+}
+
+.order-btn:hover {
+  opacity: 0.9;
+  background-color: rgb(169, 248, 187);
+}
+
+.orders-header p{
+   color: rgb(19, 77, 2);
+   text-align: center;
+}
+
+.orders-empty{
+    text-align: center;
+    color: rgb(19, 77, 2);
+    margin-top: 140px;
+}
