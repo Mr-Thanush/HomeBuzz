@@ -34,7 +34,6 @@ function ResetPassword() {
 
     dispatch(resetPassword(payload));
 
-    console.log("Reset Password Payload:", payload);
   };
 
   useEffect(() => {

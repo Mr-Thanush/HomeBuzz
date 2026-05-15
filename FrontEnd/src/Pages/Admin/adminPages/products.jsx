@@ -11,7 +11,6 @@ import '../admin.css'
  function AdminProducts() {
   const {products,loading,error}=useSelector(state=>state.admin);
   const dispatch=useDispatch();
-  console.log(products);
   
   useEffect(()=>{
     dispatch(fetchAdminProducts())

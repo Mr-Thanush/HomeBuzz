@@ -19,7 +19,6 @@ export default function OrderUpdate() {
   const {order,loading:orderLoading}=useSelector(state=>state.order);
   const {success,error,loading:sellerLoading}=useSelector(state=>state.seller);
 
-  console.log(order);
   
   const loading=orderLoading||sellerLoading;
   

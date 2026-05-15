@@ -16,7 +16,6 @@ export default function UpdateProduct() {
   const dispatch=useDispatch();
   const navigate=useNavigate()
   const {updateId}=useParams();
-  console.log(product);
   
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
