@@ -1,6 +1,6 @@
 import "./seller.css";
 import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import Sidebar from './sideBar'
 import Navbar from '../../Components/navBar'
 import PageTitle from "../../Components/pageTitle";
 import { useDispatch, useSelector } from "react-redux";

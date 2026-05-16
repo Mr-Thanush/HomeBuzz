@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Navbar from "../Components/Navbar";
+import Navbar from '../Components/navBar';
 import PageTitle from "../Components/pageTitle";
 import "../Styles/orderDetails.css";
 import { getOrderDetails, removeErrors } from "../Components/features/Orders/orderSlice";

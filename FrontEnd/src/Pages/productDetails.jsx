@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/navBar";
 import { BsBookmarkHeart } from "react-icons/bs";
 import "../Styles/productDetails.css";
 import Ratings from "../Components/ratings";

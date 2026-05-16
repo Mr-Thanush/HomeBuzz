@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import CheckOutAnimation from "./checkOutAnimation";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/navBar";
 import PageTitle from "../Components/pageTitle";
 import "../Styles/payment.css";
 import { useDispatch, useSelector } from "react-redux";

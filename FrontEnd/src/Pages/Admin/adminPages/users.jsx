@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import Navbar from "../../../Components/Navbar";
+import Navbar from "../../../Components/navBar";
 import PageTitle from "../../../Components/pageTitle";
 import { useEffect } from "react";
 import { deleteSingleUser, fetchAdminUsers, removeErrors, removeMessage } from "../../../Components/features/AdminSeller/adminSlice";

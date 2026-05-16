@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import Navbar from "../../../Components/Navbar";
+import Navbar from "../../../Components/navbar";
 import PageTitle from "../../../Components/pageTitle";
 
 export default function Dashboard() {

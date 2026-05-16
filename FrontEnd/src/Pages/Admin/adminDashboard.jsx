@@ -1,7 +1,7 @@
 import "./admin.css";
 import { Outlet } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
-import Navbar from "../../Components/Navbar";
+import Navbar from "../../Components/navBar";
 import PageTitle from "../../Components/pageTitle";
 import Dashboard from "./adminPages/dashBoard";
 import products from './adminPages/products'

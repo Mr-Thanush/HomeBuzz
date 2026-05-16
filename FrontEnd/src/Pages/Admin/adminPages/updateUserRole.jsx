@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Navbar from "../../../Components/Navbar";
+import Navbar from "../../../Components/navBar";
 import PageTitle from "../../../Components/pageTitle";
 import "../admin.css";
 import { useNavigate, useParams } from "react-router-dom";

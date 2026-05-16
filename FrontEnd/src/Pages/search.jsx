@@ -1,6 +1,6 @@
 import "../Styles/search.css";
 import React, { useEffect, useRef, useState } from "react";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/navBar";
 import { BsBookmarkHeart } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Components/loader";

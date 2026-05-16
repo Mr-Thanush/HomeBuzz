@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import CheckOutAnimation from "./checkOutAnimation";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/navBar";
 import PageTitle from "../Components/pageTitle";
 import "../Styles/orderConfirm.css";
 import {useSelector} from  "react-redux";

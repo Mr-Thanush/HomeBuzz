@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "../Styles/myOrders.css";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/navBar";
 import PageTitle from "../Components/pageTitle";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

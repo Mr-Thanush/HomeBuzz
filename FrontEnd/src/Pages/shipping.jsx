@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../Styles/shipping.css";
 import CheckOutAnimation from "./checkOutAnimation";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/navBar";
 import PageTitle from "../Components/pageTitle";
 import { City } from "country-state-city";
 import { toast } from "react-toastify";
