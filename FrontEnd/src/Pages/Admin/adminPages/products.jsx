@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import Navbar from "../../../Components/navbar";
+import Navbar from "../../../Components/navBar";
 import PageTitle from "../../../Components/pageTitle";
 import { useEffect } from "react";
 import { fetchAdminProducts } from "../../../Components/features/AdminSeller/adminSlice";
