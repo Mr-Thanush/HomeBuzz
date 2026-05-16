@@ -2,24 +2,30 @@ import { useEffect, useState } from "react";
 import Navbar from "../Components/navBar";
 import PageTitle from "../Components/pageTitle";
 import "../Styles/updateProfile.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Components/loader";
 import { toast } from "react-toastify";
-import { removeErrors, removeSuccess, updateProfile } from "../Components/features/User/userSlice";
+import { removeErrors,removeSuccess,createStore} from "../Components/features/User/userSlice";
 
-function UpdateProfile() {
+function CreateStore() { 
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [discription, setDiscription] = useState("");
+  const navigate = useNavigate();
+
+  const [storeName, setStoreName] = useState("");
+  const [storeEmail, setStoreEmail] = useState("");
+  const [description, setDescription] = useState("");
+  const [phone, setPhone] = useState("");
+  const [altPhone, setAltPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [country, setCountry] = useState("India");
   const [profilePic, setProfilePic] = useState("");
   const [profilePicPreview, setProfilePicPreview] = useState("");
-  const { loading, error, success, message, user, isAuthenticated } = useSelector(
-    (state) => state.user
-  );
-
-  const navigate = useNavigate();
+  const { loading, error, success, message, user, isAuthenticated } =
+    useSelector((state) => state.user);
 
   useEffect(() => {
     if (isAuthenticated === false) {
@@ -27,148 +33,156 @@ function UpdateProfile() {
     }
   }, [isAuthenticated, navigate]);
 
+ 
   useEffect(() => {
     if (error) {
-      toast.error(error, {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      toast.error(error);
       dispatch(removeErrors());
     }
   }, [dispatch, error]);
 
+  
   useEffect(() => {
     if (success) {
-      toast.success(message, {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      toast.success(message);
       dispatch(removeSuccess());
-      navigate("/profile")
+        if (user?.sellerInfo?.status === "pending") {
+           navigate("/profile");
+          }
     }
   }, [dispatch, success, message, navigate]);
 
-  const profilePicChange = (e) => {
-    e.preventDefault();
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setProfilePicPreview(reader.result);
-        setProfilePic(reader.result);
-      }
-    }
-
-    reader.onerror = (error) => {
-      toast.error("Error Reading File");
-    }
-    reader.readAsDataURL(file);
-
-  }
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const payload = { name, email };
-    if (profilePic) {
-      payload.profilepic = profilePic;
-    }
-    dispatch(updateProfile(payload));
-  }
-
-
+ 
   useEffect(() => {
     if (user) {
-      setName(user.name);
-      setEmail(user.email);
+      setStoreName(user.name || "");
+      setStoreEmail(user.email || "");
     }
   }, [user]);
 
+ 
+  const profilePicChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setProfilePic(reader.result);
+        setProfilePicPreview(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    if (!storeName || !storeEmail || !phone || !city || !pincode) {
+      toast.error("Please fill all required fields");
+      return;
+    }
+
+    const payload = {
+      name: storeName,
+      email: storeEmail,
+      description,
+      phone,
+      altPhone,
+      address: {
+        address,
+        city,
+        state,
+        pincode,
+        country,
+      },
+    };
+
+    if (profilePic) payload.profilepic = profilePic;
+    dispatch(createStore(payload));
+  };
   if (loading) return <Loader />;
 
   return (
     <div className="update-profile-page">
-      <PageTitle title="Update Profile - HomeBuzz" />
+      <PageTitle title="Create Store - HomeBuzz" />
       <Navbar />
 
       <div className="update-profile-container">
-        <h2>Create Store</h2>
+        <h2>Create Your Store</h2>
 
         <form className="update-profile-form" onSubmit={submitHandler}>
-          <div className="profile-image-section" >
+          {/* Logo */}
+          <div className="profile-image-section">
             <div className="profile-image">
-              {user?.profilepic?.url ? (
-                <img src={profilePicPreview || user.profilepic?.url} alt="Profile" name="profilepic" />
+              {profilePicPreview ? (
+                <img src={profilePicPreview} alt="Store Logo" />
               ) : (
-                <div className="default-avatar">👤</div>
+                <div className="default-avatar">🏪</div>
               )}
             </div>
 
             <label className="upload-btn">
-              Change Photo
+              Upload Store Logo
               <input type="file" accept="image/*" onChange={profilePicChange} />
             </label>
           </div>
 
-          {/* Form */}
-
+          {/* Store Info */}
           <div className="form-group">
-            <label>Store Name</label>
-            <input
-              type="text"
-              name="name"
-              value={name || ""}
-              onChange={(e) => setName(e.target.value)}
-            />
+            <label>Store Name *</label>
+            <input value={storeName} onChange={(e) => setStoreName(e.target.value)} />
           </div>
 
           <div className="form-group">
-            <label>Store Email Address</label>
-            <input
-              type="email"
-              name="email"
-              value={email || ""}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <label>Store Email *</label>
+            <input value={storeEmail} onChange={(e) => setStoreEmail(e.target.value)} />
           </div>
 
           <div className="form-group">
-            <label>Store Discription</label>
-            <input
-              type="text"
-              name="discription"
-              value={discription || ""}
-              onChange={(e) => setDiscription(e.target.value)}
-            />
+            <label>Store Description</label>
+            <textarea rows="3" value={description} onChange={(e) => setDescription(e.target.value)} />
+          </div>
+
+          {/* Contact */}
+          <div className="form-group">
+            <label>Phone *</label>
+            <input value={phone} onChange={(e) => setPhone(e.target.value)} />
           </div>
 
           <div className="form-group">
-            <label>Role</label>
-            <input
-              type="text"
-              name="role"
-              value="seller"
-              onChange={(e) => setDiscription(seller)}
-            />
+            <label>Alternate Phone</label>
+            <input value={altPhone} onChange={(e) => setAltPhone(e.target.value)} />
           </div>
 
-
-          <div className="updateBtns">
-            <button type="submit" className="save-btn">
-              Save Changes
-            </button>
-
-            <Link to="/password/update" className="updatePasswordBtn">
-              <button type="button" className="changePass-btn">
-                Update Password
-              </button>
-            </Link>
+          {/* Address */}
+          <div className="form-group">
+            <label>Address</label>
+            <textarea rows="2" value={address} onChange={(e) => setAddress(e.target.value)} />
           </div>
+
+          <div className="form-group">
+            <label>City *</label>
+            <input value={city} onChange={(e) => setCity(e.target.value)} />
+          </div>
+
+          <div className="form-group">
+            <label>State</label>
+            <input value={state} onChange={(e) => setState(e.target.value)} />
+          </div>
+
+          <div className="form-group">
+            <label>Pincode *</label>
+            <input value={pincode} onChange={(e) => setPincode(e.target.value)} />
+          </div>
+
+          <button type="submit" className="save-btn">
+            Create Store
+          </button>
         </form>
       </div>
     </div>
   );
 }
 
-export default UpdateProfile;
+export default CreateStore;

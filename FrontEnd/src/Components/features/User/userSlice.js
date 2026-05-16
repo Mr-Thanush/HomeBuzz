@@ -96,6 +96,24 @@ export const updateProfile=createAsyncThunk('user/updateProfile',async(userData,
   }
 })
 
+/* Create Store*/
+export const createStore = createAsyncThunk(
+  "user/createStore",
+  async (storeData, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.put(
+        "/api/v1/seller/create",
+        storeData,
+        { withCredentials: true }
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message);
+    }
+  }
+);
+
+
 /* updatePassword */
 export const updatePassword=createAsyncThunk('user/updatePassword',async(passwordData,{ rejectWithValue })=>{
   try {
@@ -135,7 +153,6 @@ export const forgotPassword=createAsyncThunk('user/forgotPassword',async({email}
 })
 
 /* ResetPassword */
-
 export const resetPassword=createAsyncThunk('user/resetPassword',async({token,password,confirmPassword},{ rejectWithValue })=>{
   try {
     const config={
@@ -168,6 +185,7 @@ const userSlice = createSlice({
     success: false,
     isAuthenticated: localStorage.getItem("isAuthenticated")==="true",
     message:null,
+    
   },
   reducers: {
     removeErrors: (state) => {
@@ -224,6 +242,28 @@ const userSlice = createSlice({
         state.error = action.payload;
         state.user = null;
         state.isAuthenticated = false;
+      });
+
+      //createStore
+      builder
+      .addCase(createStore.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createStore.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.success = action.payload.success;
+        state.message = action.payload.message || null;
+        state.user = action.payload.user || state.user;
+        state.isAuthenticated = Boolean(state.user);
+
+        localStorage.setItem("user", JSON.stringify(state.user));
+        localStorage.setItem("isAuthenticated", JSON.stringify(state.isAuthenticated));
+      })
+      .addCase(createStore.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || "Failed To Create Store";
       });
 
       //load
@@ -283,7 +323,7 @@ const userSlice = createSlice({
       .addCase(updateProfile.fulfilled, (state, action) => {
         state.loading = false;
         state.error=null;
-        state.user = action.payload?.user || null;
+        state.user = action.payload.user
         state.success = action.payload?.success || null;
         state.message = action.payload?.message || null;
 

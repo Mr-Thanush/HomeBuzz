@@ -34,6 +34,7 @@ import AllReviews from "./Pages/Seller/sellerPages/allReviews.jsx";
 import UpdateProduct from "./Pages/Seller/sellerPages/updateProduct.jsx";
 import UpdateUserRole from "./Pages/Admin/adminPages/updateUserRole.jsx";
 import OrderUpdate from "./Pages/Seller/sellerPages/updateOrder.jsx";
+import CreateStore from "./Pages/createStore.jsx";
 
 
 function App() {
@@ -67,21 +68,24 @@ function App() {
         <Route path="/user/orders" element={<MyOrders />} />
         <Route path="/order/:orderId" element={<OrderDetails />} />
         {/* Admin */}
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/dashboard" element={<Dashboard/>} />
-         <Route path="/admin/products" element={<AdminProducts/>} />
-          <Route path="/admin/users" element={<Users/>} />
-           <Route path="/admin/user/:userId" element={<UpdateUserRole/>} /> 
-           <Route path="/admin/sellers/request" element={<SellerRequests/>} />
-           {/* Seller */}
-           <Route path="/seller" element={<SellerDashboard />} />
-            <Route path="/seller/product/create" element={<CreateProduct />} />
-            <Route path="/seller/buyers" element={<AllBuyers />} />
-            <Route path="/seller/orders" element={<AllOrders/>} />
-            <Route path="/seller/order/:orderId" element={<OrderUpdate/>} />
-             <Route path="/seller/products" element={<SellerAllProducts/>} />
-             <Route path="/seller/Reviews" element={<AllReviews/>} />
-             <Route path="/seller/product/:updateId" element={<UpdateProduct/>} />
+        <Route path="/admin" element={<AdminDashboard />}>
+          <Route index element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="users" element={<Users />} />
+          <Route path="user/:userId" element={<UpdateUserRole />} />
+          <Route path="sellers/request" element={<SellerRequests />} />
+        </Route>
+        {/* Seller */}
+        <Route path="/createstore" element={<CreateStore />} />
+        <Route path="/seller" element={<SellerDashboard />} />
+        <Route path="/seller/product/create" element={<CreateProduct />} />
+        <Route path="/seller/buyers" element={<AllBuyers />} />
+        <Route path="/seller/orders" element={<AllOrders />} />
+        <Route path="/seller/order/:orderId" element={<OrderUpdate />} />
+        <Route path="/seller/products" element={<SellerAllProducts />} />
+        <Route path="/seller/Reviews" element={<AllReviews />} />
+        <Route path="/seller/product/:updateId" element={<UpdateProduct />} />
 
 
 

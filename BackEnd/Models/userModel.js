@@ -36,8 +36,30 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
+        enum: ["user", "seller", "admin"],
         default: "user"
     },
+    sellerInfo: {
+       storeName: String,
+       description: String,
+       phone: String,
+
+  address: {
+    address: String,
+    city: String,
+    state: String,
+    pincode: String,
+    country: {
+      type: String,
+      default: "India"
+    }
+  },
+  status: {
+    type: String,
+    enum: ["pending", "approved", "rejected"],
+    default: "pending"
+  }
+},
     resetPasswordToken: String,
     resetPasswordExpire: Date
 

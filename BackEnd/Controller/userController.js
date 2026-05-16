@@ -268,6 +268,11 @@ export const adminSingleUser=handleAsyncError(async(req,res,next)=>{
 //CHANGE USER ROLE BY ADMIN
 export const adminUpdateUserRole=handleAsyncError(async(req,res,next)=>{
     const {role}=req.body;
+
+   if(!["user","seller","admin"].includes(role)){
+    return next(new handleError("Invalid role value",400))
+   }
+
     const newUserData={
         role
     }
@@ -294,7 +299,7 @@ export const adminDeleteUser=handleAsyncError(async(req,res,next)=>{
         return next(new handleError("User Does Not Exist",400));
     }
 
-     if (user.avatar && user.avatar.public_id) {
+     if (user.profilepic?.public_id) {
     await cloudinary.uploader.destroy(user.avatar.public_id);
   }
 
@@ -307,3 +312,86 @@ export const adminDeleteUser=handleAsyncError(async(req,res,next)=>{
 })
 
 
+//Become Seller
+export const becomeSeller = handleAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) return next(new handleError("User not found", 404));
+
+  if (user.role === "seller") {
+    return next(new handleError("Seller request already submitted", 400));
+  }
+
+  user.role = "seller";
+  user.sellerInfo = {
+    storeName: req.body.name,
+    description: req.body.description,
+    phone: req.body.phone,
+    altPhone: req.body.altPhone,
+    address: req.body.address,
+    status: "pending",
+  };
+
+  await user.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    message: "Store created. Await admin approval.",
+    user,
+  });
+});
+
+// Get pending seller requests for admin
+export const getSellerRequests = handleAsyncError(async (req, res, next) => {
+  const requests = await User.find({ "sellerInfo.status": "pending" }).select("name email sellerInfo");
+
+  res.status(200).json({
+    success: true,
+    requests,
+  });
+});
+
+// Approve seller request
+export const approveSellerRequest = handleAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user || !user.sellerInfo) {
+    return next(new handleError("Seller request not found", 404));
+  }
+
+  if (user.sellerInfo.status !== "pending") {
+    return next(new handleError("Seller request is not pending", 400));
+  }
+
+  user.role = "seller";
+  user.sellerInfo.status = "approved";
+  await user.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    message: "Seller request approved",
+    user,
+  });
+});
+
+// Reject seller request
+export const rejectSellerRequest = handleAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user || !user.sellerInfo) {
+    return next(new handleError("Seller request not found", 404));
+  }
+
+  if (user.sellerInfo.status !== "pending") {
+    return next(new handleError("Seller request is not pending", 400));
+  }
+
+  user.role = "user";
+  user.sellerInfo.status = "rejected";
+  await user.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+    success: true,
+    message: "Seller request rejected",
+    user,
+  });
+});

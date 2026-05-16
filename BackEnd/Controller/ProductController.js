@@ -159,7 +159,7 @@ export const adminProducts = handleAsyncError(async (req, res, next) => {
 
 //GET ALL PRODUCT FOR SELLER
 export const sellerProducts=handleAsyncError(async(req,res,next)=>{
-    const products=await Product.find();
+    const products=await Product.find({ user: req.user.id });
     
     res.status(200).json({
         success: true,

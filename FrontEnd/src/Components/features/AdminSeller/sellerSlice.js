@@ -174,9 +174,6 @@ export const deleteProductReview = createAsyncThunk(
 
 
 
-
-
-
 const sellerSlice=createSlice({
     name:"seller",
     initialState:{

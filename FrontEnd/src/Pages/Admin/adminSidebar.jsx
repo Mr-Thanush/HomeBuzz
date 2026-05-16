@@ -5,8 +5,9 @@ export default function AdminSidebar() {
     <aside className="admin-sidebar">
       <h2 className="admin-logo">Admin Panel</h2>
       <nav className="admin-nav">
-        <NavLink to="products">Products</NavLink>
-        <NavLink to="users">Users</NavLink>
+        <NavLink to="/admin/dashboard">Dashboard</NavLink>
+        <NavLink to="/admin/products">Products</NavLink>
+        <NavLink to="/admin/users">Users</NavLink>
         <NavLink to="/admin/sellers/request" className="navLinkBig">Seller Requests</NavLink>
       </nav>
     </aside>
