@@ -99,3 +99,87 @@ p .signinLink {
    color: #014f01;
    font-weight: 700;
 }
+
+@media (min-width: 768px) {
+
+  .register-container {
+    padding: 2rem;
+  }
+
+  .register-card {
+    max-width: 480px;
+    padding: 3rem;
+    border-radius: 18px;
+  }
+
+  .register-card h1 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .register-card .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  label {
+    font-size: 0.95rem;
+  }
+
+  input {
+    padding: 13px;
+    font-size: 1rem;
+    right: 0;
+  }
+
+  .registerBtn {
+    padding: 14px;
+    font-size: 1.05rem;
+  }
+
+  .haveAccount {
+    text-align: center;
+    margin-top: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .register-container {
+    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+  }
+
+  .register-card {
+    max-width: 540px;
+    padding: 3.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 45px rgba(0, 128, 0, 0.2);
+  }
+
+  .register-card h1 {
+    font-size: 1.75rem;
+  }
+
+  .register-card .subtitle {
+    font-size: 1.25rem;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+
+  input {
+    padding: 14px;
+    border-radius: 8px;
+  }
+
+  .registerBtn {
+    padding: 15px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+  }
+
+  .haveAccount p {
+    font-size: 0.95rem;
+  }
+}

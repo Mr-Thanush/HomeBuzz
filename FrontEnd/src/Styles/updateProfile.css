@@ -144,3 +144,126 @@
   width:300px;
   text-decoration: none;
 }
+
+
+@media (min-width: 768px) {
+
+  
+  .update-password-page,
+  .update-profile-page,
+  .register-container {
+    padding: 40px;
+    align-items: flex-start;
+  }
+ 
+  
+  .update-password-card,
+  .update-profile-container,
+  .register-card {
+    max-width: 520px;
+    margin: auto;
+    padding: 28px;
+  }
+
+  /* Headings */
+  .update-password-card h2,
+  .update-profile-container h2,
+  .register-card h1 {
+    font-size: 22px;
+  }
+
+  /* Inputs */
+  input,
+  .form-group input,
+  .input-group input {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  
+  button,
+  .save-btn,
+  .changePass-btn,
+  .registerBtn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  /* Profile image */
+  .profile-image {
+    width: 130px;
+    height: 130px;
+  }
+
+  .updateBtns {
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .update-password-page,
+  .update-profile-page,
+  .register-container {
+    background: #eff9ed; 
+    align-items: center;
+  }
+
+  
+  .update-password-card,
+  .update-profile-container,
+  .register-card {
+    max-width: 680px;
+    padding: 36px 40px;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+  }
+
+
+  .update-password-card h2,
+  .update-profile-container h2,
+  .register-card h1 {
+    font-size: 24px;
+  }
+
+  
+  .subtitle {
+    font-size: 14px;
+  }
+
+  
+  .update-profile-form {
+    gap: 20px;
+  }
+
+  /* Inputs */
+  input,
+  .form-group input,
+  .input-group input {
+    font-size: 15px;
+    padding: 13px 16px;
+  }
+
+ 
+  button,
+  .save-btn,
+  .changePass-btn,
+  .registerBtn {
+    font-size: 15px;
+    padding: 13px;
+    border-radius: 8px;
+  }
+
+ 
+  .updateBtns {
+    justify-content: space-between;
+    max-width: 420px;
+    margin: auto;
+  }
+
+  
+  .profile-image {
+    width: 150px;
+    height: 150px;
+  }
+}

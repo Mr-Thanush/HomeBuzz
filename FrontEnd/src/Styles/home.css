@@ -14,7 +14,7 @@
   z-index: 10;
   background: linear-gradient(180deg, var(--Background));
   padding-bottom: 0.6rem;
-}
+} 
 
 .home-search input {
   width: 100%;
@@ -162,4 +162,152 @@
 
 .category-card:active {
   transform: scale(0.97);
+}
+
+@media (min-width: 768px) {
+
+  .home-container {
+    padding: 1.5rem;
+  }
+
+  /* Search */
+  .home-search {
+    width: 60%;
+  }
+
+  .home-search input {
+    font-size: 0.95rem;
+    padding: 14px;
+  }
+
+  /* Section heading */
+  .home-section h2 {
+    font-size: 1.4rem;
+  }
+
+  /* Product cards */
+  .horizontal-scroll {
+    gap: 1rem;
+  }
+
+  .product-card {
+    width: 200px;
+    height: 38vh;
+  }
+
+  .product-card img {
+    height: 52%;
+  }
+
+  .product-name {
+    font-size: 1rem;
+  }
+
+  .product-description {
+    font-size: 0.8rem;
+  }
+
+  .product-price {
+    font-size: 1rem;
+  }
+
+  /* Categories */
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+  }
+
+  .category-card {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+}
+
+
+@media (min-width: 1200px) {
+
+  /* Layout */
+  .home-container {
+    padding: 2.5rem 4rem;
+    background: linear-gradient(180deg, var(--Background), #ffffff);
+  }
+
+  /* Search */
+  .home-search {
+    width: 40%;
+    margin-bottom: 2rem;
+  }
+
+  .home-search input {
+    font-size: 1rem;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  /* Sections */
+  .home-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .home-section h2 {
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Horizontal product list → desktop feel */
+  .horizontal-scroll {
+    gap: 1.4rem;
+    padding-bottom: 12px;
+  }
+
+  .product-card {
+    width: 240px;
+    height: 42vh;
+    border-radius: 14px;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .product-card img {
+    height: 55%;
+    border-radius: 12px;
+  }
+
+  .productDetails {
+    padding: 0.75rem;
+  }
+
+  .product-name {
+    font-size: 1.1rem;
+  }
+
+  .product-description {
+    font-size: 0.85rem;
+  }
+
+  .product-price {
+    font-size: 1.05rem;
+  }
+
+  .product-ratings {
+    font-size: 12px;
+  }
+
+  /* Categories */
+  .category-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+
+  .category-card {
+    font-size: 1rem;
+    padding: 1.2rem;
+    border-radius: 14px;
+  }
+
+  .category-card:hover {
+    transform: translateY(-4px);
+  }
 }

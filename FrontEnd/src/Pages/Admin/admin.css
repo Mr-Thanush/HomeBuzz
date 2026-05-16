@@ -1,14 +1,14 @@
 
 :root {
-  --green: #2e7d32;
-  --green-soft: #e8f5e9;
+  --green: var(--Primary);
+  --green-soft: var(--Accent);
   --danger: #dc2626;
   --warning: #f59e0b;
   --gray-900: #111827;
   --gray-700: #374151;
   --gray-500: #6b7280;
   --gray-300: #d1d5db;
-  --bg: #f9fafb;
+  --bg: var(--Background);
   --white: #ffffff;
   --radius: 10px;
 }
@@ -315,6 +315,137 @@ button.danger {
 
 .updateBtn:active {
   transform: scale(0.98);
+}
+
+@media (min-width: 768px) {
+
+  .admin-layout {
+    flex-direction: row;
+  }
+
+  .admin-sidebar {
+    width: 220px;
+    min-height: 100vh;
+    padding: 1.2rem;
+    position: fixed;
+    left: 0;
+    top: 60px;
+  }
+
+  .admin-nav {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .admin-content {
+    margin-left: 220px;
+    padding: 1.5rem;
+  }
+
+  .admin-page h1 {
+    font-size: 1.4rem;
+  }
+
+  .admin-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .admin-card h2 {
+    font-size: 1.6rem;
+  }
+
+  .admin-table {
+    gap: 0;
+  }
+
+  .admin-row {
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+  }
+
+  .buttonsProducts {
+    justify-content: flex-end;
+    gap: 20px;
+  }
+
+  /* Update user */
+
+  .updateUserCard {
+    max-width: 480px;
+    padding: 28px;
+  }
+
+  .updateUserTitle {
+    font-size: 1.8rem;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .admin-sidebar {
+    width: 260px;
+    padding: 1.5rem;
+  }
+
+  .admin-content {
+    margin-left: 260px;
+    padding: 2rem;
+  }
+
+  .admin-logo {
+    font-size: 1.5rem;
+  }
+
+  .admin-nav a {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .admin-page h1 {
+    font-size: 1.6rem;
+  }
+
+  .admin-cards {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+
+  .admin-card {
+    padding: 1.2rem;
+  }
+
+  .admin-card h2 {
+    font-size: 1.8rem;
+  }
+
+  .admin-row {
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+    padding: 1rem 1.2rem;
+  }
+
+  .admin-row span {
+    font-size: 0.95rem;
+  }
+
+  button {
+    font-size: 0.85rem;
+  }
+
+  
+
+  .updateUserCard {
+    max-width: 520px;
+    padding: 32px;
+  }
+
+  .updateUserTitle {
+    font-size: 2rem;
+  }
+
+  .updateUserSub {
+    font-size: 1rem;
+  }
 }
 
 

@@ -1,14 +1,8 @@
 :root {
-  --green: #2e7d32;
-  --green-light: #e8f5e9;
-  --text-dark: #1f2933;
+  --green: var(--Primary);
+  --green-light: var(--Background);
+  --text-dark: var(--Text);
   --border: #d1d5db;
-}
-
-
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
 }
 
 
@@ -512,7 +506,7 @@ b{
 }
 
 /* reviews */
-/* Layout */
+
 .reviews-layout {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -593,7 +587,6 @@ b{
   font-weight: 600;
 }
 
-/* Reviews */
 
 .reviews-accordion {
   padding: 16px;
@@ -687,4 +680,286 @@ b{
   width: 50px;
   background: none;
   
+}
+
+@media (min-width: 768px) {
+
+  /* Layout */
+  .seller-layout {
+    flex-direction: row;
+  }
+
+  /* Sidebar */
+  .seller-sidebar {
+    width: 220px;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 60px;
+    padding: 1rem;
+  }
+
+  .seller-nav {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .seller-nav a {
+    font-size: 0.85rem;
+    padding: 0.45rem 0.6rem;
+  }
+
+  /* Content */
+  .seller-content {
+    margin-left: 220px;
+    padding: 1.5rem;
+  }
+
+  /* Forms */
+  .seller-form {
+    width: 70%;
+  }
+
+  /* Create product */
+  .seller-page.create-product {
+    margin-top: 40px;
+  }
+
+  .Prev-Img {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Orders */
+  .seller-card {
+    padding: 1.2rem;
+  }
+
+  .ordersBtns {
+    gap: 24px;
+  }
+
+  /* Update order */
+  .orderCard {
+    max-width: 480px;
+    padding: 24px;
+  }
+
+  .orderTitle {
+    font-size: 24px;
+  }
+
+  /* Reviews */
+  .reviews-layout {
+    grid-template-columns: 240px 1fr;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .product-tabs {
+    display: none;
+  }
+
+  .reviews-accordion {
+    margin-top: 60px;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  /* ===== LAYOUT ===== */
+  .seller-layout {
+    flex-direction: row;
+    background: #f4f6f8;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .seller-sidebar {
+    width: 280px;
+    min-height: 100vh;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    padding: 1.5rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .seller-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .seller-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .seller-nav a {
+    padding: 0.7rem 1rem;
+    font-size: 0.95rem;
+    border-radius: 10px;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+
+  .seller-nav a:hover {
+    transform: translateX(4px);
+  }
+
+  /* ===== CONTENT ===== */
+  .seller-content {
+    margin-left: 280px;
+    padding: 2.2rem 2.5rem;
+    max-width: calc(100% - 280px);
+  }
+
+  .seller-page {
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .seller-page h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ===== FORMS (CREATE / UPDATE) ===== */
+  .seller-form {
+    width: 65%;
+    margin: 0;
+    padding: 2rem;
+    border-radius: 16px;
+  }
+
+  .seller-form label {
+    font-size: 0.9rem;
+  }
+
+  .seller-form input,
+  .seller-form select,
+  .seller-form textarea {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+  }
+
+  .seller-form button {
+    font-size: 1.05rem;
+    padding: 0.9rem;
+  }
+
+  /* ===== IMAGE PREVIEW ===== */
+  .Prev-Img {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.8rem;
+  }
+
+  .sellerPrevImg {
+    width: 95px;
+    height: 95px;
+  }
+
+  /* ===== PRODUCT ACTION BUTTONS ===== */
+  .sellerUpdateProducts,
+  .sellerDeleteProducts {
+    max-width: 260px;
+    margin-top: 1rem;
+  }
+
+  /* ===== ORDERS LIST ===== */
+  .seller-card {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.4rem 1.6rem;
+  }
+
+  .seller-card p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .ordersBtns {
+    justify-content: flex-end;
+    gap: 16px;
+  }
+
+  .orderBtn {
+    width: 90px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+
+  /* ===== UPDATE ORDER PAGE ===== */
+  .orderUpdatePage {
+    align-items: center;
+    
+  }
+
+  .orderCard {
+    max-width: 560px;
+    padding: 32px;
+   
+  }
+
+  .orderTitle {
+    font-size: 26px;
+  }
+
+  .orderItems {
+    font-size: 12px;
+  }
+
+  
+  .reviews-layout {
+    grid-template-columns: 320px 1fr;
+    padding: 2.2rem;
+    gap: 2rem;
+  }
+
+  .products-panel,
+  .reviews-panel {
+    padding: 1.6rem;
+  }
+
+  .panel-title {
+    font-size: 17px;
+  }
+
+  .product-item {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  /* Accordion reviews */
+  .reviews-accordion {
+    margin-top:50px;
+
+  }
+
+  .product-block {
+    border-radius: 16px;
+  }
+
+  .product-header {
+    padding: 1.2rem 1.4rem;
+    font-size: 1rem;
+  }
+
+  .review-card {
+    padding: 1rem;
+  }
+
+  .review-text {
+    font-size: 0.95rem;
+  }
+  
+  .noOrders,
+  .noProducts {
+    font-size: 1.1rem;
+    margin-top: 160px;
+  }
 }

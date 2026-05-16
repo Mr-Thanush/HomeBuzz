@@ -117,10 +117,128 @@
   box-shadow: 0 6px 14px rgba(46, 125, 50, 0.3);
 }
 
-/* Tablet & Desktop */
 @media (min-width: 768px) {
+
+ .confirm-page {
+    max-width: 520px;
+    margin: 20px auto;
+    padding: 2rem 2.5rem;
+  }
+
+  .animation {
+    margin-top: 90px;
+  }
+
+  .confirm-card {
+    padding: 1.4rem;
+    border-radius: 16px;
+  }
+
+  .confirm-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .confirm-info p {
+    font-size: 0.95rem;
+  }
+
+  .confirm-item {
+    grid-template-columns: 60px 1fr auto;
+    gap: 0.8rem;
+  }
+
+  .confirm-item img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .item-name {
+    font-size: 0.95rem;
+  }
+
+  .item-meta {
+    font-size: 0.8rem;
+  }
+
+  .item-total {
+    font-size: 0.9rem;
+  }
+
+  .summary-row,
+  .summary-total {
+    font-size: 0.95rem;
+  }
+
+  .confirm-btn {
+    padding: 0.85rem;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1200px) {
+
   .confirm-page {
-    max-width: 720px;
-    margin: auto;
+    max-width: 520px;
+    margin: 20px auto;
+    padding: 2rem 2.5rem;
+  }
+
+  .animation {
+    margin-top: 110px;
+  }
+
+  .animation-progress{
+    margin-top: -12px;
+  }
+
+  .confirm-card {
+    padding: 1.8rem 2rem;
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  }
+
+  .confirm-title {
+    font-size: 1.3rem;
+  }
+
+  .confirm-info p {
+    font-size: 1rem;
+  }
+
+  .confirm-item {
+    grid-template-columns: 70px 1fr auto;
+    gap: 1rem;
+  }
+
+  .confirm-item img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .item-name {
+    font-size: 1rem;
+  }
+
+  .item-meta {
+    font-size: 0.85rem;
+  }
+
+  .item-total {
+    font-size: 0.95rem;
+  }
+
+  .summary-row,
+  .summary-total {
+    font-size: 1rem;
+  }
+
+  .confirm-btn {
+    max-width: 420px;
+    margin: 1.2rem auto 0;
+    display: block;
+    padding: 1rem;
+    font-size: 1.05rem;
+    border-radius: 12px;
   }
 }

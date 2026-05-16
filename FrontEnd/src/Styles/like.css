@@ -245,3 +245,183 @@
   padding: 10px;
   margin-left: 110px;
 }
+
+
+@media (min-width: 768px) {
+  .ll-page {
+    padding: 1.5rem 2rem;
+    margin-bottom: 120px;
+  }
+
+  .ll-heading {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .ll-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
+
+  .ll-card {
+    height: 180px;
+    grid-template-columns: 1fr 2.2fr 0.6fr;
+    gap: 10px;
+  }
+
+  .ll-image {
+    height: 100%;
+    width: 100%;
+  }
+
+  .ll-content h3 {
+    font-size: 1rem;
+  }
+
+  .ll-content p {
+    font-size: 0.85rem;
+  }
+
+  .ll-content p:nth-last-child(2) {
+    font-size: 1rem;
+  }
+
+  .llQuantity button {
+    width: 26px;
+    height: 26px;
+  }
+
+  .llQuantity input {
+    width: 26px;
+    height: 26px;
+    font-size: 14px;
+    top: 0;
+  }
+
+  .checkOutDiv {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    padding: 1rem 1.2rem;
+  }
+
+  .checkout-btn {
+    height: 48px;
+    font-size: 1rem;
+  }
+
+  .ll-actions{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
+
+@media (min-width: 1024px) {
+  .ll-page {
+    max-width: 1200px;
+    margin: 80px auto 140px;
+    padding: 2rem 0;
+  }
+
+  .ll-heading {
+    font-size: 2.2rem;
+  }
+
+  .ll-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .ll-card {
+    height: 150px;
+    border-radius: 18px;
+    gap: 10px;
+  }
+
+  .ll-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(27, 94, 32, 0.2);
+  }
+
+  .ll-content {
+    padding: 1rem 0;
+  }
+
+  .ll-content h3 {
+    font-size: 1.1rem;
+  }
+
+  .ll-content p {
+    font-size: 0.9rem;
+  }
+
+  .ll-content p:nth-last-child(2) {
+    font-size: 1.1rem;
+  }
+
+  .llQuantity {
+    gap: 8px;
+  }
+
+  .llQuantity button {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    text-align: center;
+
+  }
+
+  .llQuantity input {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    position: relative;
+    top: 14px;
+  }
+
+  .checkOutDiv {
+    width: 420px;
+    right: 40px;
+    left: auto;
+    bottom: 30px;
+    border-radius: 18px;
+  }
+
+  .checkout-summary {
+    padding: 1rem;
+  }
+
+  .summary-title {
+    font-size: 1.05rem;
+  }
+
+  .summary-row {
+    font-size: 0.9rem;
+  }
+
+  .summary-total {
+    font-size: 1.05rem;
+  }
+
+  .checkout-btn {
+    height: 52px;
+    font-size: 1.05rem;
+  }
+
+  .nullProducts {
+    margin-top: 200px;
+  }
+
+  .toHome {
+    margin-left: 0;
+    display: inline-block;
+  }
+
+  .ll-actions{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+}

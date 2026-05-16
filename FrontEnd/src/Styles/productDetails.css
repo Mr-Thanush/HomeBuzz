@@ -354,3 +354,172 @@ button {
   font-weight: 600;
   box-shadow: 0 10px 25px rgba(9, 134, 0, 0.903);
 }
+
+
+
+@media (min-width: 768px) {
+  .productActions{
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .productContainer {
+    height: auto;
+    margin-top: 90px;
+    padding: 24px;
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  /* Image section */
+  .productImage {
+    width: 45%;
+    height: auto;
+  }
+
+  .ProductImg {
+    height: 320px;
+    max-height: 320px;
+  }
+
+  /* Details section */
+  .productDetails {
+    width: 55%;
+    gap: 6px;
+  }
+
+  .productName {
+    font-size: 24px;
+  }
+
+  .productDiscription {
+    font-size: 14px;
+  }
+
+  .productPrice {
+    font-size: 24px;
+  }
+
+
+  .productQuantity,
+  .productStock {
+    margin-top: 0px;
+  }
+
+  /* Buy buttons → inline */
+  .buyButton,
+  .WhatsAppButton {
+    position: static;
+    width: 100%;
+    margin-top: 16px;
+  }
+
+  /* Reviews container */
+  .productContainer2 {
+    margin-top: 24px;
+    padding: 24px;
+  }
+
+  .reviewsCard {
+    flex-direction: column;
+    gap: 16px;
+    overflow: visible;
+  }
+
+  .review {
+    width: 100%;
+    padding: 20px;
+    left: 0;
+  }
+}
+
+
+
+@media (min-width: 1024px) {
+
+  .productContainer {
+    max-width: 1200px;
+    margin: 100px auto 0;
+    padding: 32px;
+    border-radius: 16px;
+  }
+
+  
+  .productImage {
+    width: 40%;
+  }
+
+  .ProductImg {
+    height: 380px;
+    max-height: 380px;
+  }
+
+ 
+  .productDetails {
+    width: 60%;
+  }
+
+  .productBrand {
+    font-size: 10px;
+  }
+
+  .productName {
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .productDiscription {
+    font-size: 15px;
+    max-width: 90%;
+  }
+
+  .productPrice {
+    font-size: 26px;
+  }
+
+  .originalPrice {
+    font-size: 15px;
+  }
+
+  
+  .quantity-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  
+  .productFullDetails {
+    font-size: 14px;
+    padding: 18px;
+  }
+
+  /* Reviews */
+  .productContainer2 {
+    max-width: 1200px;
+    margin: 40px auto 120px;
+    padding: 32px;
+  }
+
+  .reviewsCard {
+    gap: 20px;
+  }
+
+  .review {
+    padding: 24px;
+  }
+
+  .reviewerName {
+    font-size: 15px;
+  }
+
+  .reviewDiscription {
+    font-size: 14px;
+  }
+
+  /* Buttons */
+  button {
+    font-size: 16px;
+    padding: 14px;
+  }
+}

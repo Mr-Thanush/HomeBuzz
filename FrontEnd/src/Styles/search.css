@@ -226,3 +226,138 @@
   background-color: #7f8c8d;
   color: #fff;
 }
+
+@media (min-width: 768px) {
+
+  .search-page {
+    padding: 2rem;
+  }
+
+  .search-bar {
+    max-width: 500px;
+  }
+
+  .search-bar input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 14px 18px;
+  }
+
+  .results-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-left: 0;
+  }
+
+  .result {
+    width: 100%;
+    height: auto;
+    padding: 12px;
+  }
+
+  .result .resultImage {
+    width: 45%;
+    height: 160px;
+  }
+
+  .result .resultDetails {
+    width: 55%;
+    padding: 10px;
+  }
+
+  .resultDescription .resultName {
+    font-size: 18px;
+  }
+
+  .resultDescription .resultPrice {
+    font-size: 18px;
+  }
+
+  .resultDetails .resultActions {
+    height: auto;
+    padding: 6px;
+  }
+}
+
+
+
+@media (min-width: 1024px) {
+  .search-page {
+    max-width: 1400px;
+    margin: 60px auto 0;
+    padding: 2.5rem;
+  }
+
+  .search-bar {
+    max-width: 620px;
+    margin-bottom: 0.3rem;
+  }
+
+  .results-list {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;
+  }
+
+  .result {
+    flex-direction: column;
+    height: 50%;
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .result:hover {
+    transform: translateY(-6px);
+  }
+
+  .result .resultImage {
+    width: 100%;
+    height: 220px;
+    object-fit: contain;
+  }
+
+  .result .resultDetails {
+    width: 100%;
+    height: auto;
+    padding: 14px;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .resultDescription {
+    text-align: left;
+  }
+
+  .resultDescription .resultBrand {
+    text-align: left;
+    font-size: 11px;
+    bottom: 0;
+  }
+
+  .resultDescription .resultName {
+    font-size: 18px;
+    bottom: 0;
+  }
+
+  .resultDescription .resultDiscription {
+    font-size: 12px;
+    bottom: 0;
+  }
+
+  .resultDescription .resultPrice {
+    font-size: 20px;
+    bottom: 0;
+  }
+
+  .resultDescription .resultStock {
+    bottom: 0;
+    margin-top: 6px;
+  }
+
+  .resultDetails .resultActions {
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px;
+    gap: 40px;
+  }
+}

@@ -9,7 +9,7 @@ import { getProduct, removeErrors } from "../Components/features/Products/produc
 import Loader from "../Components/loader";
 import { toast } from "react-toastify";
 
-function Home() {
+function Home() { 
   const { loading, error, products } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const navigate = useNavigate();

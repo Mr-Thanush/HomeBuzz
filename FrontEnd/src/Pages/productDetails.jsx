@@ -5,7 +5,7 @@ import "../Styles/productDetails.css";
 import Ratings from "../Components/ratings";
 import { useDispatch, useSelector } from "react-redux";
 import {createReview,getProductDetails,removeErrors,removeSuccess} from "../Components/features/Products/productSlice";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "../Components/loader";
 import PageTitle from "../Components/pageTitle";
@@ -291,7 +291,7 @@ function ProductDetails() {
 
       <div>
         <div className="WhatsAppButton">What's App 💬</div>
-        <div className="buyButton">Buy Now</div>
+       <Link to='/signin?redirect=/shipping'> <div className="buyButton">Buy Now</div></Link>
       </div>
     </div>
   );

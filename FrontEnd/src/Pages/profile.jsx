@@ -57,7 +57,7 @@ function Profile({user}) {
         </p> */}
       </div>
 
-      {/* Menu Section */}
+  
       <div className="profile-menu">
         <ProfileItem icon={<HiOutlineCog6Tooth />} label="Settings" />
        <Link to="/user/orders" className="userOrder"><ProfileItem icon={<HiOutlineShoppingBag />}label="Order Details" /></Link>
@@ -75,7 +75,7 @@ function Profile({user}) {
         />)}
       </div>
 
-      {/* Logout */}
+
       <button className="logout-btn" onClick={handleLogout}>
         <HiArrowRightOnRectangle size={18} />
         Sign Out

@@ -214,13 +214,14 @@ function Search() {
             })}
 
           {/* PAGINATION */}
-          {hasSearched && pages > 1 && (
+          
+        </div>
+        {hasSearched && pages > 1 && (
             <Pagination
               currentPage={currentPage}
               onPageChange={handlePageChange}
             />
           )}
-        </div>
       </div>
     </>
   );

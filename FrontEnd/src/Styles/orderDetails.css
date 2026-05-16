@@ -111,3 +111,105 @@
   color:var(--success);
   font-weight: 600;
 }
+
+@media (min-width: 768px) {
+
+  .order-details-page {
+    padding: 1.5rem 2rem;
+    gap: 1.2rem;
+  }
+
+  .order-section {
+    padding: 1.3rem 1.4rem;
+    border-radius: 14px;
+  }
+
+  .order-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .status-badge {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.9rem;
+  }
+
+  .items-list {
+    gap: 0.9rem;
+  }
+
+  .item-name {
+    font-size: 0.95rem;
+  }
+
+  .item-qty {
+    font-size: 0.8rem;
+  }
+
+  .item-price {
+    font-size: 0.95rem;
+  }
+
+  .price-box div {
+    font-size: 0.9rem;
+  }
+
+  .price-total {
+    font-size: 1rem;
+  }
+}
+
+
+
+@media (min-width: 1200px) {
+
+  .order-details-page {
+    max-width: 920px;
+    margin: 60px auto;
+    padding: 2rem 2.5rem;
+    gap: 1.6rem;
+  }
+
+  .order-section {
+    padding: 1.6rem 1.8rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .order-section h2 {
+    font-size: 1.25rem;
+  }
+
+  .status-badge {
+    font-size: 0.85rem;
+    padding: 0.45rem 1rem;
+  }
+
+  .items-list {
+    gap: 1rem;
+  }
+
+  .item-row {
+    padding-bottom: 0.7rem;
+  }
+
+  .item-name {
+    font-size: 1rem;
+  }
+
+  .item-qty {
+    font-size: 0.85rem;
+  }
+
+  .item-price {
+    font-size: 1rem;
+  }
+
+  .price-box div {
+    font-size: 0.95rem;
+  }
+
+  .price-total {
+    font-size: 1.05rem;
+  }
+}

@@ -122,3 +122,94 @@
   text-decoration: none;
   color: inherit;
 }
+
+
+@media (min-width: 768px) {
+  .navbar {
+    height: 54px;
+    padding: 0 24px;
+  }
+
+  .nav-logo {
+    font-size: 1.5rem;
+    letter-spacing: 1.5px;
+  }
+
+  .nav-icons {
+    gap: 36px;
+    margin-right: 120px;
+  }
+
+  .nav-ProfilPic {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-item {
+    font-size: 1rem;
+  }
+
+  .likedItemsCount {
+    width: 18px;
+    height: 18px;
+    font-size: 13px;
+    left: 10px;
+    bottom: -2px;
+  }
+
+  .back-btn{
+    margin-right: 200px;
+  }
+
+ 
+}
+
+
+@media (min-width: 1024px) {
+  .navbar {
+    height: 52px;
+    padding: 0 60px;
+  }
+
+  .navbar-home,
+  .navbar-store {
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
+  }
+
+  .nav-logo {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-right: 60px;
+  }
+
+  .nav-icons {
+    gap: 42px;
+    margin-left: 200px;
+  }
+
+  .nav-item {
+    font-size: 1.05rem;
+  }
+
+  .nav-item:hover {
+    transform: translateY(-2px);
+  }
+
+  .nav-ProfilPic {
+    width: 36px;
+    height: 36px;
+    border-width: 2px;
+  }
+
+  .back-btn {
+    font-size: 1.1rem;
+    right:100px;
+    bottom: 0;
+  }
+
+  .likedItemsCount {
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+  }
+}
