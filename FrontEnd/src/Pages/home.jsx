@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Navbar from "../Components/navBar";
 import PageTitle from "../Components/pageTitle";
 import Product from "../Components/product";
@@ -8,11 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProduct, removeErrors } from "../Components/features/Products/productSlice";
 import Loader from "../Components/loader";
 import { toast } from "react-toastify";
-
+ 
 function Home() { 
   const { loading, error, products } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const topSellerRef = useRef(null);
+  const latestDealsRef = useRef(null);
 
  
   useEffect(() => {
@@ -36,14 +38,26 @@ function Home() {
   };
 
  
-  const categories = products?.length > 0 
+  const topSellerProducts = products
+    ? [...products]
+        .filter((product) => (product.ratings || 0) > 0)
+        .sort((a, b) => (b.noOfReviews || 0) - (a.noOfReviews || 0))
+    : [];
+
+  const latestDeals = products
+    ? [...products].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      )
+    : [];
+
+  const categories = products?.length > 0
     ? [...new Set(products.map((p) => p.category).filter(Boolean))]
     : [];
 
-    const goToCategorySearch=(category)=>{
-      navigate(`/search?category=${encodeURIComponent(category)}`)
-    }
- 
+  const goToCategorySearch = (category) => {
+    navigate(`/search?category=${encodeURIComponent(category)}`);
+  };
+
   if (loading) return <Loader />;
 
   return (
@@ -66,11 +80,9 @@ function Home() {
         <section className="home-section">
           <h2>Top Seller Items</h2>
           <div className="horizontal-scroll">
-            {products
-              ?.filter((product) => (product.ratings || 0) > 0)
-              .map((product) => (
-                <Product key={product._id} product={product} />
-              ))}
+            {topSellerProducts.map((product) => (
+              <Product key={product._id} product={product} />
+            ))}
           </div>
         </section>
 
@@ -78,7 +90,7 @@ function Home() {
         <section className="home-section">
           <h2>Latest Deals</h2>
           <div className="horizontal-scroll">
-            {products?.map((product) => (
+            {latestDeals.map((product) => (
               <Product key={product._id} product={product} />
             ))}
           </div>

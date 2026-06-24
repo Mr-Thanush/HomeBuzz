@@ -53,7 +53,7 @@ export default function SellerAllProducts() {
      {AllProducts&&AllProducts.length>0 ?( 
       AllProducts.map((product)=>(
         <div className="seller-card" key={product._id}>
-           <img src={product.img[0].url} alt={product.name}/>
+           <img src={product.image?.[0]?.url || ""} alt={product.name} />
         <p><b>Product:</b>{product.name}</p>
         <p><b>Stock:</b>{product.stock}</p>
         <p><b>Price:</b> {product.price}</p>

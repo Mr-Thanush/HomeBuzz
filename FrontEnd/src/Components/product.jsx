@@ -1,44 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Ratings from "./ratings";
+import "../Styles/product.css";
 
 function Product({ product }) {
-
-  const[rating,setRating]=useState(product.ratings||0);
-
-  const handleRatingChange=(newRating)=>{
-     setRating(newRating);
-
-  }
-
-  
+  const seller = typeof product.seller === "object" ? product.seller : null;
+  const sellerDisplayName = seller?.name || seller?.sellerInfo?.storeName || product.seller || "Unknown Seller";
+  const imgSrc = product?.image?.[0]?.url || "/assets/placeholder.png";
+  const storeName = seller?.sellerInfo?.storeName;
   return (
-    <Link to={`/product/${product._id}`} className="product-link">
-    <div className="product-card">
-      <h2 className="product-seller">{product.seller}</h2>
-      <img
-        src={product.image[0]?.url}
-        alt={product.name}
-      />
-      <div className="productDetails">
-      <h3 className="product-name">{product.name}</h3>
-      <p className="product-description">{product.description}</p>
-      <p className="product-price">
-        <strong>₹{product.price}</strong>
-      </p>
-      <div className="product-ratings">
-        <Ratings
-        key={product._id}
-        value={product.ratings}
-        onRatingChange={handleRatingChange}
-        disabled={true}
-        />
-      </div>
-      
-      <span className="productCard-noOfReviews">( {product.noOfReviews} {product.noOfReviews===1?'Review':'Reviews'} )</span>
-      </div>
-    </div>
-    </Link>
+    <article className="hb-product-card" aria-labelledby={`product-${product._id}-name`}>
+      <Link to={`/product/${product._id}`} className="hb-product-link" aria-label={`View ${product.name}`}>
+        <div className="hb-product-media">
+          <img
+            src={imgSrc}
+            alt={product.name || "Product image"}
+            loading="lazy"
+            width="300"
+            height="220"
+          />
+          <span className="hb-product-pill">{product.category || "Product"}</span>
+          <span className="hb-stock-pill">{product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}</span>
+        </div>
+
+        <div className="hb-product-body">
+          <h3 id={`product-${product._id}-name`} className="hb-product-title">{product.name}</h3>
+          <div className="hb-product-seller">
+            <span className="hb-seller-name">{sellerDisplayName}</span>
+            {storeName && <span className="hb-seller-store"> · {storeName}</span>}
+          </div>
+
+          <p className="hb-product-desc" aria-hidden="false">{product.description?.slice(0,120) || "No description"}</p>
+
+          <div className="hb-product-meta">
+            <div className="hb-price">₹{product.price}</div>
+            <div className="hb-ratings">
+              <Ratings value={product.ratings || 0} disabled={true} />
+              <span className="hb-reviews">({product.noOfReviews || 0})</span>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </article>
   );
 }
 

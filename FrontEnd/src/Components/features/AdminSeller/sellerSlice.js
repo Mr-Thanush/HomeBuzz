@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import apiClient from "../../../utils/apiClient.js";
 
 // FETCH ADMIN PRODUCT
 export const fetchSellerProducts = createAsyncThunk(
   "seller/fetchAdminProducts",
   async (_, { rejectWithValue}) => {
     try {
-       const { data } = await axios.get("/api/v1/seller/products", { withCredentials: true });
+       const { data } = await apiClient.get("/seller/products");
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -22,10 +22,9 @@ export const createProduct = createAsyncThunk(
   "seller/createProduct",
   async (productData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
-        "/api/v1/seller/product/create",
-        productData,
-        {withCredentials:true}
+      const { data } = await apiClient.post(
+        "/seller/product/create",
+        productData
       );
       return data;
     } catch (error) {
@@ -42,10 +41,9 @@ export const updateProduct = createAsyncThunk(
   "seller/updateProduct",
   async ({id,formData}, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put( 
-        `/api/v1/seller/product/${id}`,
-        formData,
-        {withCredentials:true}
+      const { data } = await apiClient.put( 
+        `/seller/product/${id}`,
+        formData
       );
       return data;
     } catch (error) {
@@ -61,9 +59,8 @@ export const deleteProduct = createAsyncThunk(
   "seller/deleteProduct",
   async (productId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete( 
-        `/api/v1/seller/product/${productId}`,
-        { withCredentials: true }
+      const { data } = await apiClient.delete( 
+        `/seller/product/${productId}`
       );
       return {productId};
     } catch (error) {
@@ -79,9 +76,8 @@ export const fetchAllOrders = createAsyncThunk(
   "seller/fetchAllOrders",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get( 
-        `/api/v1/seller/orders`,
-        { withCredentials: true }
+      const { data } = await apiClient.get( 
+        `/seller/orders`
       );
       return data;
     } catch (error) {
@@ -97,9 +93,8 @@ export const deleteOrder = createAsyncThunk(
   "seller/deleteOrder",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete( 
-        `/api/v1/order/${id}`,
-        { withCredentials: true }
+      const { data } = await apiClient.delete( 
+        `/order/${id}`
       );
       return data;
     } catch (error) {
@@ -121,8 +116,8 @@ export const updateOrder = createAsyncThunk(
         },
         withCredentials: true
       };
-      const { data } = await axios.put(
-        `/api/v1/order/${orderId}`,
+      const { data } = await apiClient.put(
+        `/order/${orderId}`,
         { status, trackingId },
         config
       );
@@ -141,9 +136,8 @@ export const fetchProductReviews = createAsyncThunk(
   "seller/fetchProductReviews",
   async (productId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(
-        `/api/v1/seller/reviews?id=${productId}`,
-       { withCredentials: true},
+      const { data } = await apiClient.get(
+        `/seller/reviews?id=${productId}`
       );
       return data;
     } catch (error) {
@@ -159,9 +153,8 @@ export const deleteProductReview = createAsyncThunk(
   "seller/deleteProductReview",
   async ({productId,reviewId}, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(
-        `/api/v1/seller/reviews?productId=${productId}&id=${reviewId}`,
-       { withCredentials: true},
+      const { data } = await apiClient.delete(
+        `/seller/reviews?productId=${productId}&id=${reviewId}`
       );
       return data;
     } catch (error) {

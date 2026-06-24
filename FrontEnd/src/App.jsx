@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import './App.css'
 import { BrowserRouter as Router } from "react-router-dom";
+import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import SignIn from "./Pages/signIn.jsx";
 import SignUp from "./Pages/signUp.jsx";
 import Home from "./Pages/home.jsx";
@@ -57,18 +58,18 @@ function App() {
         <Route path="/search/:keyword" element={<Search />} />
         <Route path="/product/:id" element={<ProductDetails />} />
         
-        <Route path="/profile" element={isAuthenticated ? <Profile user={user} /> : <SignIn />} />
-        <Route path="/profile/update" element={<UpdateProfile />} />
-        <Route path="/password/update" element={<UpdatePassword />} />
+        <Route path="/profile" element={<ProtectedRoute isAllowed={isAuthenticated}><Profile user={user} /></ProtectedRoute>} />
+        <Route path="/profile/update" element={<ProtectedRoute isAllowed={isAuthenticated}><UpdateProfile /></ProtectedRoute>} />
+        <Route path="/password/update" element={<ProtectedRoute isAllowed={isAuthenticated}><UpdatePassword /></ProtectedRoute>} />
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/reset/:token" element={<ResetPassword />} />
-        <Route path="/shipping" element={<Shipping />} />
-        <Route path="/order/confirm" element={<OrderConfirm />} />
-        <Route path="/process/payment" element={<Payment />} />
-        <Route path="/user/orders" element={<MyOrders />} />
-        <Route path="/order/:orderId" element={<OrderDetails />} />
+        <Route path="/shipping" element={<ProtectedRoute isAllowed={isAuthenticated}><Shipping /></ProtectedRoute>} />
+        <Route path="/order/confirm" element={<ProtectedRoute isAllowed={isAuthenticated}><OrderConfirm /></ProtectedRoute>} />
+        <Route path="/process/payment" element={<ProtectedRoute isAllowed={isAuthenticated}><Payment /></ProtectedRoute>} />
+        <Route path="/user/orders" element={<ProtectedRoute isAllowed={isAuthenticated}><MyOrders /></ProtectedRoute>} />
+        <Route path="/order/:orderId" element={<ProtectedRoute isAllowed={isAuthenticated}><OrderDetails /></ProtectedRoute>} />
         {/* Admin */}
-        <Route path="/admin" element={<AdminDashboard />}>
+        <Route path="/admin" element={<ProtectedRoute isAllowed={isAuthenticated && user?.role === "admin"}><AdminDashboard /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="products" element={<AdminProducts />} />
@@ -77,15 +78,15 @@ function App() {
           <Route path="sellers/request" element={<SellerRequests />} />
         </Route>
         {/* Seller */}
-        <Route path="/createstore" element={<CreateStore />} />
-        <Route path="/seller" element={<SellerDashboard />} />
-        <Route path="/seller/product/create" element={<CreateProduct />} />
-        <Route path="/seller/buyers" element={<AllBuyers />} />
-        <Route path="/seller/orders" element={<AllOrders />} />
-        <Route path="/seller/order/:orderId" element={<OrderUpdate />} />
-        <Route path="/seller/products" element={<SellerAllProducts />} />
-        <Route path="/seller/Reviews" element={<AllReviews />} />
-        <Route path="/seller/product/:updateId" element={<UpdateProduct />} />
+        <Route path="/createstore" element={<ProtectedRoute isAllowed={isAuthenticated}><CreateStore /></ProtectedRoute>} />
+        <Route path="/seller" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><SellerDashboard /></ProtectedRoute>} />
+        <Route path="/seller/product/create" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><CreateProduct /></ProtectedRoute>} />
+        <Route path="/seller/buyers" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><AllBuyers /></ProtectedRoute>} />
+        <Route path="/seller/orders" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><AllOrders /></ProtectedRoute>} />
+        <Route path="/seller/order/:orderId" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><OrderUpdate /></ProtectedRoute>} />
+        <Route path="/seller/products" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><SellerAllProducts /></ProtectedRoute>} />
+        <Route path="/seller/Reviews" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><AllReviews /></ProtectedRoute>} />
+        <Route path="/seller/product/:updateId" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><UpdateProduct /></ProtectedRoute>} />
 
 
 

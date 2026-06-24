@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import apiClient from "../../../utils/apiClient";
 
 
 // FETCH ADMIN PRODUCT
@@ -7,7 +7,7 @@ export const fetchAdminProducts = createAsyncThunk(
   "admin/fetchAdminProducts",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/admin/products", { withCredentials: true });
+      const { data } = await apiClient.get("/admin/products");
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -23,7 +23,7 @@ export const fetchAdminUsers = createAsyncThunk(
   "admin/fetchAdminUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get("/api/v1/admin/users", { withCredentials: true });
+      const { data } = await apiClient.get("/admin/users");
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -39,7 +39,7 @@ export const getSingleUser = createAsyncThunk(
   "admin/getSingleUser",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/v1/admin/user/${id}`, { withCredentials: true });
+      const { data } = await apiClient.get(`/admin/user/${id}`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -56,7 +56,7 @@ export const updateSingleUser = createAsyncThunk(
   "admin/updateSingleUser",
   async ({ userId, role }, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`/api/v1/admin/user/${userId}`, { role }, { withCredentials: true });
+      const { data } = await apiClient.put(`/admin/user/${userId}`, { role });
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -73,7 +73,7 @@ export const deleteSingleUser = createAsyncThunk(
   "admin/deleteSingleUser",
   async (userId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(`/api/v1/admin/user/${userId}`, { withCredentials: true });
+      const { data } = await apiClient.delete(`/admin/user/${userId}`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -89,11 +89,9 @@ export const fetchSellerRequests = createAsyncThunk(
   "admin/fetchSellerRequests",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(
-        "/api/v1/admin/seller/requests",
-        { withCredentials: true }
+      const { data } = await apiClient.get(
+        "/admin/seller/requests"
       );
-      return data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data || "Failed to fetch seller requests"
@@ -107,10 +105,9 @@ export const approveSeller = createAsyncThunk(
   "admin/approveSeller",
   async (sellerId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(
-        `/api/v1/admin/seller/approve/${sellerId}`,
-        {},
-        { withCredentials: true }
+      const { data } = await apiClient.put(
+        `/admin/seller/approve/${sellerId}`,
+        {}
       );
       return { data, sellerId };
     } catch (error) {
@@ -126,9 +123,8 @@ export const rejectSeller = createAsyncThunk(
   "admin/rejectSeller",
   async (sellerId, { rejectWithValue }) => {
     try {
-      const { data } = await axios.delete(
-        `/api/v1/admin/seller/reject/${sellerId}`,
-        { withCredentials: true }
+      const { data } = await apiClient.delete(
+        `/admin/seller/reject/${sellerId}`
       );
       return { data, sellerId };
     } catch (error) {

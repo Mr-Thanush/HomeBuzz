@@ -116,6 +116,7 @@ function Search() {
     navigate(`?${params.toString()}`);
   };
 
+
   return (
     <>
       {loading && <Loader />}
@@ -170,7 +171,7 @@ function Search() {
                   <div className={`result ${stockClass}`}>
                     <div className="resultImage">
                       <img
-                        src={product.images?.[0]}
+                        src={product.image?.[0]?.url || "/assets/placeholder.png"}
                         alt={product.name}
                       />
                     </div>

@@ -1,19 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import apiClient from "../../../utils/apiClient";
 
 /* REGISTER USER */
 export const register = createAsyncThunk(
   "user/register",
   async (userData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
-        "/api/v1/register",
+      const { data } = await apiClient.post(
+        "/register",
         userData,
         {
           headers: {
             "Content-Type": "application/json"
-          },
-          withCredentials: true,
+          }
         }
       );
       return data;
@@ -31,14 +30,13 @@ export const login = createAsyncThunk(
   "user/login",
   async ({email,password}, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post(
-        "/api/v1/login",
+      const { data } = await apiClient.post(
+        "/login",
         {email,password},
         {
           headers: {
             "Content-Type": "application/json"
-          },
-          withCredentials: true,
+          }
         }
       );
       return data;
@@ -54,11 +52,11 @@ export const login = createAsyncThunk(
 /* LOAD USER */
 export const loadUser=createAsyncThunk('user/loadUser',async(_,{ rejectWithValue })=>{
   try {
-    const {data}=await axios.get("/api/v1/profile",{ withCredentials: true });
+    const {data}=await apiClient.get("/profile");
     return data;
   } catch (error) {
     return rejectWithValue(
-        error.response?.data?.message ||
+        error.message ||
           "Failed To Load User"
       );
   }
@@ -67,11 +65,11 @@ export const loadUser=createAsyncThunk('user/loadUser',async(_,{ rejectWithValue
 /* LOGOUT USER */
 export const logout=createAsyncThunk('user/logout',async(_,{ rejectWithValue })=>{
   try {
-    const {data}=await axios.post("/api/v1/logout",{},{withCredentials:true});
+    const {data}=await apiClient.post("/logout",{});
     return data;
   } catch (error) {
     return rejectWithValue(
-        error.response?.data?.message ||
+        error.message ||
           "Signout Failed"
       );
   }
@@ -80,18 +78,16 @@ export const logout=createAsyncThunk('user/logout',async(_,{ rejectWithValue })=
 /* Update Profile */
 export const updateProfile=createAsyncThunk('user/updateProfile',async(userData,{ rejectWithValue })=>{
   try {
-    const config={
+    const {data}=await apiClient.put("/profile/update", userData, {
       headers:{
         "Content-Type":"application/json"
-      },
-      withCredentials: true,
-    }
-    const {data}=await axios.put("/api/v1/profile/update",userData,config);
+      }
+    });
     return data;
   } catch (error) {
     return rejectWithValue(
-        error.response?.data?.message ||
-         { message: "Update Failed,Please Try Again Later" }
+        error.message ||
+         "Update Failed,Please Try Again Later"
       );
   }
 })
@@ -101,14 +97,13 @@ export const createStore = createAsyncThunk(
   "user/createStore",
   async (storeData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(
-        "/api/v1/seller/create",
-        storeData,
-        { withCredentials: true }
+      const { data } = await apiClient.put(
+        "/seller/create",
+        storeData
       );
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message);
+      return rejectWithValue(error.message || "Failed To Create Store");
     }
   }
 );
@@ -117,17 +112,15 @@ export const createStore = createAsyncThunk(
 /* updatePassword */
 export const updatePassword=createAsyncThunk('user/updatePassword',async(passwordData,{ rejectWithValue })=>{
   try {
-    const config={
+    const {data}=await apiClient.put("/password/update",passwordData,{
       headers:{
         "Content-Type":"application/json"
-      },
-      withCredentials: true,
-    }
-    const {data}=await axios.put("/api/v1/password/update",passwordData,config);
+      }
+    });
     return data;
   } catch (error) {
     return rejectWithValue(
-        error.response?.data?.message ||
+        error.message ||
          "Password Update Failed,Please Try Again Later" 
       );
   }
@@ -136,18 +129,16 @@ export const updatePassword=createAsyncThunk('user/updatePassword',async(passwor
 /* forgotPassword */
 export const forgotPassword=createAsyncThunk('user/forgotPassword',async({email},{ rejectWithValue })=>{
   try {
-    const config={
+    const {data}=await apiClient.post("/password/forgot",{ email },{
       headers:{
         "Content-Type":"application/json"
-      },
-      withCredentials: true,
-    }
-    const {data}=await axios.post("/api/v1/password/forgot",{ email },config);
+      }
+    });
     return data;
   } catch (error) {
     return rejectWithValue(
-        error.response?.data?.message ||
-         { message:"Email sent Failed,Please Try Again Later"}
+        error.message ||
+         "Email sent Failed,Please Try Again Later"
       );
   }
 })
@@ -155,17 +146,15 @@ export const forgotPassword=createAsyncThunk('user/forgotPassword',async({email}
 /* ResetPassword */
 export const resetPassword=createAsyncThunk('user/resetPassword',async({token,password,confirmPassword},{ rejectWithValue })=>{
   try {
-    const config={
+    const {data}=await apiClient.post(`/reset/${token}`,{ password, confirmPassword },{
       headers:{
         "Content-Type":"application/json"
-      },
-      withCredentials: true,
-    }
-    const {data}=await axios.post(`/api/v1/reset/${token}`,{ password, confirmPassword },config);
+      }
+    });
     return data;
   } catch (error) {
     return rejectWithValue(
-        error.response?.data?.message ||
+        error.message ||
          "Password Reset Failed,Please Try Again Later" 
       );
   }
@@ -179,13 +168,12 @@ export const resetPassword=createAsyncThunk('user/resetPassword',async({token,pa
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    user:localStorage.getItem("user")?JSON.parse(localStorage.getItem("user")):null,
+    user: null,
     loading: false,
     error: null,
     success: false,
-    isAuthenticated: localStorage.getItem("isAuthenticated")==="true",
-    message:null,
-    
+    isAuthenticated: false,
+    message: null,
   },
   reducers: {
     removeErrors: (state) => {
@@ -208,10 +196,6 @@ const userSlice = createSlice({
         state.success = action.payload.success;
         state.user = action.payload.user || null;
         state.isAuthenticated = Boolean(action.payload.user);
-
-        //store in local storage
-        localStorage.setItem("user",JSON.stringify(state.user));
-        localStorage.setItem("isAuthenticated",JSON.stringify(state.isAuthenticated));
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
@@ -232,10 +216,6 @@ const userSlice = createSlice({
         state.success = action.payload.success;
         state.user = action.payload.user || null;
         state.isAuthenticated = Boolean(action.payload.user);
-
-         //store in local storage
-        localStorage.setItem("user",JSON.stringify(state.user));
-        localStorage.setItem("isAuthenticated",JSON.stringify(state.isAuthenticated));
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
@@ -257,9 +237,6 @@ const userSlice = createSlice({
         state.message = action.payload.message || null;
         state.user = action.payload.user || state.user;
         state.isAuthenticated = Boolean(state.user);
-
-        localStorage.setItem("user", JSON.stringify(state.user));
-        localStorage.setItem("isAuthenticated", JSON.stringify(state.isAuthenticated));
       })
       .addCase(createStore.rejected, (state, action) => {
         state.loading = false;
@@ -277,10 +254,6 @@ const userSlice = createSlice({
         state.error=null;
         state.user = action.payload.user || null;
         state.isAuthenticated = Boolean(action.payload.user);
-
-         //store in local storage
-        localStorage.setItem("user",JSON.stringify(state.user));
-        localStorage.setItem("isAuthenticated",JSON.stringify(state.isAuthenticated));
       })
       .addCase(loadUser.rejected, (state, action) => {
         state.loading = false;
@@ -289,12 +262,8 @@ const userSlice = createSlice({
         if(action.payload?.statusCode===401){
           state.user = null;
           state.isAuthenticated = false;
-          localStorage.removeItem("user")
-          localStorage.removeItem("isAuthenticated")
-        }
-
-
-      });
+        }}
+    );
       //logout
       builder
       .addCase(logout.pending, (state) => {
@@ -306,8 +275,6 @@ const userSlice = createSlice({
         state.error=null;
         state.user = null;
         state.isAuthenticated =false;
-        localStorage.removeItem("user")
-        localStorage.removeItem("isAuthenticated")
       })
       .addCase(logout.rejected, (state, action) => {
         state.loading = false;

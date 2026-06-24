@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
         enum: ["user", "seller", "admin"],
         default: "user"
     },
-    sellerInfo: {
+  sellerInfo: {
        storeName: String,
        description: String,
        phone: String,

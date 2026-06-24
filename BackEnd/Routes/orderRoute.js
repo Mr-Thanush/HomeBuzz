@@ -10,8 +10,13 @@ router.route("/order/:id")
 .put(verifyUserAuth,roleBasedAccess("seller","admin"),updateOrderStatus,  isApprovedSeller)
 .delete(verifyUserAuth,roleBasedAccess("seller","admin"),deleteOrder, isApprovedSeller);
 
-router.route("/seller/orders").get(verifyUserAuth,roleBasedAccess("admin","seller"),getAllOrders, isApprovedSeller);
-router.route("/user/orders").get(verifyUserAuth,allMyOrders);
+router.route("/seller/orders").get(
+  verifyUserAuth,
+  roleBasedAccess("admin", "seller"),
+  isApprovedSeller,
+  getAllOrders
+);
+router.route("/user/orders").get(verifyUserAuth, allMyOrders);
 
 
 

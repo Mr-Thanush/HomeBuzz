@@ -15,6 +15,10 @@
   flex-direction: column;
   gap: 1rem;
   margin-top: 60px;
+  box-sizing: border-box;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .order-loading {
@@ -74,35 +78,35 @@
   border-bottom: none;
 }
 
-.item-name {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.item-qty {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-.item-price {
-  font-weight: 500;
-}
-
-/* Price */
-.price-box div {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.4rem;
-  font-size: 0.85rem;
-}
-
-.price-total {
-  border-top: 1px solid var(--border);
-  padding-top: 0.5rem;
+.buyButton {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #2d6a4f, #1b4332);
+  color: #ffffff;
+  text-align: center;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 16px;
   font-weight: 600;
+  box-shadow: 0 10px 25px rgba(1, 87, 66, 0.35);
 }
 
-.pending {
+.WhatsAppButton {
+  position: fixed;
+  bottom: 66px;
+  left: 12px;
+  right: 12px;
+  background: linear-gradient(15deg, #52eb24, #01fb05);
+  color: #ffffff;
+  text-align: center;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(9, 134, 0, 0.903);
+}
   color:var(--warning);
   font-weight: 600;
 }

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import apiClient from "../../../utils/apiClient";
 
 /* GET ALL PRODUCTS */
 export const getProduct = createAsyncThunk(
@@ -15,10 +15,10 @@ export const getProduct = createAsyncThunk(
       if(category){
         params.set("category",category);
       }
-      const link=`/api/v1/products?${params.toString()}`;
+      const link=`/products?${params.toString()}`;
 
 
-      const { data } = await axios.get(link);
+      const { data } = await apiClient.get(link);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -33,7 +33,7 @@ export const getProductDetails = createAsyncThunk(
   "product/getProductDetails",
   async (id, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(`/api/v1/product/${id}`);
+      const { data } = await apiClient.get(`/product/${id}`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -48,8 +48,7 @@ export const createReview = createAsyncThunk(
   "product/createReview",
   async ({rating,comment,productId}, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(`/api/v1/review`,{rating,comment,productId},
-        {
+      const { data } = await apiClient.put(`/review`, { rating, comment, productId }, {
           headers: {
             "Content-Type": "application/json"
           },

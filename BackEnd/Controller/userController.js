@@ -1,14 +1,10 @@
-import { log } from "console";
-import dotenv from "dotenv";
-dotenv.config({path: "BackEnd/config/config.env"});
 import handleAsyncError from "../middleWare/handleAsyncError.js";
-import User from "../Models/userModel.js"
+import User from "../Models/userModel.js";
 import handleError from "../utils/handleError.js";
 import { sendTokens } from "../utils/jwtTokens.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto";
-import {v2 as cloudinary} from "cloudinary";
-
+import { v2 as cloudinary } from "cloudinary";
 
 //Register User
 export const registerUser=handleAsyncError(async(req,res,next)=>{
@@ -96,7 +92,8 @@ export const requestPasswordReset=handleAsyncError(async (req,res,next)=>{
         return next(new handleError("Could Not Save Reset Token,Please Try Again Later",500));
     }
 
-    const resetPasswordUrl=`${process.env.FRONTEND_URL}/reset/${resetToken}`;
+    const frontendUrl = process.env.FRONTEND_URL?.trim() || "http://localhost:5174";
+    const resetPasswordUrl = `${frontendUrl}/reset/${resetToken}`;
     const message=`Use Following Link To Reset Your Password: ${resetPasswordUrl}. \n\n This Link Will Expire In 5 Minutes.
     \n\n If You Don't Request a Password Request,Please Ignore This Message.`;
     try {
@@ -300,7 +297,7 @@ export const adminDeleteUser=handleAsyncError(async(req,res,next)=>{
     }
 
      if (user.profilepic?.public_id) {
-    await cloudinary.uploader.destroy(user.avatar.public_id);
+    await cloudinary.uploader.destroy(user.profilepic.public_id);
   }
 
     await user.deleteOne();

@@ -97,13 +97,13 @@ export const updateOrderStatus=handleAsyncError(async(req,res,next)=>{
     })
 })
 
-async function updateQunantity(id,quantity){
-    const product=await Product.findById(id);
-    if(!product){
-        throw new Error("Product not found",404);
-    }
-    product.stock-=quantity;
-    await product.save({validateBeforeSave:false});
+async function updateQunantity(id, quantity) {
+  const product = await Product.findById(id);
+  if (!product) {
+    throw new Error("Product not found");
+  }
+  product.stock = Math.max(0, product.stock - quantity);
+  await product.save({ validateBeforeSave: false });
 }
 
 //DELETE ORDER (ADMIN,SELLER)

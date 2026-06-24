@@ -2,8 +2,9 @@
 /* Page */
 .orders-page {
   padding: 1rem;
-  max-width: 720px;
+  max-width: 920px;
   margin: 60px auto;
+  box-sizing: border-box;
 }
 
 /* Header */
@@ -113,7 +114,7 @@
   padding: 0.45rem 0.9rem;
   font-size: 0.85rem;
   cursor: pointer;
-  width: 150px;
+  min-width: 120px;
 }
 
 .order-btn:hover {

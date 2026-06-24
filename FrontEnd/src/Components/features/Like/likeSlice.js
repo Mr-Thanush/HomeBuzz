@@ -1,13 +1,13 @@
 import { createSlice,createAsyncThunk  } from "@reduxjs/toolkit";
-import axios from "axios";
+import apiClient from "../../../utils/apiClient";
 
 
 export const addToLikeList = createAsyncThunk(
   "like/addToLikeList",
   async ({id,quantity}, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get(
-        `/api/v1/product/${id}`
+      const { data } = await apiClient.get(
+        `/product/${id}`
       );
       return { 
         product:data.product._id,

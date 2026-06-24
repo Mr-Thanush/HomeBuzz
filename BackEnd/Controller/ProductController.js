@@ -28,6 +28,7 @@ export const createProduct = handleAsyncError(async (req, res, next) => {
 
     req.body.image=imageLinks;
     req.body.user = req.user.id;
+    req.body.seller = req.user.id;
     const product = await Product.create(req.body);
 
     res.status(201).json({
@@ -42,33 +43,32 @@ export const updateProduct = handleAsyncError(async (req, res, next) => {
     if (!product) {
         return next(new handleError("Product Not Found", 404))
     }
-    let images=[];
-    if(typeof req.body.image==="String"){
-        images.push(req.body.image)
-    }else if(Array.isArray(req.body.image)){
-        images=req.body.image
+    // If new images are uploaded, remove previous images from Cloudinary
+    if (req.files && req.files.length > 0) {
+        // delete existing images
+        if (Array.isArray(product.image)) {
+            for (const img of product.image) {
+                try {
+                    await cloudinary.uploader.destroy(img.image_Id);
+                } catch (err) {
+                    console.warn('Failed to delete cloudinary image', img.image_Id, err.message);
+                }
+            }
+        }
+
+        // upload new images
+        const imageLinks = [];
+        for (const file of req.files) {
+            const result = await cloudinary.uploader.upload(
+                `data:${file.mimetype};base64,${file.buffer.toString("base64")}`,
+                { folder: "Products" }
+            );
+            imageLinks.push({ image_Id: result.public_id, url: result.secure_url });
+        }
+        req.body.image = imageLinks;
     }
 
-    if(images.length>0){
-    for(let i=0;i<product.images.length;i++){
-        await cloudinary.uploader.destroy(product.image[i].image_Id);
-    }
-
-    //Upload New Images 
-      for(const file of req.files){
-        const result=await cloudinary.uploader.upload(
-            `data:${file.mimetype};base64,${file.buffer.toString("base64")}`,
-            {folder:"Products"});
-
-            imageLinks.push({
-                image_Id:result.public_id,
-                url:result.secure_url
-            })
-    }
-     req.body.image=imageLinks;
-
-    }
-   product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
     })
@@ -84,28 +84,35 @@ export const updateProduct = handleAsyncError(async (req, res, next) => {
 
 //DELETE PRODUCT
 export const deleteProduct = handleAsyncError(async (req, res, next) => {
-
-    const product = await Product.findByIdAndDelete(req.params.id);
+    const product = await Product.findById(req.params.id);
 
     if (!product) {
         return next(new handleError("Product Not Found", 404))
     }
 
-    for(let i=0;i<product.image.length;i++){
-       await cloudinary.uploader.destroy(product.image[i].image_Id)
+    // remove images from cloudinary
+    if (Array.isArray(product.image)) {
+        for (const img of product.image) {
+            try {
+                await cloudinary.uploader.destroy(img.image_Id);
+            } catch (err) {
+                console.warn('Failed to delete cloudinary image', img.image_Id, err.message);
+            }
+        }
     }
+
+    await product.remove();
+
     res.status(200).json({
         success: true,
         message: "Product Deleted Successfully"
     })
-
-}
-);
+});
 
 //GET ALL PRODUCTS
 export const allProducts = handleAsyncError(async (req, res, next) => {
     const resultPerPage = 8;
-    const apifunctionality = new APIFunctionality(Product.find(), req.query).search().filter();
+    const apifunctionality = new APIFunctionality(Product.find().populate('seller', 'name email profilepic role sellerInfo'), req.query).search().filter();
     //getting filtered query before pagination
     const filteredQuery = apifunctionality.query.clone();
     const productCount = await filteredQuery.countDocuments();
@@ -120,9 +127,7 @@ export const allProducts = handleAsyncError(async (req, res, next) => {
     //Apply Pagination
     apifunctionality.pagination(resultPerPage);
     const products = await apifunctionality.query;
-    if (!products || products.length === 0) {
-        return next(new handleError(`Product Not Found`, 404));
-    }
+    // return empty array if no products (client can show empty state)
     res.status(200).json({
         success: true,
         products,
@@ -135,7 +140,7 @@ export const allProducts = handleAsyncError(async (req, res, next) => {
 
 //GET SINGLE PRODUCT
 export const singleProduct = handleAsyncError(async (req, res, next) => {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('seller', 'name email profilepic role sellerInfo');
     if (!product) {
         return next(new handleError("Product Not Found", 404))
     }
@@ -149,7 +154,7 @@ export const singleProduct = handleAsyncError(async (req, res, next) => {
 
 //GET ALL PRODUCT FOR ADMIN
 export const adminProducts = handleAsyncError(async (req, res, next) => {
-    const products = await Product.find();
+    const products = await Product.find().populate('seller', 'name email profilepic role sellerInfo');
 
     res.status(200).json({
         success: true,
@@ -159,7 +164,7 @@ export const adminProducts = handleAsyncError(async (req, res, next) => {
 
 //GET ALL PRODUCT FOR SELLER
 export const sellerProducts=handleAsyncError(async(req,res,next)=>{
-    const products=await Product.find({ user: req.user.id });
+    const products=await Product.find({ seller: req.user.id }).populate('seller', 'name email profilepic role sellerInfo');
     
     res.status(200).json({
         success: true,
