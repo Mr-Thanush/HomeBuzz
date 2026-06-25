@@ -107,12 +107,14 @@
   font-weight: 600;
   box-shadow: 0 10px 25px rgba(9, 134, 0, 0.903);
 }
-  color:var(--warning);
+
+.pending {
+  color: var(--warning);
   font-weight: 600;
 }
 
 .paid {
-  color:var(--success);
+  color: var(--success);
   font-weight: 600;
 }
 
