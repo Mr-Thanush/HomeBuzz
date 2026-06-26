@@ -13,7 +13,7 @@ function Navbar() {
   const isHome = location.pathname === "/";
   const {isAuthenticated,user}=useSelector(state=>state.user || {});
   const {likeItems}=useSelector(state=>state.like || {});
-
+ 
  
   return (
     <nav className={`navbar ${isHome ? "navbar-home" : "navbar-store"}`}>
@@ -33,16 +33,18 @@ function Navbar() {
           <FiSearch size={16} />
         </Link>
 
-        <Link to="/like" className="nav-item">
+        <Link to="/like" className="nav-item1">
         <p className="likedItemsCount">{likeItems.length}</p>
           <BsBookmarkHeart size={16} />
         </Link>
+
+
 {isAuthenticated ? (
       <Link to="/profile" className="nav-item">
-{user?.profilepic?.url ? (
+{user.profilepic.url !== "profile url" ? (
       <img src={user.profilepic.url} alt="Profile" className="nav-ProfilPic" />
     ) : (
-      <HiOutlineUserCircle size={20} />
+      <HiOutlineUserCircle size={24} />
     )}
     </Link>
   ) : (

@@ -22,7 +22,7 @@
   flex: 0 0 245px;
   min-width: 245px;
   max-width: 245px;
-  min-height: 460px;
+  min-height: 360px;
 }
 
 .hb-product-card:hover {
@@ -41,7 +41,7 @@
 .hb-product-media {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 3;
   min-height: 180px;
   background: #f8fafc;
 }
@@ -55,14 +55,18 @@
 .hb-product-pill {
   position: absolute;
   top: 12px;
-  left: 12px;
+  left: 8px;
   background: rgba(15, 118, 110, 0.95);
   color: #ffffff;
-  padding: 0.35rem 0.75rem;
+  padding: 0.1rem 0.5rem;
   border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  font-size: 0.5rem;
+  font-weight: 400;
+}
+
+.hb-product-pill .stars{
+  width: 0.7rem;
+  margin-right: 4px;
 }
 
 .hb-stock-pill {
@@ -70,16 +74,17 @@
   top: 12px;
   right: 12px;
   background: rgba(255, 255, 255, 0.92);
-  color: var(--text-primary);
+  color: var(white);
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
   border: 1px solid rgba(209, 213, 219, 0.9);
   font-size: 0.75rem;
   font-weight: 600;
+
 }
 
 .hb-product-body {
-  padding: 1.1rem 1.15rem 1.3rem;
+  padding: 1rem 1rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
@@ -88,31 +93,17 @@
 
 .hb-product-title {
   font-size: 1.1rem;
-  line-height: 1.35;
-  margin: 0;
+  line-height: 1;
+  margin: auto;
   color: var(--text-primary);
-  min-height: 2.6rem;
+  min-height:1rem;
+  font-weight: bolder;
 }
 
 .hb-product-seller {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 0.6rem;
-  align-items: center;
   color: var(--text-secondary);
-  font-size: 0.85rem;
-}
-
-.hb-seller-name,
-.hb-seller-store {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.hb-seller-name {
-  color: var(--accent);
-  font-weight: 700;
+  font-size: 0.6rem;
+  text-align: center;
 }
 
 .hb-seller-store {
@@ -123,11 +114,12 @@
   margin: 0;
   color: var(--text-secondary);
   font-size: 0.92rem;
-  line-height: 1.5;
+  line-height: 1;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-align: center;
 }
 
 .hb-product-meta {
@@ -141,18 +133,13 @@
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--accent);
-}
-
-.hb-ratings {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  margin: auto;
 }
 
 .hb-reviews {
-  color: var(--text-muted);
+  color: white;
+  font-size: 0.5rem;
+  font-weight: 400;
 }
 
 @media (max-width: 640px) {

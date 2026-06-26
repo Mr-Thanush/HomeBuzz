@@ -32,31 +32,25 @@
   background: var(--green-store);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
 }
-
-.navbar-home .likedItemsCount{
-   font-size: 12px;
-   position: absolute;
-   left: 71%;
-   bottom: 30%;
-   color:  var(--green-store);
-   background-color: #22f629;
-   border-radius: 50%;
-   width: 16px;
-   height: 16px;
-   text-align: center;
-}
+ 
 
 .likedItemsCount{
-  font-size: 12px;
-  position: absolute;
-  left: 6px;
-   bottom:0px;
    color:  var(--green-store);
    background-color: #22f629;
-   border-radius: 50%;
-   width: 16px;
+   width: 15px;
    height: 16px;
-   text-align: center;
+   border-radius: 50%;
+   padding-left: 3.5px;
+   font-size: 13px;
+}
+
+
+
+.nav-item1 .likedItemsCount{
+    display: flex;
+    position: relative;
+    left: 10px;
+    top: 22px;
 }
 
 
@@ -66,8 +60,7 @@
   color: var(--text-light);
   cursor: pointer;
   position: relative;
-  right: 20px;
-  bottom: 5px;
+  right: 10px;
 }
 
 
@@ -81,6 +74,15 @@
 
 .nav-logo a {
   color: var(--text-light);
+}
+
+
+
+.navbar-home .nav-icons{
+  display: flex;
+  align-items: center; 
+  gap: 30px;
+  justify-content:space-between;
 }
 
 
@@ -100,7 +102,7 @@
   display: block;  
 }
 
-.navbar-store .nav-item {
+.navbar-store .nav-item .nav-item1{
   color: var(--text-light);
   transition: transform 0.2s ease, color 0.2s ease;
   position: relative;
@@ -110,6 +112,14 @@
 .nav-item {
   color: var(--text-light);
   transition: transform 0.2s ease, color 0.2s ease;
+   font-family: var(--font-text);
+}
+
+.nav-item1{
+  color: var(--text-light);
+  transition: transform 0.2s ease, color 0.2s ease;
+  margin-bottom: 42px;
+  font-family: var(--font-text);
 }
 
 .nav-item:hover {
@@ -121,7 +131,10 @@
 .links {
   text-decoration: none;
   color: inherit;
+  font-family: var(--font-text);
 }
+
+
 
 
 @media (min-width: 768px) {
@@ -133,11 +146,13 @@
   .nav-logo {
     font-size: 1.5rem;
     letter-spacing: 1.5px;
+    margin-right: 150px;
   }
 
-  .nav-icons {
-    gap: 36px;
-    margin-right: 120px;
+  .navbar-home .nav-icons {
+    gap: 50px;
+    display: flex;
+    margin-left: 300px;
   }
 
   .nav-ProfilPic {
@@ -150,16 +165,15 @@
   }
 
   .likedItemsCount {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 16px;
     font-size: 13px;
-    left: 10px;
-    bottom: -2px;
   }
 
   .back-btn{
     margin-right: 200px;
   }
+
 
  
 }
@@ -176,10 +190,10 @@
     box-shadow: 0 6px 22px rgba(0, 0, 0, 0.22);
   }
 
-  .nav-logo {
+  .navbar-home .nav-logo {
     font-size: 1.8rem;
     font-weight: 400;
-    margin-right: 60px;
+    margin-right: 400px;
   }
 
   .nav-icons {
@@ -208,8 +222,12 @@
   }
 
   .likedItemsCount {
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 17px;
     font-size: 14px;
-  }
+    padding-left: 3px;
+  } 
+
+
+
 }

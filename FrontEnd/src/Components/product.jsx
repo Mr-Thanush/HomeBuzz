@@ -12,31 +12,31 @@ function Product({ product }) {
     <article className="hb-product-card" aria-labelledby={`product-${product._id}-name`}>
       <Link to={`/product/${product._id}`} className="hb-product-link" aria-label={`View ${product.name}`}>
         <div className="hb-product-media">
-          <img
+          <img 
             src={imgSrc}
             alt={product.name || "Product image"}
             loading="lazy"
             width="300"
             height="220"
           />
-          <span className="hb-product-pill">{product.category || "Product"}</span>
+          <span className="hb-product-pill"><Ratings value={product.ratings || 0} disabled={true} /><span className="hb-reviews">({product.noOfReviews || 0})</span></span>
           <span className="hb-stock-pill">{product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}</span>
         </div>
 
         <div className="hb-product-body">
-          <h3 id={`product-${product._id}-name`} className="hb-product-title">{product.name}</h3>
           <div className="hb-product-seller">
-            <span className="hb-seller-name">{sellerDisplayName}</span>
-            {storeName && <span className="hb-seller-store"> · {storeName}</span>}
+            {storeName && <span className="hb-seller-store">{storeName}</span>}
           </div>
+          <h3 id={`product-${product._id}-name`} className="hb-product-title">{product.name}</h3>
+          
 
           <p className="hb-product-desc" aria-hidden="false">{product.description?.slice(0,120) || "No description"}</p>
 
           <div className="hb-product-meta">
             <div className="hb-price">₹{product.price}</div>
             <div className="hb-ratings">
-              <Ratings value={product.ratings || 0} disabled={true} />
-              <span className="hb-reviews">({product.noOfReviews || 0})</span>
+              
+              
             </div>
           </div>
         </div>
