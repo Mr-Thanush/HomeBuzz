@@ -1,12 +1,12 @@
-import "./admin.css";
+import React from "react";
 import { Outlet } from "react-router-dom";
-import AdminSidebar from './adminSidebar';
+import AdminSidebar from "./adminSidebar";
 import Navbar from "../../Components/navBar";
-import Dashboard from "./adminPages/dashBoard";
+import "./admin.css";
 
 export default function AdminDashboard() {
   return (
-    <>
+    <div className="admin-app-wrapper">
       <Navbar />
       <div className="admin-layout">
         <AdminSidebar />
@@ -14,6 +14,6 @@ export default function AdminDashboard() {
           <Outlet />
         </main>
       </div>
-    </>
+    </div>
   );
 }

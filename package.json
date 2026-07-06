@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node BackEnd/server.js",
+    "start": "node BackEnd/server.js",
     "server": "nodemon BackEnd/server.js",
-    "build":"npm install && npm install --prefix FrontEnd && npm run build --prefix FrontEnd"
+    "build": "npm install && npm install --prefix FrontEnd && npm run build --prefix FrontEnd"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,7 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.3.3",
     "multer": "^2.1.1",
+    "mysql2": "^3.22.5",
     "nodemailer": "^8.0.4",
     "nodemon": "^3.1.14",
     "validator": "^13.15.26"

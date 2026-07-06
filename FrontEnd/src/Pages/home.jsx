@@ -1,30 +1,29 @@
-import React, { useEffect, useRef } from "react";
-import Navbar from "../Components/navBar";
-import PageTitle from "../Components/pageTitle";
-import Product from "../Components/product";
-import "../Styles/home.css";
+import React, { useEffect } from "react";
+import Navbar from "../Components/Navbar";
+import PageTitle from "../Components/PageTitle";
+import Product from "../Components/Product";
+import Loader from "../Components/Loader";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct, removeErrors } from "../Components/features/Products/productSlice";
-import Loader from "../Components/loader";
 import { toast } from "react-toastify";
- 
+import "../Styles/home.css";
+
 function Home() { 
-  const { loading, error, products } = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const topSellerRef = useRef(null);
-  const latestDealsRef = useRef(null);
+  const { loading, error, products } = useSelector((state) => state.product);
 
- 
+  // Mount logic fetch
   useEffect(() => {
     dispatch(getProduct({ keyword: "" }));
   }, [dispatch]);
 
-
+  // Error boundary tracker
   useEffect(() => {
     if (error) {
-      toast.error(error.message, {
+      const errorMsg = typeof error === "string" ? error : error.message || "Failed to fetch products";
+      toast.error(errorMsg, {
         position: "top-center",
         autoClose: 3000,
       });
@@ -32,25 +31,22 @@ function Home() {
     }
   }, [dispatch, error]);
 
-  
   const goToSearch = () => { 
     navigate("/search");
   };
 
- 
-  const topSellerProducts = products
+  // Memoized array sorting logic fallbacks
+  const topSellerProducts = products?.length
     ? [...products]
         .filter((product) => (product.ratings || 0) > 0)
         .sort((a, b) => (b.noOfReviews || 0) - (a.noOfReviews || 0))
     : [];
 
-  const latestDeals = products
-    ? [...products].sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-      )
+  const latestDeals = products?.length
+    ? [...products].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     : [];
 
-  const categories = products?.length > 0
+  const categories = products?.length
     ? [...new Set(products.map((p) => p.category).filter(Boolean))]
     : [];
 
@@ -61,58 +57,68 @@ function Home() {
   if (loading) return <Loader />;
 
   return (
-    <>
+    <div className="home-page-wrapper">
       <PageTitle title="Home - HomeBuzz"/>
       <Navbar />
 
-      <div className="home-container">
-       
+      <main className="home-container">
+        {/* Clickable Search Bar Input Bar Mask */}
         <div className="home-search">
           <input
             type="text"
             placeholder="Search homemade food, pickles, handmade items..."
             readOnly
             onClick={goToSearch}
+            aria-label="Search items link wrapper"
           />
         </div>
 
-       
-        <section className="home-section">
-          <h2>Top Seller Items</h2>
-          <div className="horizontal-scroll">
-            {topSellerProducts.map((product) => (
-              <Product key={product._id} product={product} />
-            ))}
-          </div>
-        </section>
+        {/* Top Sellers Segment */}
+        {topSellerProducts.length > 0 && (
+          <section className="home-section">
+            <h2>Top Seller Items</h2>
+            {/* Added home-track class wrapper */}
+            <div className="horizontal-scroll home-track">
+              {topSellerProducts.map((product) => (
+                <Product key={product._id} product={product} />
+              ))}
+            </div>
+          </section>
+        )}
 
-       
-        <section className="home-section">
-          <h2>Latest Deals</h2>
-          <div className="horizontal-scroll">
-            {latestDeals.map((product) => (
-              <Product key={product._id} product={product} />
-            ))}
-          </div>
-        </section>
+        {/* Latest Deals Segment */}
+        {latestDeals.length > 0 && (
+          <section className="home-section">
+            <h2>Latest Deals</h2>
+            {/* Added home-track class wrapper */}
+            <div className="horizontal-scroll home-track">
+              {latestDeals.map((product) => (
+                <Product key={product._id} product={product} />
+              ))}
+            </div>
+          </section>
+        )}
 
-        
-        <section className="home-section">
-          <h2>Categories</h2>
-          <div className="category-grid">
-            {categories.map((category) => (
-              <div key={category} 
-              className="category-card"
-              onClick={()=>goToCategorySearch(category)}
-              >
-                {category}
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
-    </>
+        {/* Dynamic Category Map Element */}
+        {categories.length > 0 && (
+          <section className="home-section">
+            <h2>Browse Categories</h2>
+            <div className="category-grid">
+              {categories.map((category) => (
+                <button 
+                  key={category} 
+                  className="category-card"
+                  onClick={() => goToCategorySearch(category)}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+      </main>
+    </div>
   );
 }
 
-export default Home; 
+export default Home;

@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import apiClient from "../../../utils/apiClient";
 
-
 // FETCH ADMIN PRODUCT
 export const fetchAdminProducts = createAsyncThunk(
   "admin/fetchAdminProducts",
@@ -10,10 +9,7 @@ export const fetchAdminProducts = createAsyncThunk(
       const { data } = await apiClient.get("/admin/products");
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data ||
-        "Faild To Fetch All Products"
-      );
+      return rejectWithValue(error.response?.data || "Failed To Fetch All Products");
     }
   }
 );
@@ -26,10 +22,7 @@ export const fetchAdminUsers = createAsyncThunk(
       const { data } = await apiClient.get("/admin/users");
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data ||
-        "Faild To Fetch All Users"
-      );
+      return rejectWithValue(error.response?.data || "Failed To Fetch All Users");
     }
   }
 );
@@ -42,14 +35,10 @@ export const getSingleUser = createAsyncThunk(
       const { data } = await apiClient.get(`/admin/user/${id}`);
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data ||
-        "Faild To Get Single User"
-      );
+      return rejectWithValue(error.response?.data || "Failed To Get Single User");
     }
   }
 );
-
 
 // update single User
 export const updateSingleUser = createAsyncThunk(
@@ -59,14 +48,10 @@ export const updateSingleUser = createAsyncThunk(
       const { data } = await apiClient.put(`/admin/user/${userId}`, { role });
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data ||
-        "Faild To Update Single User"
-      );
+      return rejectWithValue(error.response?.data || "Failed To Update Single User");
     }
   }
 );
-
 
 // Delete Single User
 export const deleteSingleUser = createAsyncThunk(
@@ -76,10 +61,7 @@ export const deleteSingleUser = createAsyncThunk(
       const { data } = await apiClient.delete(`/admin/user/${userId}`);
       return data;
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data ||
-        "Faild To Delete User"
-      );
+      return rejectWithValue(error.response?.data || "Failed To Delete User");
     }
   }
 );
@@ -89,13 +71,10 @@ export const fetchSellerRequests = createAsyncThunk(
   "admin/fetchSellerRequests",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await apiClient.get(
-        "/admin/seller/requests"
-      );
+      const { data } = await apiClient.get("/admin/seller/requests");
+      return data; // FIX: Added missing return statement
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Failed to fetch seller requests"
-      );
+      return rejectWithValue(error.response?.data || "Failed to fetch seller requests");
     }
   }
 );
@@ -105,15 +84,10 @@ export const approveSeller = createAsyncThunk(
   "admin/approveSeller",
   async (sellerId, { rejectWithValue }) => {
     try {
-      const { data } = await apiClient.put(
-        `/admin/seller/approve/${sellerId}`,
-        {}
-      );
+      const { data } = await apiClient.put(`/admin/seller/approve/${sellerId}`, {});
       return { data, sellerId };
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Failed to approve seller"
-      );
+      return rejectWithValue(error.response?.data || "Failed to approve seller");
     }
   }
 );
@@ -123,18 +97,14 @@ export const rejectSeller = createAsyncThunk(
   "admin/rejectSeller",
   async (sellerId, { rejectWithValue }) => {
     try {
-      const { data } = await apiClient.delete(
-        `/admin/seller/reject/${sellerId}`
-      );
+      // FIX: Changed .delete to .put to align with database column state modification update route
+      const { data } = await apiClient.put(`/admin/seller/reject/${sellerId}`, {});
       return { data, sellerId };
     } catch (error) {
-      return rejectWithValue(
-        error.response?.data || "Failed to reject seller"
-      );
+      return rejectWithValue(error.response?.data || "Failed to reject seller");
     }
   }
 );
-
 
 const adminSlice = createSlice({
   name: "admin",
@@ -147,21 +117,14 @@ const adminSlice = createSlice({
     user: {},
     sellerRequests: [],
     message: null,
-    sellers:[]
+    sellers: []
   },
   reducers: {
-    removeErrors: (state) => {
-      state.error = null;
-    },
-    removeSuccess: (state) => {
-      state.success = false;
-    },
-    removeMessage: (state) => {
-      state.message = null;
-    }
+    removeErrors: (state) => { state.error = null; },
+    removeSuccess: (state) => { state.success = false; },
+    removeMessage: (state) => { state.message = null; }
   },
   extraReducers: (builder) => {
-    //fetch Products
     builder
       .addCase(fetchAdminProducts.pending, (state) => {
         state.loading = true;
@@ -173,11 +136,9 @@ const adminSlice = createSlice({
       })
       .addCase(fetchAdminProducts.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Faild To Fetch All Products";
-      });
+        state.error = action.payload || "Failed To Fetch All Products";
+      })
 
-    //fetch Users
-    builder
       .addCase(fetchAdminUsers.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -188,11 +149,9 @@ const adminSlice = createSlice({
       })
       .addCase(fetchAdminUsers.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Faild To Fetch All Users";
-      });
+        state.error = action.payload || "Failed To Fetch All Users";
+      })
 
-    //get User
-    builder
       .addCase(getSingleUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -203,11 +162,9 @@ const adminSlice = createSlice({
       })
       .addCase(getSingleUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Faild To Get Single User";
-      });
+        state.error = action.payload || "Failed To Get Single User";
+      })
 
-    //Get Single User
-    builder
       .addCase(updateSingleUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -218,11 +175,9 @@ const adminSlice = createSlice({
       })
       .addCase(updateSingleUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Faild To Get Single User";
-      });
+        state.error = action.payload || "Failed To Update Single User";
+      })
 
-    //Delete Single User
-    builder
       .addCase(deleteSingleUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -231,15 +186,14 @@ const adminSlice = createSlice({
         const deleteUserId = action.meta.arg;
         state.loading = false;
         state.message = action.payload.message;
-        state.users = state.users.filter(user => user._id !== deleteUserId);
+        // FIX: Changed user._id filter targeting parameter to rely on user.id (MySQL PK)
+        state.users = state.users.filter(user => user.id !== deleteUserId);
       })
       .addCase(deleteSingleUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Faild To Delete User";
-      });
+        state.error = action.payload || "Failed To Delete User";
+      })
 
-    // Fetch seller requests
-    builder
       .addCase(fetchSellerRequests.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -251,10 +205,8 @@ const adminSlice = createSlice({
       .addCase(fetchSellerRequests.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
 
-    // Approve seller
-    builder
       .addCase(approveSeller.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -263,17 +215,16 @@ const adminSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.message = action.payload.data.message;
+        // FIX: Changed filter targeting parameter to rely on seller.id (MySQL PK)
         state.sellerRequests = state.sellerRequests.filter(
-          seller => seller._id !== action.payload.sellerId
+          seller => seller.id !== action.payload.sellerId
         );
       })
       .addCase(approveSeller.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
 
-    // Reject seller
-    builder
       .addCase(rejectSeller.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -281,8 +232,9 @@ const adminSlice = createSlice({
       .addCase(rejectSeller.fulfilled, (state, action) => {
         state.loading = false;
         state.message = action.payload.data.message;
+        // FIX: Changed filter targeting parameter to rely on seller.id (MySQL PK)
         state.sellerRequests = state.sellerRequests.filter(
-          seller => seller._id !== action.payload.sellerId
+          seller => seller.id !== action.payload.sellerId
         );
       })
       .addCase(rejectSeller.rejected, (state, action) => {
@@ -290,7 +242,7 @@ const adminSlice = createSlice({
         state.error = action.payload;
       });
   }
-})
+});
 
 export const { removeErrors, removeSuccess, removeMessage } = adminSlice.actions;
 export default adminSlice.reducer;

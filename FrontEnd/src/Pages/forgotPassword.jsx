@@ -1,75 +1,78 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import PageTitle from "../Components/pageTitle";
+import PageTitle from "../Components/PageTitle";
 import { Link, useNavigate } from "react-router-dom";
-import NavBar from "../Components/navBar";
-import "../Styles/forgotPassword.css";
+import Navbar from "../Components/Navbar";
 import { forgotPassword, removeErrors, removeSuccess } from "../Components/features/User/userSlice";
+import "../Styles/forgotPassword.css";
 
 function ForgotPassword() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
 
-  const { loading, error, success ,message} = useSelector((state) => state.user);
-
+  const { loading, error, success, message } = useSelector((state) => state.user);
 
   const handleForgotPassword = (e) => {
     e.preventDefault();
-    if (!email) {
+    if (!email.trim()) {
       toast.error("Please enter your email");
       return;
     }
-
     dispatch(forgotPassword({ email }));
-    setEmail("");
   };
 
-   useEffect(() => {
-          if (error) {
-            toast.error(error, {
-              position: "top-center",
-              autoClose: 3000,
-            });
-            dispatch(removeErrors());
-          }
-        }, [dispatch, error]);
+  // Error Catch Action Monitoring Loop
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      dispatch(removeErrors());
+    }
+  }, [dispatch, error]);
 
-
-     useEffect(() => {
-          if (success) {
-            toast.success(message || "Password reset link sent successfully", {
-              position: "top-center",
-              autoClose: 3000,
-            });
-            dispatch(removeSuccess());
-            navigate("/profile")
-          }
-        }, [dispatch, success,message,navigate]);
+  // Handle Success & Reset Input field state
+  useEffect(() => {
+    if (success) {
+      toast.success(message || "Password reset link sent successfully", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      setEmail("");
+      dispatch(removeSuccess());
+      navigate("/signin"); // Redirects to sign-in instead of profile since password isn't updated yet
+    }
+  }, [dispatch, success, message, navigate]);
 
   return (
-    <>
-      <NavBar />
-      <PageTitle title="Forgot Password-HomeBuzz"/>
-      <div className="forgot-password-page">
+    <div className="forgot-password-layout">
+      <PageTitle title="Forgot Password" />
+      <Navbar />
+      
+      <main className="forgot-password-page">
         <div className="forgot-password-card">
           <h2>Forgot Password?</h2>
           <p className="subtitle">
             Enter your email and we’ll send you a reset link
           </p>
 
-          <form onSubmit={handleForgotPassword}>
-            <label>Email Address</label>
-            <input
-              type="email"
-              placeholder="Enter your registered email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+          <form onSubmit={handleForgotPassword} className="forgot-password-form">
+            <div className="form-group">
+              <label htmlFor="forgot-email">Email Address</label>
+              <input
+                id="forgot-email"
+                type="email"
+                placeholder="Enter your registered email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
 
-            <button type="submit" disabled={loading}>
+            <button type="submit" disabled={loading} className="reset-submit-btn">
               {loading ? "Sending..." : "Send Reset Link"}
             </button>
           </form>
@@ -78,8 +81,8 @@ function ForgotPassword() {
             <Link to="/signin">← Back to Login</Link>
           </div>
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 }
 

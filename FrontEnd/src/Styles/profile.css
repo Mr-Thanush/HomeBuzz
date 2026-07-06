@@ -1,296 +1,287 @@
-/* Page Wrapper */
-.profile-page {
-  margin-top: 60px;
-  min-height: 100vh;
+.profile-page-wrapper {
   background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
-  padding: 1.5rem;
-  font-family: var(--font-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Profile Card */
+.profile-loading-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  color: #1b5e20;
+  font-weight: 600;
+}
+
+.profile-page {
+  flex: 1;
+  padding: 16px;
+  margin-top: 70px;
+  box-sizing: border-box;
+}
+
+.profile-layout-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 500px;
+  margin: 0 auto 40px auto;
+  width: 100%;
+}
+
+/* Unified Profile Card Structural Blocks Styles */
 .profile-card {
   background: #ffffff;
   border-radius: 20px;
-  padding: 2rem 1.5rem;
+  padding: 24px 16px;
   text-align: center;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-  margin-bottom: 1.5rem;
-} 
+  box-shadow: 0 8px 24px rgba(27, 94, 32, 0.05);
+  border: 1px solid #e8f5e9;
+  box-sizing: border-box;
+}
 
-.profile-div{
+.avatar-wrapper-block {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 16px auto;
+}
+
+.profilePic {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #f1f8e9;
+  border: 3px solid #c8e6c9;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.profileImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Edit floating pen icon buttons configuration absolute layout overlay */
+.edit-avatar-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1.5px solid #81c784;
+  color: #2e7d32;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: auto;
-} 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+}
+
+.edit-avatar-btn:hover {
+  transform: scale(1.05);
+  background-color: #f1f8e9;
+}
 
 .profile-name {
-  margin-top: 0.8rem;
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.35rem;
+  font-weight: 800;
   color: #1b5e20;
+  margin: 0 0 4px 0;
 }
 
 .profile-email {
   font-size: 0.9rem;
   color: #4caf50;
-  margin-top: 0.2rem;
+  margin: 0 0 12px 0;
+  word-break: break-all;
 }
 
-.profile-bio {
-  margin-top: 0.7rem;
-  font-size: 0.95rem;
+.role-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  background-color: #f1f8e9;
   color: #2e7d32;
+  padding: 4px 12px;
+  border-radius: 99px;
+  border: 1px solid #c8e6c9;
+  margin-bottom: 8px;
 }
 
-/* Menu */
+.profileCreatedOn {
+  color: #558b2f;
+  font-size: 0.75rem;
+  margin: 4px 0 0 0;
+}
+
+.admin-dash-link {
+  text-decoration: none;
+  display: block;
+  margin-top: 14px;
+}
+
+.adminDashboard {
+  width: 100%;
+  padding: 10px;
+  background-color: #1b5e20;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.adminDashboard:hover {
+  background-color: #144317;
+}
+
+/* Action Menu Directories Container list layout styles */
+.profile-menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .profile-menu {
   background: #ffffff;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(27, 94, 32, 0.05);
+  border: 1px solid #e8f5e9;
 }
 
-/* Menu Item */
 .profile-item {
-  padding: 1rem 1.2rem;
+  padding: 14px 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  transition: background 0.25s ease;
+  background: #ffffff;
+  transition: background 0.2s ease;
+  box-sizing: border-box;
 }
 
-.profile-item:hover {
+.profile-item:hover:not(.disabled) {
   background: #f1f8e9;
 }
 
 .profile-item:not(:last-child) {
-  border-bottom: 1px solid #edf2ee;
+  border-bottom: 1px solid #f1f8e9;
 }
 
 .item-left {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  font-weight: 600;
-  color: #1b5e20;
+  gap: 12px;
 }
 
 .item-icon {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   color: #2e7d32;
+  display: flex;
+  align-items: center;
+}
+
+.item-label-text {
+  font-weight: 600;
+  color: #1b5e20;
+  font-size: 0.95rem;
 }
 
 .item-arrow {
   font-size: 1.3rem;
   color: #a5d6a7;
+  font-weight: 400;
 }
 
-/* Highlighted Item (My Store) */
 .profile-item.highlight {
   background: #e8f5e9;
-  margin: 0.5rem;
-  border-radius: 14px;
+  margin: 6px;
+  border-radius: 12px;
+  border-bottom: none;
 }
 
-/* Logout Button */
+.profile-item.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.userOrder {
+  text-decoration: none;
+  display: block;
+}
+
+/* Account Sign Out Triggers Controls styling classes */
 .logout-btn {
-  margin-top: 2rem;
   width: 100%;
   background: #ffebee;
   color: #c62828;
-  border: none;
-  border-radius: 16px;
-  padding: 0.9rem;
-  font-size: 1rem;
+  border: 1px solid #ffcdd2;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 0.95rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 8px;
   cursor: pointer;
-  transition: background 0.25s ease;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .logout-btn:hover {
   background: #ffcdd2;
 }
 
-.profile-div .edit{
-  position: relative;
-  left:210px;
-  bottom:60px;
-  background: rgb(223, 239, 223);
-  cursor: pointer;
-  border-radius: 30px;
-  width: 50px;
-}
-
-.editLink{
-   color: #77c179;
-}
-
-
-.userOrder{
-  text-decoration: none;
-}
-
-.profileCreatedOn{
-  color: #025d05;
-  font-size: 11px;
-}
-
-.profilePic{
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: #e8f5e9;
-  margin: auto;
-  position: relative;
-  right: 25px;
-}
-
-.profileImg{
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
+/* COMPREHENSIVE DESKTOP GRID STABILIZATION PARAMS QUERY */
 @media (min-width: 768px) {
-
   .profile-page {
-    padding: 2rem;
+    padding: 24px;
   }
 
-  .profile-layout {
+  .profile-layout-grid {
     display: grid;
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 280px 1fr;
     gap: 24px;
-    max-width: 1000px;
-    margin: auto;
-  }
-
-  /* Profile card */
-  .profile-card {
-    text-align: left;
-    padding: 2rem;
-  }
-
-  .profile-div {
-    justify-content: flex-start;
-  }
-
-  .profile-name {
-    font-size: 1.5rem;
-  }
-
-  .profile-email {
-    font-size: 0.95rem;
-  }
-
-  .profile-div .edit {
-    left: 400px;
-    bottom: 50px;
-    margin-left: auto;
-  }
-
-  /* Menu */
-  .profile-menu {
-    border-radius: 20px;
-  }
-
-  .profile-item {
-    padding: 1.1rem 1.4rem;
-  }
-
-  .item-icon {
-    font-size: 1.4rem;
-  }
-
-  /* Logout */
-  .logout-btn {
-    max-width: 300px;
-  }
-}
-
-
-@media (min-width: 1024px) {
-
-  .profile-page {
-    padding: 3rem 2rem;
-    width: 1000px;
-    margin: 20px auto;
-    
-  }
-
-  .profile-layout {
-    max-width: 1200px;
-    grid-template-columns: 340px 1fr;
-    gap: 32px;
+    max-width: 900px;
+    margin: 40px auto;
+    align-items: start;
   }
 
   .profile-card {
-    padding: 2.5rem 2rem;
-    border-radius: 24px;
-    position: relative;
+    padding: 32px 20px;
+    position: sticky;
     top: 100px;
   }
 
-  .profilePic,
-  .profileImg {
-    width: 200px;
-    height: 200px;
+  .profile-menu-container {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .profile-layout-grid {
+    grid-template-columns: 320px 1fr;
+    max-width: 1050px;
+    gap: 32px;
+  }
+
+  .avatar-wrapper-block {
+    width: 130px;
+    height: 130px;
   }
 
   .profile-name {
-    font-size: 1.7rem;
-  }
-
-  .profile-bio {
-    font-size: 1rem;
-  }
-
-  /* Menu */
-  .profile-menu {
-    padding: 0.5rem;
-    margin-top: 140px;
-  }
-
-  .profile-item {
-    padding: 1.2rem 1.6rem;
-    border-radius: 14px;
-    margin: 0.4rem;
-  }
-
-  .profile-div .edit {
-    left: 600px;
-    bottom: 50px;
-    margin-left: auto;
-  }
-
-  .profile-item:hover {
-    background: #e8f5e9;
-  }
-
-  .profile-item.highlight {
-    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
-  }
-
-  /* Icons */
-  .item-icon {
     font-size: 1.5rem;
-  }
-
-  .item-arrow {
-    font-size: 1.4rem;
-  }
-
-  /* Logout */
-  .logout-btn {
-    max-width: 340px;
-    margin-top: 2.5rem;
-    font-size: 1.05rem;
   }
 }

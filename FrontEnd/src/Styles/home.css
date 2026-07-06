@@ -1,195 +1,180 @@
+.home-page-wrapper {
+  background: #e1f4e2;
+  min-height: 100vh;
+}
 
 .home-container {
-  margin-top: 64px;
-  min-height: 100vh;
-  padding: 16px;
-  font-family: var(--font-Heading);
-  box-sizing: border-box;
+  margin-top: 70px;
+  padding: 24px 16px;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  box-sizing: border-box;
 }
 
-
+/* Simulated Dynamic Input Search Group */
 .home-search {
-  max-width: 700px;
-  margin: 0 auto 1.5rem;
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
 }
 
 .home-search input {
   width: 100%;
-  padding: 14px;
+  padding: 14px 20px;
   border-radius: 12px;
-  border: 1px solid var(--Accent);
-  font-size: 0.95rem;
-  box-shadow: var(--shadow-sm);
+  border: 1.5px solid #bbf7d0; 
+  font-size: 1rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.04);
   box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.home-search input:hover {
+  border-color: #22c55e;
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.1);
+}
 
-
+/* Sections Configuration */
 .home-section {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .home-section h2 {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  margin-bottom: 0.8rem;
+  color: #14532d;
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.3px;
 }
 
+/* Advanced Horizontal Track Slider Configs */
 .horizontal-scroll {
   display: flex;
-  gap: 14px;
+  gap: 16px;
   overflow-x: auto;
-  padding-bottom: 8px;
+  padding-bottom: 12px;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #bbf7d0 transparent;
 }
 
+/* Scroll track indicator styling layout */
 .horizontal-scroll::-webkit-scrollbar {
-  display: none;
+  height: 6px;
 }
 
-
-.product-link {
-  text-decoration: none;
+.horizontal-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.horizontal-scroll .product-card {
-  width: 100%;
-  max-width: 250px;
-  height: auto;
-  background: var(--Neutral);
-  border-radius: 14px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-sizing: border-box;
-  scrollbar-width: none;
-}
-
-.product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-}
-
-.product-card:active {
-  transform: scale(0.97);
-}
-
-
-.product-card img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background: #dcfce7;
   border-radius: 10px;
-  margin-bottom: 8px; 
 }
 
-.productDetails {
-  display: flex;
-  flex-direction: column;
-}
-
-
-.product-seller {
-  font-size: 0.6rem;
-  font-weight: 600;
-  color: var(--Accent);
-  text-transform: uppercase;
-}
-
-.product-name {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--Text);
-  margin-bottom: 2px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.horizontal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #bbf7d0;
 }
 
 
-.product-description {
-  font-size: 0.75rem;
-  color: #666;
-  line-height: 1.3;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.home-track .hb-product-card {
+  flex: 0 0 210px  ; 
+  width: 210px  ;
+  min-width: 210px  ;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #f3f4f6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  box-sizing: border-box; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-
-.product-footer {
-  margin-top: auto;
+/* Forces the elements inside the card back to vertical layout for Homepage */
+.home-track .hb-product-card .hb-product-link {
+  flex-direction: column  ;
+  align-items: stretch  ;
 }
 
-
-.product-price {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--Primary);
+/* Forces image back to the top of the card layout on homepage */
+.home-track .hb-product-card .ll-image-container,
+.home-track .hb-product-card .hb-product-media {
+  width: 100%  ;
+  height: auto  ;
+  max-width: 100%  ;
+  aspect-ratio: 1 / 1  ;
+  margin: 0  ;
+  border-radius: 14px 14px 0 0  ;
 }
 
-/* Ratings */
-.product-ratings {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.7rem;
+/* Fixes spacing underneath the vertical images */
+.home-track .hb-product-card .hb-product-body {
+  padding: 12px  ;
 }
 
-.productCard-noOfReviews {
-  color: #777;
+.home-track .hb-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(22, 101, 52, 0.06);
 }
 
-
+/* Categories Layout Updates */
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 
 .category-card {
-  padding: 1rem;
-  background: linear-gradient(135deg, var(--Primary), var(--Accent));
-  border-radius: 14px;
+  padding: 1.2rem 1rem;
+  background: #ffffff;
+  border: 1.5px solid #bbf7d0;
+  color: #15803d;
+  border-radius: 12px;
   text-align: center;
+  font-size: 0.95rem;
   font-weight: 600;
+  cursor: pointer;
+  border-style: solid;
+  transition: all 0.2s ease;
 }
 
+.category-card:hover {
+  background: #e8fced;
+  border-color: #22c55e;
+  color: #14532d;
+  transform: translateY(-2px);
+}
 
+.category-card:active {
+  transform: scale(0.98);
+}
 
-@media (min-width: 768px) {
-  .product-card {
-     max-width: 220px; 
-    }
+/* Breakpoint Adapters Layer */
+@media (min-width: 640px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+}
 
-  .product-card img { 
-    height: 150px; 
+@media (min-width: 1024px) {
+  .home-container {
+    padding: 40px 24px;
+  }
+
+  .home-section h2 {
+    font-size: 1.6rem;
   }
 
   .category-grid {
-     grid-template-columns: repeat(3,2fr);
-     }
-}
-
-
-@media (min-width: 1200px) {
-  .product-card { 
-    max-width: 260px; 
+    grid-template-columns: repeat(5, 1fr);
   }
-
-  .product-card img { 
-    height: 180px; 
+  
+  .home-track .hb-product-card {
+    flex: 0 0 260px ;
+    width: 260px ;
+    min-width: 260px;
   }
-
-  .category-grid {  
-    grid-template-columns: repeat(4,2fr);
-   }
 }

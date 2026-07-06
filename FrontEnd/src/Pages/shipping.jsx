@@ -1,19 +1,19 @@
-import { useState } from "react";
-import "../Styles/shipping.css";
-import CheckOutAnimation from "./checkOutAnimation";
-import Navbar from "../Components/navBar";
-import PageTitle from "../Components/pageTitle";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { City } from "country-state-city";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import Navbar from "../Components/navBar";
+import PageTitle from "../Components/pageTitle";
+import CheckOutAnimation from "./checkOutAnimation";
 import { saveShippingInfo } from "../Components/features/Like/likeSlice";
-import { useNavigate } from "react-router-dom";
-
+import "../Styles/shipping.css";
 
 function Shipping() {
-  const { shippingInfo }=useSelector(state=>state.like);
-  const dispatch=useDispatch();
-  const navigate=useNavigate();
+  const { shippingInfo } = useSelector((state) => state.like);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     fullName: shippingInfo?.fullName || "",
     mobileNumber: shippingInfo?.mobileNumber || "",
@@ -25,28 +25,31 @@ function Shipping() {
   });
 
   const handleChange = (e) => {
-
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmitForm = (e) => {
-   e.preventDefault();
-   if(form.mobileNumber.length!==10){
-    toast.error("Invali Phone Number ! It Should Be 10 Digits",{position:"top-center",autoClose:3000})
-    return;
-   }
-   dispatch(saveShippingInfo(form));
-   navigate('/order/confirm')
+    e.preventDefault();
+    if (form.mobileNumber.replace(/\D/g, "").length !== 10) {
+      toast.error("Invalid Phone Number! It must contain exactly 10 digits.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      return;
+    }
+    dispatch(saveShippingInfo(form));
+    navigate("/order/confirm");
   };
 
-
-
   return (
-    <>
-    <Navbar />
-    <PageTitle title="Shipping Address-HomeBuzz"/>
-      <CheckOutAnimation step={1} />
+    <div className="shipping-layout-container">
+      <Navbar />
+      <PageTitle title="Delivery Information - HomeBuzz" />
+      <div className="checkout-anim-wrapper">
+        <CheckOutAnimation step={1} />
+      </div>
+
       <main className="shipping-page">
         <section className="shipping-card">
           <header className="shipping-header">
@@ -69,7 +72,7 @@ function Shipping() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="phone">Phone Number</label>
+              <label htmlFor="mobileNumber">Phone Number</label>
               <input
                 id="mobileNumber"
                 type="tel"
@@ -82,11 +85,11 @@ function Shipping() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="address">Address</label>
+              <label htmlFor="fullAddress">Address Details</label>
               <textarea
                 id="fullAddress"
                 name="fullAddress"
-                placeholder="House No, Street, Area"
+                placeholder="House No, Street, Local Area Name"
                 rows="3"
                 value={form.fullAddress}
                 onChange={handleChange}
@@ -94,10 +97,11 @@ function Shipping() {
               />
             </div>
 
-            <div className="form-row">
+            <div className="form-grid-row">
               <div className="form-group">
-                <label>State</label>
+                <label htmlFor="state">State</label>
                 <select
+                  id="state"
                   name="state"
                   value={form.state}
                   onChange={handleChange}
@@ -110,8 +114,9 @@ function Shipping() {
               </div>
 
               <div className="form-group">
-                <label>City</label>
+                <label htmlFor="city">City</label>
                 <select
+                  id="city"
                   name="city"
                   value={form.city}
                   onChange={handleChange}
@@ -127,43 +132,42 @@ function Shipping() {
                     ))}
                 </select>
               </div>
+            </div>
 
+            <div className="form-grid-row dual">
               <div className="form-group">
-                <label>Landmark</label>
+                <label htmlFor="landmark">Landmark (Optional)</label>
                 <input
+                  id="landmark"
                   type="text"
                   name="landmark"
-                  placeholder="Nearby landmark (optional)"
+                  placeholder="e.g. Near Metro Station"
                   value={form.landmark}
                   onChange={handleChange}
                 />
               </div>
+
+              <div className="form-group">
+                <label htmlFor="pincode">Pincode</label>
+                <input
+                  id="pincode"
+                  type="text"
+                  name="pincode"
+                  placeholder="6-digit postal code"
+                  value={form.pincode}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
 
-            <div className="form-group">
-              <label>Pincode</label>
-              <input
-                type="text"
-                name="pincode"
-                placeholder="6-digit pincode"
-                value={form.pincode}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="shipping-btn"
-              // disabled={loading}
-            >
+            <button type="submit" className="shipping-btn">
               Continue to Payment
-              {/* {loading ? "Processing..." : "Continue to Payment"} */}
             </button>
           </form>
         </section>
       </main>
-    </>
+    </div>
   );
 }
 

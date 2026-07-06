@@ -1,18 +1,17 @@
-import { Routes, Route } from "react-router-dom";
-import './App.css'
-import { BrowserRouter as Router } from "react-router-dom";
-import ProtectedRoute from "./routes/ProtectedRoute.jsx";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ProtectedRoute from "./routes/ProtectedRoute.jsx"; 
+import { loadUser } from "./Components/features/User/userSlice.js";
+
+// --- General & Customer Pages ---
+import Home from "./Pages/home.jsx";
 import SignIn from "./Pages/signIn.jsx";
 import SignUp from "./Pages/signUp.jsx";
-import Home from "./Pages/home.jsx";
 import Profile from "./Pages/profile.jsx";
-import Like from './Pages/like.jsx';
+import Like from "./Pages/like.jsx";
 import Search from "./Pages/search.jsx";
 import ProductDetails from "./Pages/productDetails.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { loadUser } from "./Components/features/User/userSlice.js";
-import AdminDashboard from "./Pages/Admin/adminDashboard.jsx";
 import UpdateProfile from "./Pages/updateProfile.jsx";
 import UpdatePassword from "./Pages/updatePassword.jsx";
 import ForgotPassword from "./Pages/forgotPassword.jsx";
@@ -22,34 +21,46 @@ import OrderConfirm from "./Pages/orderConfirm.jsx";
 import Payment from "./Pages/payment.jsx";
 import MyOrders from "./Pages/myOrders.jsx";
 import OrderDetails from "./Pages/orderDetails.jsx";
+import CreateStore from "./Pages/createStore.jsx";
+
+// --- Admin Module Pages ---
+import AdminDashboard from "./Pages/Admin/adminDashboard.jsx";
 import Dashboard from "./Pages/Admin/adminPages/dashBoard.jsx";
 import AdminProducts from "./Pages/Admin/adminPages/products.jsx";
 import Users from "./Pages/Admin/adminPages/users.jsx";
+import UpdateUserRole from "./Pages/Admin/adminPages/updateUserRole.jsx";
 import SellerRequests from "./Pages/Admin/adminPages/sellerRequest.jsx";
-import SellerDashboard from "./Pages/Seller/sellerDashboard.jsx";
+
+// --- Seller Module Pages ---
+import SellerDashboard from './Pages/Seller/sellerDashboard.jsx';
+import SellerOverview from "./Pages/Seller/sellerOverview.jsx"; 
 import CreateProduct from "./Pages/Seller/sellerPages/createProducts.jsx";
 import AllBuyers from "./Pages/Seller/sellerPages/allBuyers.jsx";
 import AllOrders from "./Pages/Seller/sellerPages/allOrders.jsx";
+import OrderUpdate from "./Pages/Seller/sellerPages/updateOrder.jsx";
 import SellerAllProducts from "./Pages/Seller/sellerPages/allProducts.jsx";
 import AllReviews from "./Pages/Seller/sellerPages/allReviews.jsx";
 import UpdateProduct from "./Pages/Seller/sellerPages/updateProduct.jsx";
-import UpdateUserRole from "./Pages/Admin/adminPages/updateUserRole.jsx";
-import OrderUpdate from "./Pages/Seller/sellerPages/updateOrder.jsx";
-import CreateStore from "./Pages/createStore.jsx";
 
+import "./App.css";
 
 function App() {
-  const { isAuthenticated, user } = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const { isAuthenticated, user, loading } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(loadUser());
-  }, [dispatch])
+  }, [dispatch]);
 
+  const isAdmin = isAuthenticated && user?.role === "admin";
+  const isSellerOrAdmin = isAuthenticated && (user?.role === "seller" || user?.role === "admin");
 
   return (
     <Router>
       <Routes>
+        {/* =========================================================
+            PUBLIC CATALOG ROUTES
+           ========================================================= */}
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
@@ -57,19 +68,26 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/search/:keyword" element={<Search />} />
         <Route path="/product/:id" element={<ProductDetails />} />
-        
-        <Route path="/profile" element={<ProtectedRoute isAllowed={isAuthenticated}><Profile user={user} /></ProtectedRoute>} />
-        <Route path="/profile/update" element={<ProtectedRoute isAllowed={isAuthenticated}><UpdateProfile /></ProtectedRoute>} />
-        <Route path="/password/update" element={<ProtectedRoute isAllowed={isAuthenticated}><UpdatePassword /></ProtectedRoute>} />
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/reset/:token" element={<ResetPassword />} />
-        <Route path="/shipping" element={<ProtectedRoute isAllowed={isAuthenticated}><Shipping /></ProtectedRoute>} />
-        <Route path="/order/confirm" element={<ProtectedRoute isAllowed={isAuthenticated}><OrderConfirm /></ProtectedRoute>} />
-        <Route path="/process/payment" element={<ProtectedRoute isAllowed={isAuthenticated}><Payment /></ProtectedRoute>} />
-        <Route path="/user/orders" element={<ProtectedRoute isAllowed={isAuthenticated}><MyOrders /></ProtectedRoute>} />
-        <Route path="/order/:orderId" element={<ProtectedRoute isAllowed={isAuthenticated}><OrderDetails /></ProtectedRoute>} />
-        {/* Admin */}
-        <Route path="/admin" element={<ProtectedRoute isAllowed={isAuthenticated && user?.role === "admin"}><AdminDashboard /></ProtectedRoute>}>
+        
+        {/* =========================================================
+            PROTECTED AUTHENTICATED CUSTOMER GATEWAYS
+           ========================================================= */}
+        <Route path="/profile" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><Profile user={user} /></ProtectedRoute>} />
+        <Route path="/profile/update" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><UpdateProfile /></ProtectedRoute>} />
+        <Route path="/password/update" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><UpdatePassword /></ProtectedRoute>} />
+        <Route path="/shipping" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><Shipping /></ProtectedRoute>} />
+        <Route path="/order/confirm" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><OrderConfirm /></ProtectedRoute>} />
+        <Route path="/process/payment" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><Payment /></ProtectedRoute>} />
+        <Route path="/user/orders" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><MyOrders /></ProtectedRoute>} />
+        <Route path="/order/:orderId" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><OrderDetails /></ProtectedRoute>} />
+        <Route path="/createstore" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><CreateStore /></ProtectedRoute>} />
+
+        {/* =========================================================
+            PROTECTED NESTED ADMIN DASHBOARDS
+           ========================================================= */}
+        <Route path="/admin" element={<ProtectedRoute isAllowed={isAdmin} loading={loading}><AdminDashboard /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="products" element={<AdminProducts />} />
@@ -77,22 +95,27 @@ function App() {
           <Route path="user/:userId" element={<UpdateUserRole />} />
           <Route path="sellers/request" element={<SellerRequests />} />
         </Route>
-        {/* Seller */}
-        <Route path="/createstore" element={<ProtectedRoute isAllowed={isAuthenticated}><CreateStore /></ProtectedRoute>} />
-        <Route path="/seller" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><SellerDashboard /></ProtectedRoute>} />
-        <Route path="/seller/product/create" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><CreateProduct /></ProtectedRoute>} />
-        <Route path="/seller/buyers" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><AllBuyers /></ProtectedRoute>} />
-        <Route path="/seller/orders" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><AllOrders /></ProtectedRoute>} />
-        <Route path="/seller/order/:orderId" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><OrderUpdate /></ProtectedRoute>} />
-        <Route path="/seller/products" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><SellerAllProducts /></ProtectedRoute>} />
-        <Route path="/seller/Reviews" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><AllReviews /></ProtectedRoute>} />
-        <Route path="/seller/product/:updateId" element={<ProtectedRoute isAllowed={isAuthenticated && (user?.role === "seller" || user?.role === "admin")}><UpdateProduct /></ProtectedRoute>} />
 
+        {/* =========================================================
+            PROTECTED NESTED SELLER CONTROL PANELS
+           ========================================================= */}
+        <Route path="/seller" element={<ProtectedRoute isAllowed={isSellerOrAdmin} loading={loading}><SellerDashboard /></ProtectedRoute>}>
+          {/* Index path redirects dashboard traffic context or serves fallback views */}
+          <Route index element={<Navigate to="products" replace />} /> 
+          <Route path="products" element={<SellerAllProducts />} />
+          <Route path="product/create" element={<CreateProduct />} />
+          <Route path="product/:updateId" element={<UpdateProduct />} />
+          <Route path="buyers" element={<AllBuyers />} />
+          <Route path="orders" element={<AllOrders />} />
+          <Route path="order/:orderId" element={<OrderUpdate />} />
+          <Route path="reviews" element={<AllReviews />} />
+        </Route>
 
-
+        {/* Catch-all Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
-  )
+  );
 }
 
 export default App;

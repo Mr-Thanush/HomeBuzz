@@ -1,185 +1,138 @@
-/* Global Page Background */
 .register-container {
-  height: 100vh;
-  background-color: #e8f5e9; /* light green */
+  min-height: 100vh;
+  background-color: #e8f5e9;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family:var(--font-Heading);
+  padding: 16px;
+  box-sizing: border-box;
 }
 
-/*Card Layout*/
 .register-card {
   background-color: #ffffff;
-  padding: 2.5rem;
+  padding: 32px 24px;
   width: 100%;
   max-width: 420px;
-  border-radius: 14px;
-  box-shadow: 0 12px 30px rgba(0, 128, 0, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 128, 0, 0.1);
+  box-sizing: border-box;
 }
 
-.register-card h1{
-   color:#1b5e20;
-   font-size: 1.4rem;
-   font-weight: bolder;
-   margin-top: 0;
+.register-title {
+   color: #1b5e20;
+   font-size: 1.6rem;
+   font-weight: 800;
+   margin: 0;
+   text-align: center;
 }
 
-
-/* Subtitle */
 .register-card .subtitle {
   text-align: center;
-  color: #4c864f;
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  color: #4caf50;
+  margin: 4px 0 24px 0;
+  font-size: 1rem;
   font-weight: 700;
-  text-decoration: underline;
 }
 
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-/* Form Labels */
-label {
+.reg-input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.reg-input-group label {
   display: block;
   margin-bottom: 6px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #2e7d32;
   font-weight: 700;
 }
 
-/* Inputs */
-input {
+/* Fixed input position bug to center properly inside flex blocks */
+.reg-input-group input {
   width: 100%;
-  padding: 11px;
-  position: relative;
-  right: 10px;
+  padding: 12px 14px;
   border: 1px solid #a5d6a7;
-  border-radius: 7px;
+  border-radius: 8px;
   outline: none;
   font-size: 0.95rem;
   background-color: #ffffff;
+  box-sizing: border-box;
 }
 
-input::placeholder {
-  color: #9ccc9c;
-}
-
-input:focus {
+.reg-input-group input:focus {
   border-color: #2e7d32;
-  box-shadow: 0 0 0 1px rgba(46, 125, 50, 0.2);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
 }
 
-/* Register Button */
+.reg-password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.reg-password-wrapper input {
+  padding-right: 44px;
+}
+
+.reg-eye-btn {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2e7d32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 1.1rem;
+}
+
 .registerBtn {
   width: 100%;
-  padding: 12px;
-  margin-top: 0.5rem;
+  padding: 14px;
+  margin-top: 8px;
   background-color: #2e7d32;
   color: #ffffff;
   border: none;
-  border-radius: 7px;
+  border-radius: 8px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
+  transition: background-color 0.2s;
 }
 
 .registerBtn:hover {
   background-color: #1b5e20;
 }
 
-.registerBtn:active {
-  transform: scale(0.98);
+.haveAccount {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #666;
 }
 
-.haveAccount p{
-  color: #9ccc9c;
-}
-
-p .signinLink {
-   color: #014f01;
+.signinLink {
+   color: #1b5e20;
    font-weight: 700;
+   text-decoration: none;
+}
+
+.signinLink:hover {
+  text-decoration: underline;
 }
 
 @media (min-width: 768px) {
-
-  .register-container {
-    padding: 2rem;
-  }
-
   .register-card {
-    max-width: 480px;
-    padding: 3rem;
-    border-radius: 18px;
-  }
-
-  .register-card h1 {
-    font-size: 1.6rem;
-    text-align: center;
-  }
-
-  .register-card .subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-  }
-
-  label {
-    font-size: 0.95rem;
-  }
-
-  input {
-    padding: 13px;
-    font-size: 1rem;
-    right: 0;
-  }
-
-  .registerBtn {
-    padding: 14px;
-    font-size: 1.05rem;
-  }
-
-  .haveAccount {
-    text-align: center;
-    margin-top: 1rem;
-  }
-}
-
-@media (min-width: 1024px) {
-
-  .register-container {
-    background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
-  }
-
-  .register-card {
-    max-width: 540px;
-    padding: 3.5rem;
-    border-radius: 20px;
-    box-shadow: 0 20px 45px rgba(0, 128, 0, 0.2);
-  }
-
-  .register-card h1 {
-    font-size: 1.75rem;
-  }
-
-  .register-card .subtitle {
-    font-size: 1.25rem;
-  }
-
-  label {
-    font-size: 1rem;
-  }
-
-  input {
-    padding: 14px;
-    border-radius: 8px;
-  }
-
-  .registerBtn {
-    padding: 15px;
-    font-size: 1.1rem;
-    border-radius: 8px;
-  }
-
-  .haveAccount p {
-    font-size: 0.95rem;
+    padding: 40px 32px;
+    max-width: 460px;
   }
 }

@@ -1,128 +1,93 @@
-import { useEffect, useState } from "react";
-import Navbar from "../../../Components/navBar";
-import PageTitle from "../../../Components/pageTitle";
-import "../admin.css";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSingleUser, removeErrors, removeSuccess, updateSingleUser } from "../../../Components/features/AdminSeller/adminSlice";
 import { toast } from "react-toastify";
+import PageTitle from "../../../Components/pageTitle";
+import { getSingleUser, removeErrors, removeSuccess, updateSingleUser } from "../../../Components/features/AdminSeller/adminSlice";
+import Loader from "../../../Components/loader";
 
 export default function UpdateUserRole() {
-  const {userId}=useParams();
-  const dispatch=useDispatch();
-  const navigate=useNavigate();
-  const {user,loading,error,success}=useSelector(state=>state.admin);
+  const { userId } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { user, loading, error, success } = useSelector((state) => state.admin || {});
 
-   useEffect(()=>{
+  const [formData, setFormData] = useState({ name: "", email: "", role: "" });
+  const { name, email, role } = formData;
+
+  useEffect(() => {
     dispatch(getSingleUser(userId));
-  },[dispatch])
+  }, [dispatch, userId]);
 
-  const [formData,setFormData]=useState({
-    name:"",
-    email:"",
-    role:""
-  })
-
-  const{name,email,role}=formData;
-
-  useEffect(()=>{
-     if(user){
+  useEffect(() => {
+    if (user) {
       setFormData({
-        name:user.name||"",
-        email:user.email||"",
-        role:user.role||""
-      })
-     }
-  },[user]);
+        name: user.name || "",
+        email: user.email || "",
+        role: user.role || ""
+      });
+    }
+  }, [user]);
 
-
-  const handleChange=(e)=>{
-     setFormData({...formData,[e.target.name]:e.target.value})
-  }
- 
-
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateSingleUser({userId,role}));
+    if (!role) return toast.warn("Please select a valid target security context role.");
+    dispatch(updateSingleUser({ userId, role }));
   };
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error?.message || error);
+      dispatch(removeErrors());
+    }
+    if (success) {
+      toast.success("Identity Privilege Context Updated Successfully");
+      dispatch(removeSuccess());
+      navigate("/admin/users");
+    }
+  }, [dispatch, error, success, navigate]);
 
-
-   useEffect(() => {
-      if (error) {
-        toast.error(error.message, {
-          position: "top-center",
-          autoClose: 3000,
-        });
-        dispatch(removeErrors());
-      }
-    }, [dispatch, error]);
-
-     useEffect(() => {
-      if (success) {
-        toast.success("Role Updated Successfully", {
-          position: "top-center",
-          autoClose: 3000,
-        });
-        dispatch(removeSuccess());
-        navigate('/admin/users')
-      }
-    }, [dispatch, success]);
-
+  if (loading && !name) return <Loader />;
 
   return (
-    <> 
-    <Navbar/>
-    <PageTitle title='UpdateUser-Admin'/>
-    <section className="updateUser">
-      <div className="updateUserCard">
-        <h1 className="updateUserTitle">Update User Role</h1>
+    <>
+      <PageTitle title="Update User Access Role" />
+      <section className="form-center-wrapper">
+        <div className="modern-form-card">
+          <h1 className="form-card-title">Modify Security Context</h1>
+          <p className="form-card-sub">Elevate or revoke cross-module operations for this account identity.</p>
 
-        <form className="updateUserForm" onSubmit={handleSubmit}>
-          <div className="formGroup">
-            <label htmlFor="name">Full Name</label>
-            <input
-              type="text"
-              readOnly
-              id="name"
-              name="name"
-              value={name}
-              required
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="modern-stacked-form">
+            <div className="modern-form-group">
+              <label>Full Name Reference String</label>
+              <input type="text" readOnly value={name} className="disabled-input" />
+            </div>
 
-          <div className="formGroup">
-            <label htmlFor="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              readOnly
-              name="email"
-              value={email}
-              required
-            />
-          </div>
+            <div className="modern-form-group">
+              <label>Email Identity Endpoint</label>
+              <input type="email" readOnly value={email} className="disabled-input" />
+            </div>
 
-          <div className="formGroup">
-            <label htmlFor="role">Role</label>
-            <select 
-            value={role}
-            name="role"
-            id="role"
-            onChange={handleChange}>
-              <option value="">Select Role</option>
-              <option value="seller">Seller</option>
-              <option value="user">User</option>
-            </select>
-          </div>
+            <div className="modern-form-group">
+              <label htmlFor="role">Assigned Authorization Tier</label>
+              <select id="role" name="role" value={role} onChange={handleChange} required>
+                <option value="">Choose Target Security Level...</option>
+                <option value="user">Standard Customer (User)</option>
+                <option value="seller">Verified Merchant Partner (Seller)</option>
+                <option value="admin">System Superuser (Admin)</option>
+              </select>
+            </div>
 
-          <button type="submit" className="updateBtn">
-            Save Changes
-          </button>
-        </form>
-      </div>
-    </section>
+            <button type="submit" disabled={loading} className="modern-form-submit-btn">
+              {loading ? "Committing Database Updates..." : "Save System Changes"}
+            </button>
+          </form>
+        </div>
+      </section>
     </>
   );
 }

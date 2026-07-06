@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react";
-import Navbar from "../../../Components/navBar";
-import PageTitle from "../../../Components/pageTitle";
-import "../seller.css";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createProduct, removeErrors, removeSuccess } from "../../../Components/features/AdminSeller/sellerSlice";
-import { toast } from "react-toastify";
-import Loader from "../../../Components/loader";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import PageTitle from "../../../Components/pageTitle";
+import Loader from "../../../Components/loader";
+import { createProduct, removeErrors, removeSuccess } from "../../../Components/features/AdminSeller/sellerSlice";
 
 export default function CreateProduct() {
-  const { loading, success, error } = useSelector((state) => state.seller);
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+  const { loading, success, error } = useSelector((state) => state.seller || {});
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -41,6 +39,7 @@ export default function CreateProduct() {
 
   const createProductSubmit = (e) => {
     e.preventDefault();
+    if (!category) return toast.warn("Please select a target ecosystem classification category.");
 
     const myForm = new FormData();
     myForm.append("name", name);
@@ -62,10 +61,8 @@ export default function CreateProduct() {
     dispatch(createProduct(myForm));
   };
 
-
   const handleImgUpload = (e) => {
     const files = Array.from(e.target.files);
-
     setImages(files);
     setImagePrev([]);
 
@@ -80,195 +77,121 @@ export default function CreateProduct() {
     });
   };
 
-
   useEffect(() => {
     if (error) {
-      toast.error(error, { position: "top-center",autoClose:3000 });
+      toast.error(error, { position: "top-center", autoClose: 3000 });
       dispatch(removeErrors());
     }
 
     if (success) {
-      toast.success("Product Created Successfully", {
-        position: "top-center",
-        autoClose:3000
-      });
+      toast.success("Product provisioned to storage records successfully.", { position: "top-center", autoClose: 3000 });
       dispatch(removeSuccess());
       navigate("/seller/products");
-      setName("");
-      setPrice("");
-      setCategory("");
-      setStock("");
-      setQuantity("");
-      setContainerType("");
-      setFoodType("");
-      setExpireDate("");
-      setIngredients("");
-      setDescription("");
-      setReturnPolicy(false);
-      setImages([]);
-      setImagePrev([]);
     }
-  }, [dispatch, error, success]);
+  }, [dispatch, error, success, navigate]);
 
   if (loading) return <Loader />;
 
   return (
     <>
-      <Navbar />
       <PageTitle title="Seller Create Products" />
+      <section className="form-workspace-centering">
+        <div className="structured-form-card">
+          <h1 className="form-workspace-title">Register Catalog Offering</h1>
+          <p className="form-workspace-subtitle">Populate product properties, inventory counts, and image arrays.</p>
 
-      <section className="seller-page create-product">
-        <h1>Create Product</h1>
-
-        <form className="seller-form" onSubmit={createProductSubmit}>
-          <label htmlFor="name" className="LabelsForCreateProducts">Product Name</label>
-          <input
-            placeholder="Product Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            name="name"
-          />
-        <label htmlFor="price" className="LabelsForCreateProducts">Price</label>
-          <input
-            placeholder="Price"
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-            name="price"
-          />
-
-         <label htmlFor="category" className="LabelsForCreateProducts">Category</label>
-          <div className="dropdown">
-            <div
-              className={`dropdown-header ${category ? "active" : ""}`}
-              onClick={() => setOpen(!open)}
-            >
-              {category || "Choose Category"}
+          <form className="modern-fluid-form" onSubmit={createProductSubmit}>
+            <div className="form-grid-dual-column">
+              <div className="input-group-node">
+                <label htmlFor="name">Item Display Name</label>
+                <input id="name" type="text" placeholder="e.g. Traditional Mango Pickle" value={name} onChange={(e) => setName(e.target.value)} required />
+              </div>
+              <div className="input-group-node">
+                <label htmlFor="price">Base Asset Value (INR)</label>
+                <input id="price" type="number" placeholder="₹ Value" value={price} onChange={(e) => setPrice(e.target.value)} required />
+              </div>
             </div>
 
-            {open && (
-              <div className="dropdown-list">
-                {categories.map((item) => (
-                  <div
-                    key={item}
-                    className="dropdown-item"
-                    onClick={() => {
-                      setCategory(item);
-                      setOpen(false);
-                    }}
-                  >
-                    {item}
+            <div className="input-group-node">
+              <label>Ecosystem Classification Category</label>
+              <div className="custom-dropdown-context">
+                <div className={`dropdown-trigger-box ${category ? "has-value" : ""}`} onClick={() => setOpen(!open)}>
+                  {category || "Select Product Category Context..."}
+                </div>
+                {open && (
+                  <div className="dropdown-options-tray">
+                    {categories.map((item) => (
+                      <div key={item} className="dropdown-option-row" onClick={() => { setCategory(item); setOpen(false); }}>
+                        {item}
+                      </div>
+                    ))}
                   </div>
+                )}
+              </div>
+            </div>
+
+            <div className="form-grid-dual-column">
+              <div className="input-group-node">
+                <label htmlFor="stock">Available Stock Units</label>
+                <input id="stock" type="number" placeholder="Units Count" value={stock} onChange={(e) => setStock(e.target.value)} required />
+              </div>
+              <div className="input-group-node">
+                <label htmlFor="quantity">Net Mass/Volume Content</label>
+                <input id="quantity" type="text" placeholder="e.g. 500g / 1 Litre" value={quantity} onChange={(e) => setQuantity(e.target.value)} required />
+              </div>
+            </div>
+
+            <div className="form-grid-dual-column">
+              <div className="input-group-node">
+                <label htmlFor="containerType">Enclosure Container (Optional)</label>
+                <input id="containerType" type="text" placeholder="Glass Jar, Plastic Box" value={containerType} onChange={(e) => setContainerType(e.target.value)} />
+              </div>
+              <div className="input-group-node">
+                <label htmlFor="foodType">Dietary Metric Alignment</label>
+                <select id="foodType" value={foodType} onChange={(e) => setFoodType(e.target.value)}>
+                  <option value="">Select Classification...</option>
+                  <option value="Veg">Vegetarian Alignment</option>
+                  <option value="NonVeg">Omnivore / Non-Veg Alignment</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="form-grid-dual-column">
+              <div className="input-group-node">
+                <label htmlFor="expireDate">Batch Expiration Metric</label>
+                <input id="expireDate" type="date" value={expireDate} onChange={(e) => setExpireDate(e.target.value)} />
+              </div>
+              <div className="input-group-node">
+                <label htmlFor="ingredients">Primary Formulation Ingredients</label>
+                <input id="ingredients" type="text" placeholder="Spices, Organic Extracts" value={ingredients} onChange={(e) => setIngredients(e.target.value)} required />
+              </div>
+            </div>
+
+            <div className="input-group-node">
+              <label htmlFor="description">Public Product Narrative</label>
+              <textarea id="description" rows="4" placeholder="Detail nutritional indicators, taste notes, storage instructions..." value={description} onChange={(e) => setDescription(e.target.value)} required />
+            </div>
+
+            <div className="checkbox-alignment-wrapper">
+              <input id="returnPolicy" type="checkbox" checked={returnPolicy} onChange={(e) => setReturnPolicy(e.target.checked)} />
+              <label htmlFor="returnPolicy">Authorize customer returns for this specific batch product line.</label>
+            </div>
+
+            <div className="input-group-node">
+              <label>Display Imagery Portfolio</label>
+              <input type="file" accept="image/*" multiple onChange={handleImgUpload} className="file-input-modifier" />
+              <div className="imagery-grid-preview">
+                {imagePrev.map((img, index) => (
+                  <img src={img} alt={`Preview Target ${index}`} key={index} className="thumbnail-node-preview" />
                 ))}
               </div>
-            )}
-          </div>
+            </div>
 
-<label htmlFor="stock" className="LabelsForCreateProducts">Stock</label>
-          <input
-            placeholder="Stock"
-            type="number"
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
-            required
-            name="stock"
-          />
-
-
-<label htmlFor="ingredients" className="LabelsForCreateProducts">Made Up Of</label>
-          <input
-            placeholder="Ingredients"
-            value={ingredients}
-            onChange={(e) => setIngredients(e.target.value)}
-            required
-            name="ingredients"
-          />
-
-<label htmlFor="quantity" className="LabelsForCreateProducts">Quantity Per Pack</label>
-          <input
-            placeholder="Quantity Per Pack"
-            type="text"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            required
-            name="quantity"
-          />
-
-<label htmlFor="containerType" className="LabelsForCreateProducts">Container Type (Optional)</label>
-          <input
-            placeholder="Container Type"
-            value={containerType}
-            onChange={(e) => setContainerType(e.target.value)}
-            name="containerType"
-          />
-
-<label htmlFor="foodType" className="LabelsForCreateProducts">Food Type (Optional)</label>
-          <select
-            value={foodType}
-            onChange={(e) => setFoodType(e.target.value)}
-            name="foodType"
-          >
-            <option value="">Choose Food Type</option>
-            <option value="Veg">Vegetarian</option>
-            <option value="NonVeg">Non-Veg</option>
-          </select>
-
-<label htmlFor="expireDate" className="LabelsForCreateProducts">Expire Date (Optional)</label>
-          <input
-            type="date"
-            className="expireDateInput"
-            placeholder="Expire Date"
-            value={expireDate}
-            onChange={(e) => setExpireDate(e.target.value)}
-            name="expireDate"
-          />
-
-          <label htmlFor="description">Description</label>
-          <input
-            placeholder="Description..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-
-          <label htmlFor="returnPolicy" className="LabelsForCreateProducts">
-             Return
-            <input
-              type="checkbox"
-              checked={returnPolicy}
-              onChange={(e) => setReturnPolicy(e.target.checked)}
-              name="returnPolicy"
-            />
-           </label>
-         
-
-   <label htmlFor="Image" className="LabelsForCreateProducts">Images</label>
-          <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleImgUpload}
-            className="imgInput"
-          />
-
-          <div className="Prev-Img">
-            {imagePrev.map((img, index) => (
-              <img
-                src={img}
-                alt="Preview"
-                key={index}
-                className="sellerPrevImg"
-              />
-            ))}
-          </div>
-
-          <button type="submit">
-            {loading ? "Creating..." : "Create Product"}
-          </button>
-        </form>
-
+            <button type="submit" className="form-action-submit-btn">
+              Compile & Register Offering
+            </button>
+          </form>
+        </div>
       </section>
     </>
   );

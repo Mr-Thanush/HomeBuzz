@@ -1,19 +1,17 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
-import "../Styles/resetPassword.css";
 import { useDispatch, useSelector } from "react-redux";
 import { removeErrors, removeSuccess, resetPassword } from "../Components/features/User/userSlice";
 import { toast } from "react-toastify";
+import "../Styles/resetPassword.css";
 
 function ResetPassword() {
   const navigate = useNavigate();
   const { token } = useParams(); 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
-  const { loading,error,success,message} = useSelector(
-    (state) => state.user
-  );
+  const { loading, error, success } = useSelector((state) => state.user);
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,84 +20,77 @@ function ResetPassword() {
   const handleResetPasswordSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Credentials match error: Passwords do not target identically", { position: "top-center" });
       return;
     }
-    const payload = {
-      token,
-      password,
-      confirmPassword,
-    };
-
-
-    dispatch(resetPassword(payload));
-
+    dispatch(resetPassword({ token, password, confirmPassword }));
   };
 
   useEffect(() => {
-        if (error) {
-          toast.error(error, {
-            position: "top-center",
-            autoClose: 3000,
-          });
-          dispatch(removeErrors());
-        }
-      }, [dispatch, error]);
-  
-      useEffect(() => {
-        if (success) {
-          toast.success("Reset Password Successfully", {
-            position: "top-center",
-            autoClose: 3000,
-          });
-          dispatch(removeSuccess());
-          navigate("/signin")
-        }
-      }, [dispatch,success,navigate]);
+    if (error) {
+      toast.error(error, { position: "top-center", autoClose: 3000 });
+      dispatch(removeErrors());
+    }
+  }, [dispatch, error]);
+
+  useEffect(() => {
+    if (success) {
+      toast.success("Password Reset Successfully", { position: "top-center", autoClose: 3000 });
+      dispatch(removeSuccess());
+      navigate("/signin");
+    }
+  }, [dispatch, success, navigate]);
 
   return (
-    <div className="reset-container">
-      <div className="reset-card">
-        <h2>Reset Password</h2>
-        <p className="subtitle">
-          Create a new password for your account
-        </p>
+    <div className="reset-container-main">
+      <main className="reset-card">
+        <h2>Reset Account Password</h2>
+        <p className="subtitle">Please configure your alternative secure operational encryption parameters.</p>
 
-        <form onSubmit={handleResetPasswordSubmit}>
-          {/* New Password */}
+        <form onSubmit={handleResetPasswordSubmit} className="reset-form-element">
+          {/* New Password Key Field */}
           <div className="input-group">
-            <label>New Password</label>
-            <div className="password-field">
+            <label htmlFor="new-password-input">New Account Password</label>
+            <div className="password-field-wrapper">
               <input
+                id="new-password-input"
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter new password"
+                placeholder="Enter comprehensive safe key..."
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                autoComplete="new-password"
               />
-              <span onClick={() => setShowPassword(!showPassword)}>
+              <button
+                type="button"
+                className="password-toggle-trigger"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password context string" : "Reveal password text string"}
+              >
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </span>
+              </button>
             </div>
           </div>
 
-          {/* Confirm Password */}
+          {/* Confirm Credentials Verification Box */}
           <div className="input-group">
-            <label>Confirm Password</label>
+            <label htmlFor="confirm-password-input">Confirm Security Entry</label>
             <input
+              id="confirm-password-input"
               type="password"
-              placeholder="Confirm new password"
+              placeholder="Re-enter newly designated credentials..."
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
+              autoComplete="new-password"
             />
           </div>
 
-          <button type="submit" className="reset-btn">
-            Reset Password
+          <button type="submit" className="reset-btn" disabled={loading}>
+            {loading ? "Reconfiguring Keys..." : "Apply Reset Password"}
           </button>
         </form>
-      </div>
+      </main>
     </div>
   );
 }

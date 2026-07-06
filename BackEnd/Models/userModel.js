@@ -1,100 +1,19 @@
-import mongoose from "mongoose";
-import validator from "validator";
-import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
-import crypto from "crypto";
-
-const userSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: [true, "Please Enter Your Name"],
-        maxLength: [25, "Invalid Name. Please Enter a Name With Fewer Than 25 Characters"],
-        minLength: [3, "Name Should Contain More Than 3 Characters"]
-    },
-    email: {
-        type: String,
-        required: [true, "Please Enter Your Email"],
-        unique: true,
-        validate: [validator.isEmail, "Please Enter Valid Email"]
-    },
-    password: {
-        type: String,
-        required: [true, "Please Enter Your PassWord"],
-        minLength: [7, "PassWord Should Contain More Than 7 Characters"],
-        select: false
-    },
-    profilepic: {
-        public_id: {
-            type: String,
-            required: true
-        },
-        url: {
-            type: String,
-            required: true
-        }
-
-    },
-    role: {
-        type: String,
-        enum: ["user", "seller", "admin"],
-        default: "user"
-    },
-  sellerInfo: {
-       storeName: String,
-       description: String,
-       phone: String,
-
-  address: {
-    address: String,
-    city: String,
-    state: String,
-    pincode: String,
-    country: {
-      type: String,
-      default: "India"
-    }
-  },
-  status: {
-    type: String,
-    enum: ["pending", "approved", "rejected"],
-    default: "pending"
-  }
-},
-    resetPasswordToken: String,
-    resetPasswordExpire: Date
-
-}, { timestamps: true });
-
-//password hashing
-userSchema.pre("save", async function () {
-
-    //if it was hashed why need to hash again
-    if (!this.isModified("password")) {
-        return ;
-    }
-    this.password = await bcryptjs.hash(this.password, 10);
-
-});
-
-
-//jwt tokens
-userSchema.methods.getJWTtoken = function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_TOKEN, {
-        expiresIn: process.env.JWT_EXPIRE
-    });
-}
-
-//password validation
-userSchema.methods.verifyPassword = async function (userEnteredPassword) {
-    return bcryptjs.compare(String(userEnteredPassword), this.password)
-}
-
-// Reset Token For password reset
-userSchema.methods.generatePasswordResetToken = function () {
-    const resetToken = crypto.randomBytes(20).toString("hex");
-    this.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-    this.resetPasswordExpire = Date.now() + 5 * 60 * 1000;  //5 min
-
-    return resetToken;
-}
-export default mongoose.model("User", userSchema);
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('user', 'seller', 'admin') DEFAULT 'user',
+    profile_pic_id VARCHAR(255) DEFAULT 'profile id',
+    profile_pic_url VARCHAR(255) DEFAULT 'profile url',
+    store_name VARCHAR(255) DEFAULT NULL,
+    store_description TEXT DEFAULT NULL,
+    phone VARCHAR(50) DEFAULT NULL,
+    alt_phone VARCHAR(50) DEFAULT NULL,
+    address TEXT DEFAULT NULL,
+    seller_status ENUM('none', 'pending', 'approved', 'rejected') DEFAULT 'none',
+    reset_password_token VARCHAR(255) DEFAULT NULL,
+    reset_password_expire BIGINT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

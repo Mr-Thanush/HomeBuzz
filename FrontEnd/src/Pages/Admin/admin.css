@@ -1,451 +1,409 @@
-
 :root {
-  --green: var(--Primary);
-  --green-soft: var(--Accent);
-  --danger: #dc2626;
-  --warning: #f59e0b;
-  --gray-900: #111827;
-  --gray-700: #374151;
-  --gray-500: #6b7280;
-  --gray-300: #d1d5db;
-  --bg: var(--Background);
-  --white: #ffffff;
-  --radius: 10px;
+  --admin-primary: #1e293b;
+  --admin-accent: #0f766e;
+  --admin-accent-hover: #115e59;
+  --admin-bg: #f8fafc;
+  --admin-card-border: #e2e8f0;
+  --admin-text-main: #0f172a;
+  --admin-text-sub: #475569;
+  
+  --color-success: #15803d;
+  --color-success-bg: #dcfce7;
+  --color-danger: #b91c1c;
+  --color-danger-bg: #fee2e2;
+  --color-warning: #b45309;
+  --color-warning-bg: #fef3c7;
 }
 
-
-button {
-  font-family: inherit;
-  cursor: pointer;
+/* Global Grid Wrapper Normalizations */
+.admin-app-wrapper {
+  background-color: var(--admin-bg);
+  min-height: 100vh;
 }
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
 
 .admin-layout {
-  margin-top: 60px;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  margin-top: 55px; /* Matches layout navbar height */
+  min-height: calc(100vh - 55px);
 }
 
+/* Sidebar Structural Refactoring */
 .admin-sidebar {
-  background: var(--green);
-  color: var(--white);
-  padding: 1rem;
+  background-color: var(--admin-primary);
+  color: #ffffff;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .admin-logo {
-  font-size: 1.3rem;
+  font-family: var(--font-Heading);
+  font-size: 1.4rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.admin-badge-role {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  font-weight: 600;
 }
 
 .admin-nav {
   display: flex;
-  flex-direction: row;
-  gap: 0.4rem;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .admin-nav a {
-  padding: 0.4rem;
+  font-family: var(--font-text);
+  color: #cbd5e1;
+  text-decoration: none;
+  padding: 12px 16px;
   border-radius: 8px;
-  font-size: 0.9rem;
-  transition: background 0.2s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
+.admin-nav a:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+}
 
-.admin-nav a:hover,
 .admin-nav a.active {
-  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  background-color: var(--admin-accent);
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
 }
 
+/* Core Main Container Views */
 .admin-content {
-  padding: 1rem;
-
+  flex-grow: 1;
+  padding: 24px 16px;
+  box-sizing: border-box;
 }
 
-.noProducts{
+.admin-section-wrapper {
+  background-color: #ffffff;
+  border: 1px solid var(--admin-card-border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.admin-header-row {
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--admin-card-border);
+  padding-bottom: 16px;
+}
+
+.admin-main-heading {
+  font-family: var(--font-Heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--admin-text-main);
+  margin: 0;
+}
+
+.admin-subheading {
+  font-family: var(--font-text);
+  color: var(--admin-text-sub);
+  margin: 4px 0 0;
+  font-size: 0.9rem;
+}
+
+/* Operational Status Cards Grid */
+.admin-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.admin-stat-card {
+  background: #ffffff;
+  border: 1px solid var(--admin-card-border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s ease;
+}
+
+.admin-stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.card-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--admin-text-sub);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-metric {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 8px 0 0;
+  color: var(--admin-text-main);
+}
+
+/* Modern Administrative Lists/Tables layout rules */
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--admin-card-border);
+}
+
+.modern-admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.modern-admin-table th {
+  background-color: #f8fafc;
+  color: var(--admin-text-sub);
+  font-weight: 600;
+  padding: 14px 16px;
+  border-bottom: 2px solid var(--admin-card-border);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.modern-admin-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--admin-card-border);
+  color: var(--admin-text-main);
+  vertical-align: middle;
+}
+
+.modern-admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cell-primary-text {
+  font-weight: 600;
+  color: var(--admin-text-main);
+}
+
+.cell-secondary-text {
+  font-size: 0.8rem;
+  color: var(--admin-text-sub);
+  margin-top: 2px;
+}
+
+.table-item-thumbnail {
+  width: 44px;
+  height: 44px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid var(--admin-card-border);
+  background-color: #f1f5f9;
+}
+
+.currency-marker {
+  font-weight: 600;
+  color: var(--admin-text-sub);
+  margin-right: 2px;
+}
+
+/* Inventory & Privilege Context Status Badges */
+.stock-indicator {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.stock-indicator.in-stock { background-color: #f0fdf4; color: #166534; }
+.stock-indicator.low-stock { background-color: #fef2f2; color: #991b1b; }
+
+.role-badge {
+  display: inline-flex;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.role-badge.user { background-color: #e0f2fe; color: #0369a1; }
+.role-badge.seller { background-color: var(--color-success-bg); color: var(--color-success); }
+.role-badge.admin { background-color: #f1f5f9; color: #334155; }
+.role-badge.pending { background-color: var(--color-warning-bg); color: var(--color-warning); }
+
+/* Interface Actions Pipeline Elements */
+.action-button-group {
+  display: flex;
+  gap: 8px;
+}
+.justify-end { justify-content: flex-end; }
+.text-right { text-align: right; }
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.15s ease;
+}
+
+.update-btn, .approve-btn {
+  background-color: var(--admin-accent);
+  color: #ffffff;
+}
+.update-btn:hover, .approve-btn:hover {
+  background-color: var(--admin-accent-hover);
+}
+
+.delete-btn {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+.delete-btn:hover {
+  background-color: #fca5a5;
+  color: #7f1d1d;
+}
+
+/* Centered Form Layout Elements (Context Updating UI) */
+.form-center-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  width: 100%;
+}
+
+.modern-form-card {
+  width: 100%;
+  max-width: 480px;
+  background-color: #ffffff;
+  border: 1px solid var(--admin-card-border);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+}
+
+.form-card-title {
+  font-family: var(--font-Heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
   text-align: center;
 }
 
-.admin-page2{
-  font-size: 0.7rem;
-  margin-bottom: 1rem;
-  margin-top: 70px;
-  color:var( --green);
+.form-card-sub {
+  font-family: var(--font-text);
+  color: var(--admin-text-sub);
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 6px 0 28px;
 }
 
-
-.admin-page h1 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-
-.admin-cards {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.8rem;
-  
-}
-
-.admin-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  padding: 1rem;
-  border: 1px solid var(--gray-300);
-}
-
-.admin-card p {
-  margin: 0;
-  color: var(--gray-500);
-  font-size: 0.85rem;
-}
-
-.admin-card h2 {
-  margin: 0.4rem 0 0;
-  font-size: 1.4rem;
-}
-
-
-.admin-table {
-  background: var(--white);
-  border-radius: var(--radius);
-  border: 1px solid var(--gray-300);
-  overflow: hidden;
+.modern-stacked-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.admin-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.6rem;
-  padding: 0.9rem;
-  border-bottom: 1px solid var(--gray-300);
+.modern-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.admin-row:last-child {
-  border-bottom: none;
-}
-
-.admin-row span {
-  font-size: 0.9rem;
-  word-break: break-word;
-}
-
-
-.badge {
-  display: inline-block;
-  width: fit-content;
-  padding: 0.25rem 0.6rem;
-  font-size: 0.75rem;
-  border-radius: 999px;
-  font-weight: 600;
-}
-
-.badge.user {
-  background: #e0f2fe;
-  color: #0369a1;
-}
-
-.badge.seller {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.badge.pending {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.badge.blocked {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-
-button {
-  border: none;
-  border-radius: 6px;
-  padding: 0.45rem 0.8rem;
+.modern-form-group label {
   font-size: 0.8rem;
   font-weight: 600;
-  white-space: nowrap;
+  color: var(--admin-text-sub);
+  text-transform: uppercase;
 }
 
-button.success {
-  background: var(--green);
-  color: var(--white);
+.modern-form-group input, 
+.modern-form-group select {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1.5px solid var(--admin-card-border);
+  font-size: 0.95rem;
+  outline: none;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease;
 }
 
-button.warning { 
-  background: var(--warning);
-  color: var(--white);
+.modern-form-group input:focus, 
+.modern-form-group select:focus {
+  border-color: var(--admin-accent);
 }
 
-button.danger {
-  background: var(--danger);
-  color: var(--white);
-  width: 100px;
-  height: 30px;
-  padding: 0px;
+.modern-form-group input.disabled-input {
+  background-color: #f1f5f9;
+  color: var(--admin-text-sub);
+  cursor: not-allowed;
 }
 
-.update{
-  background: var( --green);
-  color: var(--white);
-  width: 100px;
-   height: 30px;
-   padding: 0px;
-}
-
-
-.buttonsProducts{
-  display: flex;
-  gap: 30px;
-  justify-content: space-between;
-}
-
-
-/*update user details */
-
-
-.updateUser {
-  min-height: 100vh;
-  background: linear-gradient(180deg, var(--green-light), #ffffff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-
-
-.updateUserCard {
-  width: 100%;
-  max-width: 420px;
-  background: var(--white);
-  border-radius: 14px;
-  padding: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-
-.updateUserTitle {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--green-main);
-  margin-bottom: 4px;
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.updateUserSub {
-  font-size: 0.9rem;
-  color: var(--green);
-  text-align: center;
-  margin-bottom: 24px;
-}
-
-
-.updateUserForm {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.formGroup {
-  display: flex;
-  flex-direction: column;
-}
-
-.formGroup label {
-  font-size: 0.85rem;
+.modern-form-submit-btn {
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 8px;
+  background-color: var(--admin-accent);
+  color: #ffffff;
   font-weight: 600;
-  color: var(--green);
-  margin-bottom: 6px;
-}
-
-.formGroup input {
-  padding: 12px;
   font-size: 0.95rem;
-  border-radius: 10px;
-  border: 1.5px solid var(--border-light);
-  outline: none;
-  transition: all 0.25s ease;
-}
-
-.formGroup select {
-  width: 100%;
-  padding: 12px;
-  font-size: 0.95rem;
-  border-radius: 10px;
-  border: 1.5px solid var(--border-light);
-  outline: none;
-  transition: all 0.25s ease;
-}
-
-.formGroup input:focus {
-  border-color: var(--green-main);
-  box-shadow: 0 0 0 3px rgba(30, 127, 92, 0.15);
-}
-
-
-.updateBtn {
-  margin-top: 8px;
-  padding: 13px;
-  border-radius: 12px;
   border: none;
-  background: var(--green-main);
-  color: var(--white);
-  font-size: 1rem;
-  font-weight: 600;
   cursor: pointer;
-  transition: background 0.25s ease, transform 0.15s ease;
+  transition: background-color 0.2s ease;
 }
 
-.updateBtn:hover {
-  background: var(--green-hover);
+.modern-form-submit-btn:hover {
+  background-color: var(--admin-accent-hover);
 }
 
-.updateBtn:active {
-  transform: scale(0.98);
+.empty-state-card {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--admin-text-sub);
 }
 
+.empty-state-card h2 {
+  font-size: 1.3rem;
+  color: var(--admin-text-main);
+  margin-bottom: 8px;
+}
+
+/* Tablet & Responsive Dynamic Breakpoints Layout Realignment */
 @media (min-width: 768px) {
-
   .admin-layout {
     flex-direction: row;
   }
 
   .admin-sidebar {
-    width: 220px;
-    min-height: 100vh;
-    padding: 1.2rem;
-    position: fixed;
-    left: 0;
-    top: 60px;
-  }
-
-  .admin-nav {
-    flex-direction: column;
-    gap: 0.6rem;
+    width: 240px;
+    min-height: calc(100vh - 55px);
+    position: sticky;
+    top: 55px;
   }
 
   .admin-content {
-    margin-left: 220px;
-    padding: 1.5rem;
-  }
-
-  .admin-page h1 {
-    font-size: 1.4rem;
-  }
-
-  .admin-cards {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-  }
-
-  .admin-card h2 {
-    font-size: 1.6rem;
-  }
-
-  .admin-table {
-    gap: 0;
-  }
-
-  .admin-row {
-    grid-template-columns: repeat(4, 1fr);
-    align-items: center;
-  }
-
-  .buttonsProducts {
-    justify-content: flex-end;
-    gap: 20px;
-  }
-
-  /* Update user */
-
-  .updateUserCard {
-    max-width: 480px;
-    padding: 28px;
-  }
-
-  .updateUserTitle {
-    font-size: 1.8rem;
-  }
-}
-
-@media (min-width: 1024px) {
-
-  .admin-sidebar {
-    width: 260px;
-    padding: 1.5rem;
-  }
-
-  .admin-content {
-    margin-left: 260px;
-    padding: 2rem;
-  }
-
-  .admin-logo {
-    font-size: 1.5rem;
-  }
-
-  .admin-nav a {
-    font-size: 0.95rem;
-    padding: 0.6rem 0.8rem;
-  }
-
-  .admin-page h1 {
-    font-size: 1.6rem;
-  }
-
-  .admin-cards {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.2rem;
-  }
-
-  .admin-card {
-    padding: 1.2rem;
-  }
-
-  .admin-card h2 {
-    font-size: 1.8rem;
-  }
-
-  .admin-row {
-    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
-    padding: 1rem 1.2rem;
-  }
-
-  .admin-row span {
-    font-size: 0.95rem;
-  }
-
-  button {
-    font-size: 0.85rem;
-  }
-
-  
-
-  .updateUserCard {
-    max-width: 520px;
     padding: 32px;
+    max-width: calc(100% - 240px);
   }
 
-  .updateUserTitle {
-    font-size: 2rem;
-  }
-
-  .updateUserSub {
-    font-size: 1rem;
+  .admin-cards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
   }
 }
-
-

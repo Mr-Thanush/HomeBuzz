@@ -1,39 +1,44 @@
-
-
+/* Base Page Container Initialization Setup */
 .update-profile-page {
   margin-top: 70px;
-  min-height: 100vh;
+  min-height: calc(100vh - 70px);
   background: #f0fdf4;
-  padding: 16px;
+  padding: 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Card */
+/* Card Container styling specs */
 .update-profile-container {
   background: #ffffff;
   border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 28px 24px;
+  box-shadow: 0 10px 30px rgba(22, 101, 52, 0.06);
+  width: 100%;
+  max-width: 440px;
 }
 
 .update-profile-container h2 {
   text-align: center;
-  font-size: 20px;
-  color: #166534;
-  margin-bottom: 18px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #14532d;
+  margin-bottom: 24px;
 }
 
-/* Image Section */
+/* Image Upload Element Segment */
 .profile-image-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
-  gap: 10px;
+  margin-bottom: 24px;
+  gap: 12px;
 }
 
 .profile-image {
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   background: #dcfce7;
   border: 3px solid #22c55e;
@@ -41,6 +46,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.15);
 }
 
 .profile-image img {
@@ -49,28 +55,36 @@
   object-fit: cover;
 }
 
-.profile-image span {
-  font-size: 42px;
-  color: #15803d;
+.default-avatar {
+  font-size: 48px;
+  user-select: none;
 }
 
-/* Upload Button */
+/* Custom Image Upload Selector Controls */
 .upload-btn {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: #16a34a;
   cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.upload-btn:hover {
+  background: #e8fced;
+  color: #15803d;
 }
 
 .upload-btn input {
   display: none;
 }
 
-/* Form */
+/* Form controls configuration setup blocks */
 .update-profile-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .form-group {
@@ -83,187 +97,102 @@
   font-weight: 600;
   color: #14532d;
   margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .form-group input {
-  padding: 12px 14px;
-  font-size: 14px;
-  border-radius: 10px;
-  border: 1px solid #bbf7d0;
+  padding: 12px 16px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1.5px solid #bbf7d0;
   outline: none;
   background: #ffffff;
+  color: #1f2937;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-group input:focus {
   border-color: #22c55e;
-  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.25);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
 }
 
-/* Save Button */
-
-.updateBtns{
-   display: flex;
-   gap: 20px;
-   align-items: center;
-   justify-content: center;
-}
-.save-btn {
+/* Call to Action Interactive Buttons Layout Structure */
+.updateBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   margin-top: 10px;
-  padding: 10px;
-  border-radius: 10px;
+}
+
+.save-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
   border: none;
   background: linear-gradient(135deg, #16a34a, #22c55e);
-  color: white;
-  font-size: 10px;
+  color: #ffffff;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.2);
+  transition: transform 0.1s ease, opacity 0.2s ease;
+}
+
+.save-btn:hover {
+  opacity: 0.95;
 }
 
 .save-btn:active {
   transform: scale(0.98);
-} 
+}
 
-.changePass-btn:active {
+.changePass-link {
+  width: 100%;
+  padding: 13px;
+  border-radius: 8px;
+  border: 1.5px solid #16a34a;
+  background: transparent;
+  color: #16a34a;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.changePass-link:hover {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.changePass-link:active {
   transform: scale(0.98);
 }
 
- 
-.changePass-btn{
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background: linear-gradient(135deg, #16a34a, #22c55e);
-  color: white;
-  font-size: 10px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.updatePasswordBtn{
-  width:300px;
-  text-decoration: none;
-}
-
-
-@media (min-width: 768px) {
-
-  
-  .update-password-page,
-  .update-profile-page,
-  .register-container {
-    padding: 40px;
-    align-items: flex-start;
-  }
- 
-  
-  .update-password-card,
-  .update-profile-container,
-  .register-card {
-    max-width: 520px;
-    margin: auto;
-    padding: 28px;
-  }
-
-  /* Headings */
-  .update-password-card h2,
-  .update-profile-container h2,
-  .register-card h1 {
-    font-size: 22px;
-  }
-
-  /* Inputs */
-  input,
-  .form-group input,
-  .input-group input {
-    width: 100%;
-    font-size: 15px;
-  }
-
-  
-  button,
-  .save-btn,
-  .changePass-btn,
-  .registerBtn {
-    font-size: 14px;
-    padding: 12px;
-  }
-
-  /* Profile image */
-  .profile-image {
-    width: 130px;
-    height: 130px;
-  }
-
+/* Clean Responsive Adaptations Layer */
+@media (min-width: 640px) {
   .updateBtns {
-    gap: 24px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .update-profile-container {
+    max-width: 480px;
+    padding: 36px;
   }
 }
 
 @media (min-width: 1024px) {
-
-  .update-password-page,
-  .update-profile-page,
-  .register-container {
-    background: #eff9ed; 
-    align-items: center;
+  .update-profile-page {
+    background: #eff9ed;
   }
 
-  
-  .update-password-card,
-  .update-profile-container,
-  .register-card {
-    max-width: 680px;
-    padding: 36px 40px;
-    border-radius: 10px;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-  }
-
-
-  .update-password-card h2,
-  .update-profile-container h2,
-  .register-card h1 {
-    font-size: 24px;
-  }
-
-  
-  .subtitle {
-    font-size: 14px;
-  }
-
-  
-  .update-profile-form {
-    gap: 20px;
-  }
-
-  /* Inputs */
-  input,
-  .form-group input,
-  .input-group input {
-    font-size: 15px;
-    padding: 13px 16px;
-  }
-
- 
-  button,
-  .save-btn,
-  .changePass-btn,
-  .registerBtn {
-    font-size: 15px;
-    padding: 13px;
-    border-radius: 8px;
-  }
-
- 
-  .updateBtns {
-    justify-content: space-between;
-    max-width: 420px;
-    margin: auto;
-  }
-
-  
-  .profile-image {
-    width: 150px;
-    height: 150px;
+  .update-profile-container {
+    max-width: 520px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(22, 101, 52, 0.08);
   }
 }

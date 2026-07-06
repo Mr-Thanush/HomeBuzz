@@ -1,46 +1,33 @@
-/* Ratings Wrapper */
 .ratings-container {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 2px;
   user-select: none;
 }
 
-/* Star Base */
 .stars {
-  font-size: 1.2rem; 
+  font-size: 1.1rem; 
   cursor: pointer;
-  transition: 
-    transform 0.15s ease,
-    color 0.2s ease,
-    opacity 0.2s ease;
+  transition: transform 0.15s ease, color 0.15s ease;
 }
 
-/* Empty Star */
 .stars.empty {
-  color: #cfd8dc; /* subtle grey */
+  color: #cbd5e1;
 }
 
-/* Filled Star */
 .stars.filled {
-  color: green; /* premium gold */
+  color: #eab308; 
 }
 
-/* Hover Effect */
 .stars:hover {
   transform: scale(1.15);
 }
 
-/* Disabled State */
-.ratings-container[aria-disabled="true"] .stars {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
+.ratings-container[aria-disabled="true"] {
+  pointer-events: none;
 }
 
-/* Optional: keyboard focus support */
-.stars:focus-visible {
-  outline: 2px solid #4caf50;
-  outline-offset: 2px;
-  border-radius: 4px;
+.ratings-container[aria-disabled="true"] .stars {
+  cursor: not-allowed;
+  transform: none;
 }

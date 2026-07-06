@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import Navbar from "../Components/navBar";
-import PageTitle from "../Components/pageTitle";
-import "../Styles/updateProfile.css";
+import React, { useEffect, useState } from "react";
+import Navbar from "../Components/Navbar";
+import PageTitle from "../Components/PageTitle";
+import Loader from "../Components/Loader";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../Components/loader";
 import { toast } from "react-toastify";
-import { removeErrors,removeSuccess,createStore} from "../Components/features/User/userSlice";
+import { removeErrors, removeSuccess, createStore } from "../Components/features/User/userSlice";
+import "../Styles/updateProfile.css"; // Reusing updated structural form styles
 
 function CreateStore() { 
   const dispatch = useDispatch();
@@ -17,42 +17,45 @@ function CreateStore() {
   const [description, setDescription] = useState("");
   const [phone, setPhone] = useState("");
   const [altPhone, setAltPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [pincode, setPincode] = useState("");
-  const [country, setCountry] = useState("India");
+  const [country] = useState("India");
   const [profilePic, setProfilePic] = useState("");
   const [profilePicPreview, setProfilePicPreview] = useState("");
-  const { loading, error, success, message, user, isAuthenticated } =
-    useSelector((state) => state.user);
 
+  const { loading, error, success, message, user, isAuthenticated } = useSelector(
+    (state) => state.user
+  );
+
+  // Auth Protection Guard
   useEffect(() => {
     if (isAuthenticated === false) {
       navigate("/signin");
     }
   }, [isAuthenticated, navigate]);
 
- 
+  // Error Handling
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      toast.error(error, { position: "top-center", autoClose: 3000 });
       dispatch(removeErrors());
     }
   }, [dispatch, error]);
 
-  
+  // Success Handler
   useEffect(() => {
     if (success) {
-      toast.success(message);
+      toast.success(message || "Store request submitted successfully!");
       dispatch(removeSuccess());
-        if (user?.sellerInfo?.status === "pending") {
-           navigate("/profile");
-          }
+      if (user?.sellerInfo?.status === "pending" || !user?.sellerInfo) {
+        navigate("/profile");
+      }
     }
-  }, [dispatch, success, message, navigate]);
+  }, [dispatch, success, message, navigate, user]);
 
- 
+  // Sync initial user details to fill store values as fallbacks
   useEffect(() => {
     if (user) {
       setStoreName(user.name || "");
@@ -60,7 +63,6 @@ function CreateStore() {
     }
   }, [user]);
 
- 
   const profilePicChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -78,8 +80,8 @@ function CreateStore() {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (!storeName || !storeEmail || !phone || !city || !pincode) {
-      toast.error("Please fill all required fields");
+    if (!storeName.trim() || !storeEmail.trim() || !phone.trim() || !city.trim() || !pincode.trim()) {
+      toast.error("Please fill all required (*) fields");
       return;
     }
 
@@ -90,7 +92,7 @@ function CreateStore() {
       phone,
       altPhone,
       address: {
-        address,
+        streetAddress,
         city,
         state,
         pincode,
@@ -101,24 +103,26 @@ function CreateStore() {
     if (profilePic) payload.profilepic = profilePic;
     dispatch(createStore(payload));
   };
+
   if (loading) return <Loader />;
 
   return (
     <div className="update-profile-page">
-      <PageTitle title="Create Store - HomeBuzz" />
+      <PageTitle title="Create Store" />
       <Navbar />
 
-      <div className="update-profile-container">
+      <main className="update-profile-container store-form-container">
         <h2>Create Your Store</h2>
 
         <form className="update-profile-form" onSubmit={submitHandler}>
-          {/* Logo */}
+          
+          {/* Logo Section */}
           <div className="profile-image-section">
-            <div className="profile-image">
+            <div className="profile-image logo-preview">
               {profilePicPreview ? (
-                <img src={profilePicPreview} alt="Store Logo" />
+                <img src={profilePicPreview} alt="Store Logo Preview" />
               ) : (
-                <div className="default-avatar">🏪</div>
+                <span className="default-avatar" aria-hidden="true">🏪</span>
               )}
             </div>
 
@@ -128,59 +132,118 @@ function CreateStore() {
             </label>
           </div>
 
-          {/* Store Info */}
+          {/* Form Content Layout Split Fields */}
           <div className="form-group">
-            <label>Store Name *</label>
-            <input value={storeName} onChange={(e) => setStoreName(e.target.value)} />
+            <label htmlFor="store-name">Store Name *</label>
+            <input 
+              id="store-name"
+              type="text"
+              value={storeName} 
+              onChange={(e) => setStoreName(e.target.value)} 
+              required 
+            />
           </div>
 
           <div className="form-group">
-            <label>Store Email *</label>
-            <input value={storeEmail} onChange={(e) => setStoreEmail(e.target.value)} />
+            <label htmlFor="store-email">Store Email *</label>
+            <input 
+              id="store-email"
+              type="email"
+              value={storeEmail} 
+              onChange={(e) => setStoreEmail(e.target.value)} 
+              required 
+            />
           </div>
 
           <div className="form-group">
-            <label>Store Description</label>
-            <textarea rows="3" value={description} onChange={(e) => setDescription(e.target.value)} />
+            <label htmlFor="store-desc">Store Description</label>
+            <textarea 
+              id="store-desc"
+              rows="3" 
+              placeholder="Tell customers about your brand..."
+              value={description} 
+              onChange={(e) => setDescription(e.target.value)} 
+            />
           </div>
 
-          {/* Contact */}
+          {/* Contact Group Grid */}
+          <div className="form-row-grid">
+            <div className="form-group">
+              <label htmlFor="store-phone">Phone *</label>
+              <input 
+                id="store-phone"
+                type="tel"
+                value={phone} 
+                onChange={(e) => setPhone(e.target.value)} 
+                required 
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="store-altphone">Alternate Phone</label>
+              <input 
+                id="store-altphone"
+                type="tel"
+                value={altPhone} 
+                onChange={(e) => setAltPhone(e.target.value)} 
+              />
+            </div>
+          </div>
+
+          {/* Location Group Segment */}
           <div className="form-group">
-            <label>Phone *</label>
-            <input value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <label htmlFor="store-address">Street Address</label>
+            <textarea 
+              id="store-address"
+              rows="2" 
+              placeholder="Building, Street, Area name"
+              value={streetAddress} 
+              onChange={(e) => setStreetAddress(e.target.value)} 
+            />
           </div>
 
-          <div className="form-group">
-            <label>Alternate Phone</label>
-            <input value={altPhone} onChange={(e) => setAltPhone(e.target.value)} />
+          <div className="form-row-three-grid">
+            <div className="form-group">
+              <label htmlFor="store-city">City *</label>
+              <input 
+                id="store-city"
+                type="text"
+                value={city} 
+                onChange={(e) => setCity(e.target.value)} 
+                required 
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="store-state">State</label>
+              <input 
+                id="store-state"
+                type="text"
+                value={state} 
+                onChange={(e) => setState(e.target.value)} 
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="store-pincode">Pincode *</label>
+              <input 
+                id="store-pincode"
+                type="text"
+                pattern="[0-9]{6}"
+                maxLength="6"
+                placeholder="6-digit PIN"
+                value={pincode} 
+                onChange={(e) => setPincode(e.target.value)} 
+                required 
+              />
+            </div>
           </div>
 
-          {/* Address */}
-          <div className="form-group">
-            <label>Address</label>
-            <textarea rows="2" value={address} onChange={(e) => setAddress(e.target.value)} />
-          </div>
-
-          <div className="form-group">
-            <label>City *</label>
-            <input value={city} onChange={(e) => setCity(e.target.value)} />
-          </div>
-
-          <div className="form-group">
-            <label>State</label>
-            <input value={state} onChange={(e) => setState(e.target.value)} />
-          </div>
-
-          <div className="form-group">
-            <label>Pincode *</label>
-            <input value={pincode} onChange={(e) => setPincode(e.target.value)} />
-          </div>
-
-          <button type="submit" className="save-btn">
-            Create Store
+          <button type="submit" className="save-btn submit-store-btn">
+            Submit Store Application
           </button>
         </form>
-      </div>
+      </main>
     </div>
   );
 }
