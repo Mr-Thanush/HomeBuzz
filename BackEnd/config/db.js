@@ -1,9 +1,22 @@
 import mongoose from "mongoose";
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
 
-dotenv.config({ path: "BackEnd/config/config.env" });
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+const envCandidates = [
+    path.resolve(__dirname, "config.env"),
+    path.resolve(process.cwd(), "BackEnd/config/config.env"),
+    path.resolve(process.cwd(), "config.env"),
+];
+
+const resolvedEnvPath = envCandidates.find((candidate) => fs.existsSync(candidate));
+
+dotenv.config({ path: resolvedEnvPath || envCandidates[0] });
 
 const parseMySQLUrl = (url) => {
     if (!url) return null;
@@ -22,26 +35,28 @@ const parseMySQLUrl = (url) => {
     }
 };
 
-const mysqlUrlConfig = parseMySQLUrl(process.env.MYSQLURL);
+const mysqlUrlConfig = parseMySQLUrl(process.env.MYSQLURL || process.env.MYSQL_URL || process.env.MYSQL_URI);
 
 const mysqlConfig = {
-    host: mysqlUrlConfig?.host || process.env.MYSQL_HOST || "localhost",
-    port: mysqlUrlConfig?.port || process.env.MYSQL_PORT || 3306,
-    user: mysqlUrlConfig?.user || process.env.MYSQL_USER || "root",
-    password: mysqlUrlConfig?.password || process.env.MYSQL_PASSWORD || "",
-    database: mysqlUrlConfig?.database || process.env.MYSQL_DB_NAME || "homebuzz",
+    host: mysqlUrlConfig?.host || process.env.MYSQL_HOST || process.env.MYSQLHOST || "localhost",
+    port: mysqlUrlConfig?.port || Number(process.env.MYSQL_PORT || process.env.MYSQLPORT || 3306),
+    user: mysqlUrlConfig?.user || process.env.MYSQL_USER || process.env.MYSQLUSER || "root",
+    password: mysqlUrlConfig?.password || process.env.MYSQL_PASSWORD || process.env.MYSQLPASSWORD || "",
+    database: mysqlUrlConfig?.database || process.env.MYSQL_DB_NAME || process.env.MYSQL_DATABASE || "homebuzz",
 };
 
 const createMySQLDatabaseAndSchema = async () => {
-    // Connect without the database property first to ensure the DB itself exists
-    const connection = await mysql.createConnection({
-        host: mysqlConfig.host,
-        port: mysqlConfig.port,
-        user: mysqlConfig.user,
-        password: mysqlConfig.password,
-    });
+    let connection;
 
     try {
+        // Connect without the database property first to ensure the DB itself exists
+        connection = await mysql.createConnection({
+            host: mysqlConfig.host,
+            port: mysqlConfig.port,
+            user: mysqlConfig.user,
+            password: mysqlConfig.password,
+        });
+
         await connection.query(`CREATE DATABASE IF NOT EXISTS \`${mysqlConfig.database}\``);
         await connection.query(`USE \`${mysqlConfig.database}\``);
         await connection.query(`
@@ -67,10 +82,18 @@ const createMySQLDatabaseAndSchema = async () => {
         `);
         console.log(`🗄️ MySQL database '${mysqlConfig.database}' and users table are ready.`);
     } catch (error) {
+        const isConnectionIssue = ["ECONNREFUSED", "ENOTFOUND", "ETIMEDOUT", "ECONNRESET", "ER_ACCESS_DENIED_ERROR"].includes(error.code);
+
+        if (isConnectionIssue) {
+            console.warn(`⚠️ MySQL is unavailable at startup (${error.message}). Continuing without MySQL initialization.`);
+            return;
+        }
+
         console.error("MySQL Initialization Error:", error.message);
-        throw error;
     } finally {
-        await connection.end();
+        if (connection) {
+            await connection.end();
+        }
     }
 };
 

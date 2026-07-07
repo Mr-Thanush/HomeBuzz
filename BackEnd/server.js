@@ -20,9 +20,13 @@ const startServer = async () => {
 
         // 2. Validate MySQL Pool Connectivity
         console.log("⏳ Connecting to MySQL...");
-        const mysqlConnection = await mysqlPool.getConnection();
-        console.log("🐬 MySQL Connection Pool verified and ready!");
-        mysqlConnection.release(); // Return connection back to pool cleanly
+        try {
+            const mysqlConnection = await mysqlPool.getConnection();
+            console.log("🐬 MySQL Connection Pool verified and ready!");
+            mysqlConnection.release(); // Return connection back to pool cleanly
+        } catch (mysqlErr) {
+            console.warn("⚠️ MySQL is unavailable right now, continuing without it:", mysqlErr.message);
+        }
 
         // 3. Start Express Application Server
         const port = process.env.PORT || 8080;
