@@ -49,16 +49,16 @@ const createMySQLDatabaseAndSchema = async () => {
     let connection;
 
     try {
-        // Connect without the database property first to ensure the DB itself exists
+        // FIX: Connect directly targeting the schema. Cloud DBs block root access that doesn't target a DB.
         connection = await mysql.createConnection({
             host: mysqlConfig.host,
             port: mysqlConfig.port,
             user: mysqlConfig.user,
             password: mysqlConfig.password,
+            database: mysqlConfig.database, 
         });
 
-        await connection.query(`CREATE DATABASE IF NOT EXISTS \`${mysqlConfig.database}\``);
-        await connection.query(`USE \`${mysqlConfig.database}\``);
+        // FIXED: Removed CREATE DATABASE and USE queries which cause permission crashes in production.
         await connection.query(`
             CREATE TABLE IF NOT EXISTS users (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -117,9 +117,7 @@ export const connectDB = async () => {
 };
 
 // Initialize DB and Schema
-// Priority: REQUIRE_MYSQL > SKIP_MYSQL_INIT
 if (process.env.REQUIRE_MYSQL === "true") {
-    // Require MySQL to be available; createMySQLDatabaseAndSchema will exit on failure.
     await createMySQLDatabaseAndSchema();
 } else if (process.env.SKIP_MYSQL_INIT === "true") {
     console.log("ℹ️ SKIP_MYSQL_INIT=true, skipping MySQL initialization at startup.");
