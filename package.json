@@ -9,6 +9,10 @@
     "server": "nodemon BackEnd/server.js",
     "build": "npm install && npm install --prefix FrontEnd --include=optional && npm run build --prefix FrontEnd"
   },
+  "engines": {
+    "node": ">=20.19.0 <21",
+    "npm": ">=10"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

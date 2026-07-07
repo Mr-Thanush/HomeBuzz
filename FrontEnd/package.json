@@ -10,6 +10,10 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "engines": {
+    "node": ">=20.19.0 <21",
+    "npm": ">=10"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.15.2",
