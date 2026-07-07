@@ -7,11 +7,14 @@ import user from './Routes/userRoute.js';
 import order from "./Routes/orderRoute.js";
 import handleErrorMiddleware from './middleWare/error.js';
 import cookieParser from "cookie-parser";
+import fs from "fs";
 import path from 'path';
 import { fileURLToPath } from "url";
 
 const fileName = fileURLToPath(import.meta.url);
 const dirName = path.dirname(fileName);
+const distPath = path.join(dirName, '../FrontEnd/dist');
+const indexPath = path.join(distPath, 'index.html');
 
 const app = express();
 
@@ -44,10 +47,10 @@ app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(dirName, '../FrontEnd/dist')));
-  app.use((req, res) => {
-    res.sendFile(path.resolve(dirName, '../FrontEnd/dist/index.html'));
+if (fs.existsSync(indexPath)) {
+  app.use(express.static(distPath));
+  app.get(/^(?!\/api\/).*/, (req, res) => {
+    res.sendFile(indexPath);
   });
 }
 
