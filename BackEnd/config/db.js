@@ -82,14 +82,16 @@ const createMySQLDatabaseAndSchema = async () => {
         `);
         console.log(`🗄️ MySQL database '${mysqlConfig.database}' and users table are ready.`);
     } catch (error) {
-        const isConnectionIssue = ["ECONNREFUSED", "ENOTFOUND", "ETIMEDOUT", "ECONNRESET", "ER_ACCESS_DENIED_ERROR"].includes(error.code);
+        const code = error && error.code ? error.code : undefined;
+        const message = error && error.message ? error.message : String(error);
+        const isConnectionIssue = ["ECONNREFUSED", "ENOTFOUND", "ETIMEDOUT", "ECONNRESET", "ER_ACCESS_DENIED_ERROR"].includes(code);
 
         if (isConnectionIssue) {
-            console.warn(`⚠️ MySQL is unavailable at startup (${error.message}). Continuing without MySQL initialization.`);
+            console.warn(`⚠️ MySQL is unavailable at startup (code: ${code || 'unknown'}, message: ${message}). Continuing without MySQL initialization.`);
             return;
         }
 
-        console.error("MySQL Initialization Error:", error.message);
+        console.error("MySQL Initialization Error:", code ? `${code} - ${message}` : message, error);
     } finally {
         if (connection) {
             await connection.end();
@@ -108,8 +110,12 @@ export const connectDB = async () => {
     }
 };
 
-// Initialize DB and Schema
-await createMySQLDatabaseAndSchema();
+// Initialize DB and Schema (can be skipped with SKIP_MYSQL_INIT=true)
+if (process.env.SKIP_MYSQL_INIT === "true") {
+    console.log("ℹ️ SKIP_MYSQL_INIT=true, skipping MySQL initialization at startup.");
+} else {
+    await createMySQLDatabaseAndSchema();
+}
 
 // Export the pool with the resolved configuration
 const pool = mysql.createPool({
