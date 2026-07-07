@@ -86,6 +86,12 @@ const createMySQLDatabaseAndSchema = async () => {
         const message = error && error.message ? error.message : String(error);
         const isConnectionIssue = ["ECONNREFUSED", "ENOTFOUND", "ETIMEDOUT", "ECONNRESET", "ER_ACCESS_DENIED_ERROR"].includes(code);
 
+        // If the environment mandates MySQL availability, fail fast.
+        if (process.env.REQUIRE_MYSQL === "true") {
+            console.error(`❌ MySQL is required but initialization failed (code: ${code || 'unknown'} - ${message}). Exiting.`);
+            process.exit(1);
+        }
+
         if (isConnectionIssue) {
             console.warn(`⚠️ MySQL is unavailable at startup (code: ${code || 'unknown'}, message: ${message}). Continuing without MySQL initialization.`);
             return;
@@ -110,8 +116,12 @@ export const connectDB = async () => {
     }
 };
 
-// Initialize DB and Schema (can be skipped with SKIP_MYSQL_INIT=true)
-if (process.env.SKIP_MYSQL_INIT === "true") {
+// Initialize DB and Schema
+// Priority: REQUIRE_MYSQL > SKIP_MYSQL_INIT
+if (process.env.REQUIRE_MYSQL === "true") {
+    // Require MySQL to be available; createMySQLDatabaseAndSchema will exit on failure.
+    await createMySQLDatabaseAndSchema();
+} else if (process.env.SKIP_MYSQL_INIT === "true") {
     console.log("ℹ️ SKIP_MYSQL_INIT=true, skipping MySQL initialization at startup.");
 } else {
     await createMySQLDatabaseAndSchema();
