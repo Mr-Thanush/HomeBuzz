@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import Navbar from "../Components/Navbar";
-import PageTitle from "../Components/PageTitle";
+import Navbar from "../Components/navBar.jsx";
+import PageTitle from "../Components/pageTitle.jsx";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMyOrders, removeErrors } from "../Components/features/Orders/orderSlice";

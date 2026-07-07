@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Navbar from "../Components/navBar.jsx";
 import PageTitle from "../Components/pageTitle.jsx";
-import Product from "../Components/Product";
-import Loader from "../Components/Loader";
+import Product from "../Components/product.jsx";
+import Loader from "../Components/loader.jsx";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct, removeErrors } from "../Components/features/Products/productSlice";

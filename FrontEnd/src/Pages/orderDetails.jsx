@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Navbar from "../Components/Navbar";
-import PageTitle from "../Components/PageTitle";
+import Navbar from "../Components/navBar.jsx";
+import PageTitle from "../Components/pageTitle.jsx";
 import { getOrderDetails, removeErrors } from "../Components/features/Orders/orderSlice";
 import { toast } from "react-toastify";
 import "../Styles/orderDetails.css";

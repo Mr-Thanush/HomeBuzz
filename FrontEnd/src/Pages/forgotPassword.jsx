@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import PageTitle from "../Components/PageTitle";
+import PageTitle from "../Components/pageTitle.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/navBar.jsx";
 import { forgotPassword, removeErrors, removeSuccess } from "../Components/features/User/userSlice";
 import "../Styles/forgotPassword.css";
 

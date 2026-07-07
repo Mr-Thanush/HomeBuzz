@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CheckOutAnimation from "./CheckOutAnimation";
-import Navbar from "../Components/Navbar";
-import PageTitle from "../Components/PageTitle";
+import Navbar from "../Components/navBar.jsx";
+import PageTitle from "../Components/pageTitle.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";

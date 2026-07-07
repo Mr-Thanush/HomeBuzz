@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CheckOutAnimation from "./CheckOutAnimation";
-import Navbar from "../Components/Navbar";
-import PageTitle from "../Components/PageTitle";
+import Navbar from "../Components/navBar.jsx";
+import PageTitle from "../Components/pageTitle.jsx";
 import { useSelector } from "react-redux";
 import "../Styles/orderConfirm.css";
 

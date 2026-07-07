@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../Components/Navbar";
-import PageTitle from "../Components/PageTitle";
-import Loader from "../Components/Loader";
+import Navbar from "../Components/navBar.jsx";
+import PageTitle from "../Components/pageTitle.jsx";
+import Loader from "../Components/loader.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";

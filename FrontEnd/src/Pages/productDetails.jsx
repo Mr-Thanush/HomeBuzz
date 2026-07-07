@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/navBar.jsx";
 import { BsBookmarkHeart } from "react-icons/bs";
-import Ratings from "../Components/Ratings";
+import Ratings from "../Components/ratings.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { createReview, getProductDetails, removeErrors, removeSuccess } from "../Components/features/Products/productSlice";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import Loader from "../Components/Loader";
-import PageTitle from "../Components/PageTitle";
+import Loader from "../Components/loader.jsx";
+import PageTitle from "../Components/pageTitle.jsx";
 import { addToLikeList, removeError, removeMessage } from "../Components/features/Like/likeSlice";
 import ProductImages from "../Components/productImage.jsx";
 import "../Styles/productDetails.css";
