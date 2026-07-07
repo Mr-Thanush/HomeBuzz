@@ -8,8 +8,8 @@ import {
   HiOutlineStopCircle, 
   HiOutlineTicket 
 } from "react-icons/hi2";
-import Navbar from "../Components/Navbar";
-import PageTitle from "../Components/PageTitle";
+import Navbar from "../Components/navBar.jsx";
+import PageTitle from "../Components/pageTitle.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout, removeSuccess } from "../Components/features/User/userSlice";

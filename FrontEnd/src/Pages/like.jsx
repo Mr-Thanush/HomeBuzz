@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../Components/Navbar";
-import PageTitle from "../Components/PageTitle";
+import Navbar from "../Components/navBar.jsx";
+import PageTitle from "../Components/pageTitle.jsx";
 import { useSelector } from "react-redux";
 import LikeItem from "./likeItems";
 import { Link, useNavigate } from "react-router-dom";

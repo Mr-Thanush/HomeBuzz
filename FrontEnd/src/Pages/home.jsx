@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import Navbar from "../Components/Navbar";
-import PageTitle from "../Components/PageTitle";
+import Navbar from "../Components/navBar.jsx";
+import PageTitle from "../Components/pageTitle.jsx";
 import Product from "../Components/Product";
 import Loader from "../Components/Loader";
 import { useNavigate } from "react-router-dom";
