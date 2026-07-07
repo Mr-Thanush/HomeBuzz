@@ -2,19 +2,41 @@ import mongoose from "mongoose";
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 
-
 dotenv.config({ path: "BackEnd/config/config.env" });
 
+
+const parseMySQLUrl = (url) => {
+    if (!url) return null;
+    try {
+        const parsed = new URL(url);
+        return {
+            host: parsed.hostname,
+            port: parsed.port ? parseInt(parsed.port, 10) : 3306,
+            user: parsed.username,
+            password: decodeURIComponent(parsed.password),
+            database: parsed.pathname.substring(1), // Removes the leading slash
+        };
+    } catch (error) {
+        console.error("⚠️ Failed to parse MYSQLURL, falling back to standard config:", error.message);
+        return null;
+    }
+};
+
+const mysqlUrlConfig = parseMySQLUrl(process.env.MYSQLURL);
+
 const mysqlConfig = {
-    host: process.env.MYSQL_HOST || "localhost",
-    user: process.env.MYSQL_USER || "root",
-    password: process.env.MYSQL_PASSWORD || "",
-    database: process.env.MYSQL_DB_NAME || "homebuzz",
+    host: mysqlUrlConfig?.host || process.env.MYSQL_HOST || "localhost",
+    port: mysqlUrlConfig?.port || process.env.MYSQL_PORT || 3306,
+    user: mysqlUrlConfig?.user || process.env.MYSQL_USER || "root",
+    password: mysqlUrlConfig?.password || process.env.MYSQL_PASSWORD || "",
+    database: mysqlUrlConfig?.database || process.env.MYSQL_DB_NAME || "homebuzz",
 };
 
 const createMySQLDatabaseAndSchema = async () => {
+    // Connect without the database property first to ensure the DB itself exists
     const connection = await mysql.createConnection({
         host: mysqlConfig.host,
+        port: mysqlConfig.port,
         user: mysqlConfig.user,
         password: mysqlConfig.password,
     });
@@ -44,6 +66,9 @@ const createMySQLDatabaseAndSchema = async () => {
             )
         `);
         console.log(`🗄️ MySQL database '${mysqlConfig.database}' and users table are ready.`);
+    } catch (error) {
+        console.error("MySQL Initialization Error:", error.message);
+        throw error;
     } finally {
         await connection.end();
     }
@@ -60,8 +85,10 @@ export const connectDB = async () => {
     }
 };
 
+// Initialize DB and Schema
 await createMySQLDatabaseAndSchema();
 
+// Export the pool with the resolved configuration
 const pool = mysql.createPool({
     ...mysqlConfig,
     waitForConnections: true,
