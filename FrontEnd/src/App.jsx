@@ -58,9 +58,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* =========================================================
-            PUBLIC CATALOG ROUTES
-           ========================================================= */}
+      
         <Route path="/" element={<Home />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
@@ -71,9 +69,7 @@ function App() {
         <Route path="/password/forgot" element={<ForgotPassword />} />
         <Route path="/reset/:token" element={<ResetPassword />} />
         
-        {/* =========================================================
-            PROTECTED AUTHENTICATED CUSTOMER GATEWAYS
-           ========================================================= */}
+        
         <Route path="/profile" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><Profile user={user} /></ProtectedRoute>} />
         <Route path="/profile/update" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><UpdateProfile /></ProtectedRoute>} />
         <Route path="/password/update" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><UpdatePassword /></ProtectedRoute>} />
@@ -84,9 +80,7 @@ function App() {
         <Route path="/order/:orderId" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><OrderDetails /></ProtectedRoute>} />
         <Route path="/createstore" element={<ProtectedRoute isAllowed={isAuthenticated} loading={loading}><CreateStore /></ProtectedRoute>} />
 
-        {/* =========================================================
-            PROTECTED NESTED ADMIN DASHBOARDS
-           ========================================================= */}
+        
         <Route path="/admin" element={<ProtectedRoute isAllowed={isAdmin} loading={loading}><AdminDashboard /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
@@ -96,11 +90,9 @@ function App() {
           <Route path="sellers/request" element={<SellerRequests />} />
         </Route>
 
-        {/* =========================================================
-            PROTECTED NESTED SELLER CONTROL PANELS
-           ========================================================= */}
+        
         <Route path="/seller" element={<ProtectedRoute isAllowed={isSellerOrAdmin} loading={loading}><SellerDashboard /></ProtectedRoute>}>
-          {/* Index path redirects dashboard traffic context or serves fallback views */}
+         
           <Route index element={<Navigate to="products" replace />} /> 
           <Route path="products" element={<SellerAllProducts />} />
           <Route path="product/create" element={<CreateProduct />} />
@@ -111,7 +103,7 @@ function App() {
           <Route path="reviews" element={<AllReviews />} />
         </Route>
 
-        {/* Catch-all Fallback */}
+        
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
