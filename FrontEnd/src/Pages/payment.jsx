@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CheckOutAnimation from "./CheckOutAnimation";
+import CheckOutAnimation from "./checkOutAnimation.jsx";
 import Navbar from "../Components/navBar.jsx";
 import PageTitle from "../Components/pageTitle.jsx";
 import { useDispatch, useSelector } from "react-redux";

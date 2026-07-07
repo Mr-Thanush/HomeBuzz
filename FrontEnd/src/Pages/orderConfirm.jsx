@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import CheckOutAnimation from "./CheckOutAnimation";
+import CheckOutAnimation from "./checkOutAnimation.jsx";
 import Navbar from "../Components/navBar.jsx";
 import PageTitle from "../Components/pageTitle.jsx";
 import { useSelector } from "react-redux";
