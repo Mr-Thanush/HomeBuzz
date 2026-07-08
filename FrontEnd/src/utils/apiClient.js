@@ -7,9 +7,19 @@ import axios from "axios";
 const apiClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || "/api/v1",
   withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
+});
+
+apiClient.interceptors.request.use((config) => {
+  const headers = config.headers || {};
+
+  if (config.data instanceof FormData) {
+    delete headers["Content-Type"];
+  } else {
+    headers["Content-Type"] = "application/json";
+  }
+
+  config.headers = headers;
+  return config;
 });
 
 // Intercept outgoing responses to normalize backend validation anomalies
