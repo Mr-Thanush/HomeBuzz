@@ -71,7 +71,7 @@ function ProductDetails() {
     setQuantity((q) => q + 1);
   };
 
-  const handleDecrement = () => {
+  const handleDecrement = () => { 
     if (quantity <= 1) {
       toast.error("Quantity selection cannot be zero", { position: "top-center", autoClose: 3000 });
       return;
@@ -142,7 +142,7 @@ function ProductDetails() {
           </div>
 
           <div className="productDetails">
-            <span className="productBrand">{product.brand || "HomeBuzz Original"}</span>
+            <span className="productBrand">{product.seller?.sellerInfo?.storeName || "HomeBuzz Original"}</span>
             <h1 className="productName">{product.name}</h1>
             <p className="productDiscription">{product.description}</p>
 
@@ -170,9 +170,7 @@ function ProductDetails() {
 
             {product.returnPolicy && <p className="productReturn">✓ 7-Day Free Replacement Policy Guard</p>}
 
-            {/* =========================================================
-                NEW: PRODUCT SPECIFICATIONS MATRIX BLOCK
-               ========================================================= */}
+           
             <div className="productSpecsBlock">
               <h3 className="specsTitle">Product Specifications</h3>
               <table className="specsTable">
@@ -261,7 +259,7 @@ function ProductDetails() {
         {/* Persistent Bottom Mobile Navigation Anchors Blocks handles */}
         <div className="pd-mobile-sticky-action-bar">
           <a
-            href={`https://wa.me/919999999999?text=Hi, I am interested in purchasing ${encodeURIComponent(product.name)}`}
+            href={`https://wa.me/7893437168?text=Hi, I am interested in purchasing ${encodeURIComponent(product.name)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="WhatsAppButton"

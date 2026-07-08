@@ -35,19 +35,20 @@ function Ratings({ value = 0, onRatingChange, disabled = false }) {
       aria-label={`Rating: ${selectRating} out of 5 stars`}
     >
       {[1, 2, 3, 4, 5].map((index) => {
-        const isFilled = index <= (hoverRating || selectRating);
-        return (
-          <span
-            key={index}
-            className={`star-item ${isFilled ? "filled" : "empty"} ${disabled ? "disabled" : "interactive"}`}
-            onMouseEnter={() => handleMouseEnter(index)}
-            onClick={() => handleStarClick(index)}
-            style={{ pointerEvents: disabled ? "none" : "auto" }}
-          >
-            ★
-          </span>
-        );
-      })}
+  const isFilled = index <= (hoverRating || selectRating);
+  return (
+    <span
+      key={index}
+      /* CHANGED: Swapped "star-item" to "stars" to match your CSS file */
+      className={`stars ${isFilled ? "filled" : "empty"} ${disabled ? "disabled" : "interactive"}`}
+      onMouseEnter={() => handleMouseEnter(index)}
+      onClick={() => handleStarClick(index)}
+      style={{ pointerEvents: disabled ? "none" : "auto" }}
+    >
+      ★
+    </span>
+  );
+})}
     </div>
   );
 }

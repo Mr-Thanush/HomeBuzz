@@ -35,7 +35,7 @@ export default function ProductImages({ product }) {
             >
               <img src={img.url} alt="" aria-hidden="true" />
             </button>
-          ))}
+          ))} 
         </div>
       )}
 
